@@ -1,0 +1,16 @@
+# Gradle state
+.gradle
+
+# Build output
+build
+
+# Idea ignores
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/tasks.xml
+
+# Idea ignores for Gradle project
+*.iml
+.idea/modules.xml
+.idea/gradle.xml
+.idea/libraries
