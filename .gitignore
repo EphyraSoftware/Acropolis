@@ -14,3 +14,6 @@ build
 .idea/modules.xml
 .idea/gradle.xml
 .idea/libraries
+
+# Output files
+spring-shell.log
