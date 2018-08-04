@@ -33,4 +33,6 @@ dependencies {
     compile "org.springframework.shell:spring-shell-starter:2.0.1.RELEASE"
     // Needed for spring to work with Kotlin
     compile "org.jetbrains.kotlin:kotlin-reflect"
+
+    compile project(":acropolis-service")
 }
