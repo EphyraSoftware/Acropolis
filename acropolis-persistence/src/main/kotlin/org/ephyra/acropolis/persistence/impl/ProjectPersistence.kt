@@ -1,4 +1,4 @@
-package org.ephyra.acropolis.persistence
+package org.ephyra.acropolis.persistence.impl
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -10,5 +10,9 @@ public class ProjectPersistence {
 
     fun create(project: ProjectEntity) {
         repo.save(project)
+    }
+
+    fun getProjects(): List<ProjectEntity> {
+        return repo.findAll().toList()
     }
 }

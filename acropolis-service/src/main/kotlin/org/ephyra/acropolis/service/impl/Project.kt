@@ -1,7 +1,7 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.persistence.ProjectEntity
-import org.ephyra.acropolis.persistence.ProjectPersistence
+import org.ephyra.acropolis.persistence.impl.ProjectEntity
+import org.ephyra.acropolis.persistence.impl.ProjectPersistence
 import org.ephyra.acropolis.service.api.IProject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -16,5 +16,9 @@ class Project : IProject {
         val project = ProjectEntity()
         project.name = name
         repo.create(project)
+    }
+
+    override fun listProjects(): List<ProjectEntity> {
+        return repo.getProjects()
     }
 }

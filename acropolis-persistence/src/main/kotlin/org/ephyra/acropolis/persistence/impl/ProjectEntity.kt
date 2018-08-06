@@ -1,4 +1,4 @@
-package org.ephyra.acropolis.persistence
+package org.ephyra.acropolis.persistence.impl
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
