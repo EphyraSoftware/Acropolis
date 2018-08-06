@@ -26,10 +26,18 @@ compileKotlin {
 dependencies {
     // The Kotlin standard library
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    // Spring beans dependency so that this library can interact with the Spring IOC container
-    compile "org.springframework:spring-context:5.0.8.RELEASE"
+
+    // Spring boot for use with JPA
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.4.RELEASE'
+
+    // MySql connector for use with spring JPA
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+
     // Needed for spring to work with Kotlin
     compile "org.jetbrains.kotlin:kotlin-reflect"
 
-    compile project(":acropolis-persistence")
+    runtime group: 'com.h2database', name: 'h2', version: '1.4.197'
+
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 }
