@@ -3,6 +3,7 @@
 
 # Build output
 build
+out
 
 # Idea ignores
 .idea/workspace.xml
