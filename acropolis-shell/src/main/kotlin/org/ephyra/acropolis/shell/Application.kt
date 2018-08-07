@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
 @ComponentScan(basePackages = ["org.ephyra.acropolis.shell", "org.ephyra.acropolis.service.config"])
-@EnableJpaRepositories("org.ephyra.acropolis.persistence.impl")
-@EntityScan("org.ephyra.acropolis.persistence.impl")
 class AcropolisShell
 
 fun main(args: Array<String>) {
