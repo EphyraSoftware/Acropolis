@@ -3,6 +3,7 @@
 
 # Build output
 build
+out
 
 # Idea ignores
 .idea/workspace.xml
@@ -17,3 +18,4 @@ build
 
 # Output files
 spring-shell.log
+.idea/*
