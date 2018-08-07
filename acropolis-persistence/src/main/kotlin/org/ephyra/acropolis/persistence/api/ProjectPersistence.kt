@@ -1,5 +1,7 @@
-package org.ephyra.acropolis.persistence.impl
+package org.ephyra.acropolis.persistence.api
 
+import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
+import org.ephyra.acropolis.persistence.impl.ProjectRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 

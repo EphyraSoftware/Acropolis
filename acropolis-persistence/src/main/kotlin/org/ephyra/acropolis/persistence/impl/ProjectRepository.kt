@@ -1,6 +1,6 @@
 package org.ephyra.acropolis.persistence.impl
 
+import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.springframework.data.repository.CrudRepository
-import org.springframework.stereotype.Repository
 
-interface ProjectRepository : CrudRepository<ProjectEntity, Long>
+internal interface ProjectRepository : CrudRepository<ProjectEntity, Long>

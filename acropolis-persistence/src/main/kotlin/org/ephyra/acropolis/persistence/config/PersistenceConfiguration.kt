@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @Configuration
-@ComponentScan("org.ephyra.acropolis.persistence.impl")
+@ComponentScan("org.ephyra.acropolis.persistence.api")
 @EnableJpaRepositories("org.ephyra.acropolis.persistence.impl")
-@EntityScan("org.ephyra.acropolis.persistence.impl")
+@EntityScan("org.ephyra.acropolis.persistence.api.entity")
 class PersistenceConfiguration

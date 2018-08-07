@@ -1,6 +1,6 @@
 package org.ephyra.acropolis.service.api
 
-import org.ephyra.acropolis.persistence.impl.ProjectEntity
+import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 
 interface IProject {
     fun createProject(name: String)
