@@ -6,6 +6,9 @@ jobs:
     steps:
     - checkout
     - run:
+        name: Take Ownership
+        command: chmod +x ./gradlew
+    - run:
         name: Build
         command: ./gradlew build
     - run:
