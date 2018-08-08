@@ -1,7 +1,11 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+  datasource:
+    url: 'jdbc:mysql://localhost:3306/acropolisdev'
+    username: root
+    password: root
   h2:
     console:
       enabled: true

@@ -36,8 +36,6 @@ dependencies {
     // Needed for spring to work with Kotlin
     compile "org.jetbrains.kotlin:kotlin-reflect"
 
-    runtime group: 'com.h2database', name: 'h2', version: '1.4.197'
-
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 }
