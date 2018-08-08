@@ -1,0 +1,10 @@
+version: '3'
+services:
+  acropolis-mysql:
+    image: 'mysql:8'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=acropolisdev
+    ports:
+      - 3306:3306
