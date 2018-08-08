@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+    - image: openjdk:8-alpine
+    steps:
+    - checkout
+    - run:
+        name: Take Ownership
+        command: chmod +x ./gradlew
+    - run:
+        name: Build
+        command: ./gradlew build
+    - run:
+        name: Test
+        command: ./gradlew test
