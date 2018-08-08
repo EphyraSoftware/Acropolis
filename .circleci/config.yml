@@ -7,7 +7,7 @@ jobs:
     - checkout
     - run:
         name: Build
-        command: gradle build
+        command: ./gradlew build
     - run:
         name: Test
-        command: gradle test
+        command: ./gradlew test
