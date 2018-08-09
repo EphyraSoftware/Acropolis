@@ -24,6 +24,5 @@ class SystemSoftwareEntity {
     var description: String? = null
 
     @ManyToOne(optional=false)
-    @JoinColumn(name="id", nullable=false, updatable=false)
     var project: ProjectEntity? = null
 }

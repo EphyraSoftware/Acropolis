@@ -9,16 +9,20 @@ import org.springframework.stereotype.Component
 @Component
 class Project : IProject {
     @Autowired
-    private lateinit var repo: ProjectPersistence
+    private lateinit var persistence: ProjectPersistence
 
     override fun createProject(name: String) {
         println("Acropolis service is creating project with name $name")
         val project = ProjectEntity()
         project.name = name
-        repo.create(project)
+        persistence.create(project)
     }
 
     override fun listProjects(): List<ProjectEntity> {
-        return repo.getProjects()
+        return persistence.getProjects()
+    }
+
+    override fun getProject(name: String): ProjectEntity {
+        return persistence.getProject(name)
     }
 }

@@ -17,4 +17,8 @@ class ProjectPersistence {
     fun getProjects(): List<ProjectEntity> {
         return repo.findAll().toList()
     }
+
+    fun getProject(name: String): ProjectEntity {
+        return repo.findByName(name)
+    }
 }
