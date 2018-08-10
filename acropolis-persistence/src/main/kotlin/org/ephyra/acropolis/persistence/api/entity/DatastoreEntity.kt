@@ -11,7 +11,6 @@ class DatastoreEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int = 0
 
-    @NotNull
     var name: String = ""
 
     var description: String? = null
