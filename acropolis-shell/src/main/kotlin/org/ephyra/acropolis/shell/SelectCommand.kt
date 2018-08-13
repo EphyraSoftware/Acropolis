@@ -1,6 +1,6 @@
 package org.ephyra.acropolis.shell
 
-import org.ephyra.acropolis.service.api.IProject
+import org.ephyra.acropolis.service.api.IProjectService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
@@ -11,7 +11,7 @@ class SelectCommand {
     private lateinit var appState: AppState
 
     @Autowired
-    private lateinit var project: IProject
+    private lateinit var projectService: IProjectService
 
     @ShellMethod("Select an item")
     fun select(itemType: String, value: String) {
@@ -21,6 +21,6 @@ class SelectCommand {
     }
 
     private fun selectProject(name: String) {
-        appState.currentProject = project.getProject(name)
+        appState.currentProject = projectService.getProject(name)
     }
 }

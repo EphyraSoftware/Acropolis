@@ -14,15 +14,17 @@ import javax.persistence.*
  *  - An interactive shell or terminal
  */
 @Entity
-class ApplicationSoftwareEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int = 0
-
-    var name: String = ""
-
-    var description: String? = null
+data class ApplicationSoftwareEntity @JvmOverloads constructor (
+    @Column(nullable=false)
+    var name: String,
 
     @ManyToOne(optional=false)
-    var project: ProjectEntity? = null
+    val project: ProjectEntity,
+
+    @Column(nullable=true)
+    var description: String? = null
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long? = null
 }

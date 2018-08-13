@@ -1,6 +1,6 @@
 package org.ephyra.acropolis.shell
 
-import org.ephyra.acropolis.service.api.IProject
+import org.ephyra.acropolis.service.api.IProjectService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
@@ -8,7 +8,7 @@ import org.springframework.shell.standard.ShellMethod
 @ShellComponent
 class ListCommand {
     @Autowired
-    private lateinit var project : IProject
+    private lateinit var projectService : IProjectService
 
     @ShellMethod("List items by type")
     fun list(itemType: String) {
@@ -19,7 +19,7 @@ class ListCommand {
     }
 
     private fun listProjects() {
-        val result = project.listProjects()
+        val result = projectService.listProjects()
         for (r in result) {
             println(r.name)
         }

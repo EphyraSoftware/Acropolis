@@ -14,15 +14,17 @@ import javax.persistence.*
  *  - An automated industrial control system
  */
 @Entity
-class SystemSoftwareEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int = 0
-
-    var name: String = ""
-
-    var description: String? = null
+data class SystemSoftwareEntity @JvmOverloads constructor (
+    @Column(nullable=false)
+    var name: String,
 
     @ManyToOne(optional=false)
-    var project: ProjectEntity? = null
+    val project: ProjectEntity,
+
+    @Column(nullable=true)
+    var description: String? = null
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long? = null
 }

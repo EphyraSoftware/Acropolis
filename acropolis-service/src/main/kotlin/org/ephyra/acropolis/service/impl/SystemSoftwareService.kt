@@ -3,22 +3,20 @@ package org.ephyra.acropolis.service.impl
 import org.ephyra.acropolis.persistence.api.SystemSoftwarePersistence
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
-import org.ephyra.acropolis.service.api.ISystemSoftware
+import org.ephyra.acropolis.service.api.ISystemSoftwareService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class SystemSoftware : ISystemSoftware {
+class SystemSoftwareService : ISystemSoftwareService {
     @Autowired
     private lateinit var persistence: SystemSoftwarePersistence
 
     override fun create(projectId: Int, name: String) {
-        val systemSoftware = SystemSoftwareEntity()
-        systemSoftware.name = name
-
         val project = ProjectEntity()
         project.id = projectId
-        systemSoftware.project = project
+
+        val systemSoftware = SystemSoftwareEntity(name, project)
 
         persistence.create(systemSoftware)
     }

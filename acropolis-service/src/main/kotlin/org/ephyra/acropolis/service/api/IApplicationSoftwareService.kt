@@ -1,5 +1,5 @@
 package org.ephyra.acropolis.service.api
 
-interface ISystemSoftware {
+interface IApplicationSoftwareService {
     fun create(projectId: Int, name: String)
 }

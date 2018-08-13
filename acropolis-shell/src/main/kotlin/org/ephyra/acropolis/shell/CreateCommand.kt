@@ -1,8 +1,8 @@
 package org.ephyra.acropolis.shell
 
-import org.ephyra.acropolis.service.api.IApplicationSoftware
-import org.ephyra.acropolis.service.api.IProject
-import org.ephyra.acropolis.service.api.ISystemSoftware
+import org.ephyra.acropolis.service.api.IApplicationSoftwareService
+import org.ephyra.acropolis.service.api.IProjectService
+import org.ephyra.acropolis.service.api.ISystemSoftwareService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
@@ -13,13 +13,13 @@ class CreateCommand {
     private lateinit var appState: AppState
 
     @Autowired
-    private lateinit var project : IProject
+    private lateinit var projectService : IProjectService
 
     @Autowired
-    private lateinit var applicationSoftware: IApplicationSoftware
+    private lateinit var applicationSoftwareService: IApplicationSoftwareService
 
     @Autowired
-    private lateinit var systemSoftware: ISystemSoftware
+    private lateinit var systemSoftwareService: ISystemSoftwareService
 
     @ShellMethod("Create an item")
     fun create(itemType: String, name: String) {
@@ -34,7 +34,7 @@ class CreateCommand {
     private fun createSystemSoftware(name: String) {
         val project = appState.currentProject
         if (project != null) {
-            systemSoftware.create(project.id, name)
+            systemSoftwareService.create(project.id, name)
         }
         else {
             println("No project selected")
@@ -44,7 +44,7 @@ class CreateCommand {
     private fun createApplicationSoftware(name: String) {
         val project = appState.currentProject
         if (project != null) {
-            applicationSoftware.create(project.id, name)
+            applicationSoftwareService.create(project.id, name)
         }
         else {
             println("No project selected")
@@ -52,6 +52,6 @@ class CreateCommand {
     }
 
     private fun createProject(name: String) {
-        project.createProject(name)
+        projectService.createProject(name)
     }
 }
