@@ -1,5 +1,5 @@
 package org.ephyra.acropolis.service.api
 
 interface IConnectionService {
-    fun <F, T> create(fromId: Long, fromType: Class<F>, toId: Long, toType: Class<T>)
+    fun <F: Any, T: Any> create(fromId: Long, fromType: F, toId: Long, toType: T)
 }

@@ -11,7 +11,7 @@ class ConnectionService : IConnectionService {
     @Autowired
     private lateinit var persistence: ConnectionPersistence
 
-    override fun <F, T> create(fromId: Long, fromType: Class<F>, toId: Long, toType: Class<T>) {
+    override fun <F: Any, T: Any> create(fromId: Long, fromType: F, toId: Long, toType: T) {
         val connection = ConnectionEntity(fromId, fromType.javaClass.name, toId, toType.javaClass.name)
         persistence.create(connection)
     }
