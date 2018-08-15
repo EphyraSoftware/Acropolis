@@ -13,4 +13,9 @@ class SystemSoftwarePersistence {
     fun create(systemSoftware: SystemSoftwareEntity) {
         repo.save(systemSoftware)
     }
+
+    fun find(id: Long): SystemSoftwareEntity? {
+        val entity = repo.findById(id)
+        return if (entity.isPresent) entity.get() else null
+    }
 }

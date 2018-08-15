@@ -13,4 +13,8 @@ class ConnectionPersistence {
     fun create(connection: ConnectionEntity) {
         repository.save(connection)
     }
+
+    fun getConnectionsFrom(fromId: Long, fromType: Int): List<ConnectionEntity> {
+        return repository.getByFromIdAndFromType(fromId, fromType)
+    }
 }

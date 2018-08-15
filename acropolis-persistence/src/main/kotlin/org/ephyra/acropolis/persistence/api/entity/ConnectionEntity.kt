@@ -3,7 +3,7 @@ package org.ephyra.acropolis.persistence.api.entity
 import javax.persistence.*
 
 @Entity
-data class ConnectionEntity (
+data class ConnectionEntity @JvmOverloads constructor (
     @Column(nullable=false)
     val fromId: Long,
 
@@ -14,7 +14,10 @@ data class ConnectionEntity (
     val toId: Long,
 
     @Column(nullable=false)
-    val toType: Int
+    val toType: Int,
+
+    @Column(nullable=true)
+    var description: String? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

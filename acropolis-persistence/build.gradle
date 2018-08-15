@@ -8,12 +8,14 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
     }
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
+apply plugin: "kotlin-jpa"
 
 sourceCompatibility = 1.8
 compileKotlin {
