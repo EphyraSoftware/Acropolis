@@ -1,4 +1,4 @@
-package org.ephyra.acropolis.persistence.api
+package org.ephyra.acropolis.persistence.api.persistence
 
 import org.ephyra.acropolis.persistence.api.entity.ConnectionEntity
 import org.ephyra.acropolis.persistence.impl.ConnectionRepository

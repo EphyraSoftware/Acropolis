@@ -1,5 +1,7 @@
 package org.ephyra.acropolis.service.api
 
+import org.ephyra.acropolis.persistence.api.IConnectable
+
 interface IConnectionService {
-    fun <F: Any, T: Any> create(fromId: Long, fromType: F, toId: Long, toType: T)
+    fun create(fromConnectable: IConnectable, toConnectable: IConnectable)
 }

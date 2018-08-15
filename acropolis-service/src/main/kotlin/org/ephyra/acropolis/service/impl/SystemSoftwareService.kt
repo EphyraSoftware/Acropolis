@@ -1,6 +1,6 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.persistence.api.SystemSoftwarePersistence
+import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistence
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
 import org.ephyra.acropolis.service.api.ISystemSoftwareService

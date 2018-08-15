@@ -8,13 +8,13 @@ data class ConnectionEntity (
     val fromId: Long,
 
     @Column(nullable=false)
-    val fromType: String,
+    val fromType: Int,
 
     @Column(nullable=false)
     val toId: Long,
 
     @Column(nullable=false)
-    val toType: String
+    val toType: Int
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

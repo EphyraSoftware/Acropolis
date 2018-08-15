@@ -1,6 +1,7 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.persistence.api.ConnectionPersistence
+import org.ephyra.acropolis.persistence.api.IConnectable
+import org.ephyra.acropolis.persistence.api.persistence.ConnectionPersistence
 import org.ephyra.acropolis.persistence.api.entity.ConnectionEntity
 import org.ephyra.acropolis.service.api.IConnectionService
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,8 +12,14 @@ class ConnectionService : IConnectionService {
     @Autowired
     private lateinit var persistence: ConnectionPersistence
 
-    override fun <F: Any, T: Any> create(fromId: Long, fromType: F, toId: Long, toType: T) {
-        val connection = ConnectionEntity(fromId, fromType.javaClass.name, toId, toType.javaClass.name)
+    override fun create(fromConnectable: IConnectable, toConnectable: IConnectable) {
+        val connection = ConnectionEntity(
+                fromConnectable.getConnectionId(),
+                fromConnectable.getConnectionType(),
+                toConnectable.getConnectionId(),
+                toConnectable.getConnectionType()
+        )
+
         persistence.create(connection)
     }
 }
