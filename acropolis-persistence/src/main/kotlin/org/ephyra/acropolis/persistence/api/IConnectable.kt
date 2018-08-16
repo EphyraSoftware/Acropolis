@@ -7,7 +7,9 @@ interface IConnectable {
 
 enum class ConnectionType(val type: Int) {
     APPLICATION_SOFTWARE(0),
-    SYSTEM_SOFTWARE(1);
+    SYSTEM_SOFTWARE(1),
+
+    REVERSE_PROXY(2);
 
     companion object {
         private val map = ConnectionType.values().associateBy(ConnectionType::type);

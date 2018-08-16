@@ -18,4 +18,8 @@ class SystemSoftwarePersistence {
         val entity = repo.findById(id)
         return if (entity.isPresent) entity.get() else null
     }
+
+    fun updateSpecialisation(systemSoftware: SystemSoftwareEntity) {
+        repo.save(systemSoftware)
+    }
 }
