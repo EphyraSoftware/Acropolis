@@ -16,7 +16,7 @@ class SpecializeCommand {
     @ShellMethod("Specialise a base software")
     fun specialize(baseId: Long, to: String, specializeType: String) {
         if (to != "to") {
-            throw IllegalStateException("Invalid syntax, use 'specialise <baseId> as <specializeType>")
+            throw IllegalStateException("Invalid syntax, use 'specialize <baseId> to <specializeType>")
         }
 
         when (specializeType) {

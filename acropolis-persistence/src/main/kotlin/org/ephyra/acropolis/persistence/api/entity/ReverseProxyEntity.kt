@@ -6,6 +6,7 @@ import javax.persistence.*
 
 @Entity
 data class ReverseProxyEntity @JvmOverloads constructor (
+    @Transient
     var systemSoftwareEntity: SystemSoftwareEntity,
 
     @Column(nullable=true)

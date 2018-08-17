@@ -5,7 +5,9 @@ import org.ephyra.acropolis.persistence.api.persistence.ReverseProxyPersistence
 import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistence
 import org.ephyra.acropolis.service.api.IReverseProxyService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
+@Service
 class ReverseProxyService : IReverseProxyService {
     @Autowired
     private lateinit var persistence: ReverseProxyPersistence
