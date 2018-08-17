@@ -4,6 +4,4 @@ import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareSpecializationE
 
 interface ISystemSoftwareService {
     fun create(projectId: Int, name: String)
-
-    fun specialize(systemSoftwareId: Long, specialization: SystemSoftwareSpecializationEntity)
 }

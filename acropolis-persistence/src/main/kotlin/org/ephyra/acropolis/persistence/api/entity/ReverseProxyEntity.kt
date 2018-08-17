@@ -6,9 +6,11 @@ import javax.persistence.*
 
 @Entity
 data class ReverseProxyEntity @JvmOverloads constructor (
+    var systemSoftwareEntity: SystemSoftwareEntity,
+
     @Column(nullable=true)
     var description: String? = null
-) : SystemSoftwareSpecializationEntity(), IConnectable {
+) : SystemSoftwareSpecializationEntity(systemSoftwareEntity), IConnectable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null

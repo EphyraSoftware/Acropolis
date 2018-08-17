@@ -23,9 +23,6 @@ data class SystemSoftwareEntity @JvmOverloads constructor (
     @ManyToOne(optional=false)
     val project: ProjectEntity,
 
-    @OneToOne(optional = true, targetEntity = SystemSoftwareSpecializationEntity::class)
-    var specialization: SystemSoftwareSpecializationEntity? = null,
-
     @Column(nullable=true)
     var description: String? = null
 ) : IConnectable {
