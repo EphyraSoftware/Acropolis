@@ -5,8 +5,8 @@ import javax.persistence.*
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 open class SystemSoftwareSpecializationEntity constructor(
-    @OneToOne
-    private val baseSoftware: SystemSoftwareEntity
+    @Column(nullable=true)
+    var description: String? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

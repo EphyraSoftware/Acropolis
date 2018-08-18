@@ -5,13 +5,9 @@ import org.ephyra.acropolis.persistence.api.IConnectable
 import javax.persistence.*
 
 @Entity
-data class ReverseProxyEntity @JvmOverloads constructor (
-    @Transient
-    var systemSoftwareEntity: SystemSoftwareEntity,
-
-    @Column(nullable=true)
-    var description: String? = null
-) : SystemSoftwareSpecializationEntity(systemSoftwareEntity), IConnectable {
+class ReverseProxyEntity @JvmOverloads constructor (
+    desc: String? = null
+) : SystemSoftwareSpecializationEntity(desc), IConnectable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
