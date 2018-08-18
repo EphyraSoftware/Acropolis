@@ -1,11 +1,8 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareSpecializationEntity
-import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistence
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
-import org.ephyra.acropolis.persistence.api.entity.ReverseProxyEntity
 import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
-import org.ephyra.acropolis.persistence.api.persistence.ReverseProxyPersistence
+import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistence
 import org.ephyra.acropolis.service.api.ISystemSoftwareService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -22,5 +19,9 @@ class SystemSoftwareService : ISystemSoftwareService {
         val systemSoftware = SystemSoftwareEntity(name, project)
 
         persistence.create(systemSoftware)
+    }
+
+    override fun get(name: String): SystemSoftwareEntity? {
+        return persistence.findByName(name)
     }
 }
