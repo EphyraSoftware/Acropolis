@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.shell
 
+import org.ephyra.acropolis.persistence.api.entity.LoadBalancerEntity
 import org.ephyra.acropolis.persistence.api.entity.ReverseProxyEntity
 import org.ephyra.acropolis.service.api.ISystemSoftwareService
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,15 +27,26 @@ class FindCommand {
         else {
             println("Found system-software with name $name.")
             if (systemSoftware.description != null) println("Description is ${systemSoftware.description}")
-            if (systemSoftware.specialization != null) {
-                print("The software is specialised to: ")
-                val specialization = systemSoftware.specialization
-                when (specialization) {
-                    is ReverseProxyEntity -> {
-                        println("reverse-proxy")
-                        if (specialization.description != null) println("  with description ${specialization.description}")
+            val specialization = systemSoftware.specialization
+            when (specialization) {
+                is ReverseProxyEntity -> {
+                    println("The software is specialised as: reverse-proxy")
+                    if (specialization.description != null) println("  with description ${specialization.description}")
+                }
+                is LoadBalancerEntity -> {
+                    println("The software is specialised as: load-balancer")
+                    if (specialization.description != null) println("  with description ${specialization.description}")
+                }
+                else -> {
+                    if (specialization == null) {
+                        println("The software is not specialized")
+                    }
+                    else {
+                        val connectionType = specialization.getConnectionType()
+                        println("unknown specialization $connectionType")
                     }
                 }
+
             }
         }
     }
