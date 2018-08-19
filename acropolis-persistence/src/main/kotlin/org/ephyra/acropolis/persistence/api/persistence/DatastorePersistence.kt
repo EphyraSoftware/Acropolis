@@ -9,7 +9,13 @@ import org.springframework.stereotype.Component
 class DatastorePersistence {
     @Autowired
     private lateinit var repo: DatastoreRepository
-     fun create(datastore: DatastoreEntity) {
+
+    fun create(datastore: DatastoreEntity) {
         repo.save(datastore)
+    }
+
+    fun find(id: Long): DatastoreEntity? {
+        val entity = repo.findById(id)
+        return if (entity.isPresent) entity.get() else null
     }
 } 
