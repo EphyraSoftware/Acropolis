@@ -18,6 +18,11 @@ class ProjectService : IProjectService {
         persistence.create(project)
     }
 
+    override fun deleteProject(id: Long) {
+        println("Acropolis service is deleting project #$id")
+        persistence.delete(id)
+    }
+
     override fun listProjects(): List<ProjectEntity> {
         return persistence.getProjects()
     }

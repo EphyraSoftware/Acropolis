@@ -19,6 +19,11 @@ class ProjectController {
         service.createProject(name)
     }
 
+    @RequestMapping(value = ["/project/{id}"], method = [(RequestMethod.DELETE)])
+    fun deleteProject(@PathVariable("id") id: Long) {
+        service.deleteProject(id)
+    }
+
     @RequestMapping(value = ["/projects"], method = [(RequestMethod.GET)])
     fun getProjects(): List<ProjectEntity> {
         return service.listProjects()
