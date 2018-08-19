@@ -1,5 +1,5 @@
 package org.ephyra.acropolis.service.api
 
-interface IDatastore {
+interface IDatastoreService {
     fun create(projectId: Int, name: String)
 } 
