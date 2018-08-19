@@ -22,4 +22,8 @@ class DatastoreService : IDatastoreService {
 
         persistence.create(datastore)
     }
+
+    override fun get(name: String): DatastoreEntity? {
+        return persistence.findByName(name)
+    }
 } 

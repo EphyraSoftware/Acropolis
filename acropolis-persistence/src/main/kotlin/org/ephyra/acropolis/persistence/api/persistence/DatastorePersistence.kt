@@ -18,4 +18,9 @@ class DatastorePersistence {
         val entity = repo.findById(id)
         return if (entity.isPresent) entity.get() else null
     }
-} 
+
+    fun findByName(name: String): DatastoreEntity? {
+        val entity = repo.findByName(name)
+        return if (entity.isPresent) entity.get() else null
+    }
+}
