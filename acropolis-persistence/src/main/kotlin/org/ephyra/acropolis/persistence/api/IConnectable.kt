@@ -8,13 +8,14 @@ interface IConnectable {
 enum class ConnectionType(val type: Int) {
     APPLICATION_SOFTWARE(0),
     SYSTEM_SOFTWARE(1),
+    DATASTORE(2),
 
-    SPECIALIZATION_BASE(2),
-    REVERSE_PROXY(3),
-    LOAD_BALANCER(4);
+    SPECIALIZATION_BASE(3),
+    REVERSE_PROXY(4),
+    LOAD_BALANCER(5);
 
     companion object {
-        private val map = ConnectionType.values().associateBy(ConnectionType::type);
+        private val map = ConnectionType.values().associateBy(ConnectionType::type)
         fun fromInt(type: Int) = map[type]
     }
 }
