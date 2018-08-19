@@ -1,20 +1,33 @@
 package org.ephyra.acropolis.persistence.api.entity
 
+import org.ephyra.acropolis.persistence.api.ConnectionType
+import org.ephyra.acropolis.persistence.api.IConnectable
 import javax.persistence.*
 
 /**
  * Entity to model simple data stores. From local hard drives to remote buckets.
  */
 @Entity
-class DatastoreEntity {
+data class DatastoreEntity @JvmOverloads constructor(
+        @Column(nullable = false)
+        var name: String,
+
+        @ManyToOne(optional = false)
+        val project: ProjectEntity,
+
+        @Column(nullable = true)
+        var description: String? = null
+) : IConnectable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int = 0
+    var id: Long? = null
 
-    var name: String = ""
+    override fun getConnectionId(): Long {
+        return id ?: -1
+    }
 
-    var description: String? = null
-
-    @ManyToOne(optional=false)
-    var project: ProjectEntity? = null
+    override fun getConnectionType(): Int {
+        return ConnectionType.SYSTEM_SOFTWARE.type
+    }
 }
+
