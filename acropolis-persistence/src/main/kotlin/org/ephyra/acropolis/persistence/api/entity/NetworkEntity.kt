@@ -10,6 +10,15 @@ class NetworkEntity @JvmOverloads constructor (
     @ManyToOne(optional = false)
     val project: ProjectEntity,
 
+    @OneToMany
+    val dataStoreList: List<DatastoreEntity> = ArrayList(),
+
+    @OneToMany
+    val systemSoftwareList: List<SystemSoftwareEntity> = ArrayList(),
+
+    @OneToMany
+    val applicationSoftwareList: List<ApplicationSoftwareEntity> = ArrayList(),
+
     @Column(nullable = true)
     var description: String? = null
 ) {
