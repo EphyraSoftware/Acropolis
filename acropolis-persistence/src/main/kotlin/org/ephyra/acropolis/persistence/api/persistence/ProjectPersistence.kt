@@ -14,6 +14,10 @@ class ProjectPersistence {
         repo.save(project)
     }
 
+    fun delete(id: Long) {
+        repo.deleteById(id)
+    }
+
     fun getProjects(): List<ProjectEntity> {
         return repo.findAll().toList()
     }
