@@ -12,7 +12,8 @@ enum class ConnectionType(val type: Int) {
 
     SPECIALIZATION_BASE(3),
     REVERSE_PROXY(4),
-    LOAD_BALANCER(5);
+    QUEUE(5),
+    LOAD_BALANCER(6);
 
     companion object {
         private val map = ConnectionType.values().associateBy(ConnectionType::type)
