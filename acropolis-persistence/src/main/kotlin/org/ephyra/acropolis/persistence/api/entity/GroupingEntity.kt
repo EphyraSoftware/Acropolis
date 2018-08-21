@@ -5,13 +5,13 @@ import javax.persistence.*
 @Entity
 class GroupingEntity @JvmOverloads constructor (
     @OneToMany
-    val dataStoreList: List<DatastoreEntity> = ArrayList(),
+    val dataStoreList: MutableList<DatastoreEntity> = ArrayList(),
 
     @OneToMany
-    val systemSoftwareList: List<SystemSoftwareEntity> = ArrayList(),
+    val systemSoftwareList: MutableList<SystemSoftwareEntity> = ArrayList(),
 
     @OneToMany
-    val applicationSoftwareList: List<ApplicationSoftwareEntity> = ArrayList()
+    val applicationSoftwareList: MutableList<ApplicationSoftwareEntity> = ArrayList()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

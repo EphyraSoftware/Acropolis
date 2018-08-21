@@ -13,4 +13,13 @@ class NetworkPersistence {
     fun create(network: NetworkEntity) {
         repo.save(network)
     }
+
+    fun getNetwork(networkId: Long): NetworkEntity? {
+        val entity = repo.findById(networkId)
+        return if (entity.isPresent) entity.get() else null
+    }
+
+    fun updateGrouping(network: NetworkEntity) {
+        repo.save(network)
+    }
 }
