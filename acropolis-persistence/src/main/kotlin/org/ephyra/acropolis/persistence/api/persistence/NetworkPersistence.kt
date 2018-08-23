@@ -19,6 +19,11 @@ class NetworkPersistence {
         return if (entity.isPresent) entity.get() else null
     }
 
+    fun findByName(name: String): NetworkEntity? {
+        val entity = repo.findByName(name)
+        return if (entity.isPresent) entity.get() else null
+    }
+
     fun updateGrouping(network: NetworkEntity) {
         repo.save(network)
     }

@@ -32,6 +32,10 @@ class NetworkService : INetworkService {
         persistence.create(network)
     }
 
+    override fun get(name: String): NetworkEntity? {
+        return persistence.findByName(name)
+    }
+
     override fun linkDatastore(networkId: Long, datastoreName: String) {
         val network = persistence.getNetwork(networkId)
             ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
