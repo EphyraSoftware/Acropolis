@@ -29,20 +29,20 @@ class CreateCommand {
     fun create(itemType: String, name: String, hostedBy: String = "") {
         when (itemType) {
             "project" -> createProject(name)
-            "system-software" -> createSystemSoftware(name)
             "host" -> createHost(name)
             "application-software" -> createApplicationSoftware(name, hostedBy)
+            "system-software" -> createSystemSoftware(name, hostedBy)
             "datastore" -> createDatastore(name, hostedBy)
             else -> println("Don't know how to create an item with type [$itemType]")
         }
     }
 
-    private fun createSystemSoftware(name: String) {
+    private fun createSystemSoftware(name: String, hostname: String) {
         val project = appState.currentProject
+        val host = hostService.getHost(hostname)
         if (project != null) {
-            systemSoftwareService.create(project.id, name)
-        }
-        else {
+            systemSoftwareService.create(project.id, host.id, name)
+        } else {
             println("No project selected")
         }
     }

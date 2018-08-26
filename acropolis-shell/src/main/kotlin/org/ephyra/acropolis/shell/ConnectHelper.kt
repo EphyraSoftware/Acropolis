@@ -9,7 +9,7 @@ class ConnectHelper {
     fun typenameToConnectable(id: String, type: String): IConnectable {
         return when (type) {
             "system-software" -> {
-                val systemSoftwareEntity = SystemSoftwareEntity("", ProjectEntity())
+                val systemSoftwareEntity = SystemSoftwareEntity("", ProjectEntity(), HostEntity())
                 systemSoftwareEntity.id = id.toLong()
                 systemSoftwareEntity
             }
