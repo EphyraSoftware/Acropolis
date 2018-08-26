@@ -29,7 +29,7 @@ class CreateCommand {
     fun create(itemType: String, name: String, hostedBy: String = "") {
         when (itemType) {
             "project" -> createProject(name)
-            "host" -> createHost(name)
+            "host" -> createHost(name, hostedBy)
             "application-software" -> createApplicationSoftware(name, hostedBy)
             "system-software" -> createSystemSoftware(name, hostedBy)
             "datastore" -> createDatastore(name, hostedBy)
@@ -71,7 +71,7 @@ class CreateCommand {
         projectService.create(name)
     }
 
-    private fun createHost(name: String) {
-        hostService.createHost(name)
+    private fun createHost(name: String, hostedBy: String) {
+        hostService.createHost(name, hostedBy)
     }
 }
