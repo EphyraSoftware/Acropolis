@@ -30,9 +30,9 @@ class CreateCommand {
         when (itemType) {
             "project" -> createProject(name)
             "system-software" -> createSystemSoftware(name)
-            "datastore" -> createDatastore(name)
             "host" -> createHost(name)
             "application-software" -> createApplicationSoftware(name, hostedBy)
+            "datastore" -> createDatastore(name, hostedBy)
             else -> println("Don't know how to create an item with type [$itemType]")
         }
     }
@@ -57,12 +57,12 @@ class CreateCommand {
         }
     }
 
-    private fun createDatastore(name: String) {
+    private fun createDatastore(name: String, hostname: String) {
         val project = appState.currentProject
+        val host = hostService.getHost(hostname)
         if (project != null) {
-            datastoreService.create(project.id, name)
-        }
-        else {
+            datastoreService.create(project.id, host.id, name)
+        } else {
             println("No project selected")
         }
     }

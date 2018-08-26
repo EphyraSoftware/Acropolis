@@ -9,14 +9,17 @@ import javax.persistence.*
  */
 @Entity
 data class DatastoreEntity @JvmOverloads constructor(
-        @Column(nullable = false)
-        var name: String,
+    @Column(nullable = false)
+    var name: String,
 
-        @ManyToOne(optional = false)
-        val project: ProjectEntity,
+    @ManyToOne(optional = false)
+    val project: ProjectEntity,
 
-        @Column(nullable = true)
-        var description: String? = null
+    @ManyToOne(optional = false)
+    val hostedBy: HostEntity,
+
+    @Column(nullable = true)
+    var description: String? = null
 ) : IConnectable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

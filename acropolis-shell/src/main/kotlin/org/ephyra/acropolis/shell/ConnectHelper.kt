@@ -19,7 +19,7 @@ class ConnectHelper {
                 applicationSoftwareEntity
             }
             "datastore" -> {
-                val datastoreEntity = DatastoreEntity("", ProjectEntity())
+                val datastoreEntity = DatastoreEntity("", ProjectEntity(), HostEntity())
                 datastoreEntity.id = id.toLong()
                 datastoreEntity
             }
