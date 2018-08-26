@@ -11,7 +11,7 @@ class CreateCommand {
     private lateinit var appState: AppState
 
     @Autowired
-    private lateinit var projectService : IProjectService
+    private lateinit var projectService: IProjectService
 
     @Autowired
     private lateinit var hostService: IHostService
@@ -26,13 +26,13 @@ class CreateCommand {
     private lateinit var datastoreService: IDatastoreService
 
     @ShellMethod("Create an item")
-    fun create(itemType: String, name: String) {
+    fun create(itemType: String, name: String, hostedBy: String = "") {
         when (itemType) {
             "project" -> createProject(name)
-            "application-software" -> createApplicationSoftware(name)
             "system-software" -> createSystemSoftware(name)
             "datastore" -> createDatastore(name)
             "host" -> createHost(name)
+            "application-software" -> createApplicationSoftware(name, hostedBy)
             else -> println("Don't know how to create an item with type [$itemType]")
         }
     }
@@ -47,12 +47,12 @@ class CreateCommand {
         }
     }
 
-    private fun createApplicationSoftware(name: String) {
+    private fun createApplicationSoftware(name: String, hostname: String) {
         val project = appState.currentProject
+        val host = hostService.getHost(hostname)
         if (project != null) {
-            applicationSoftwareService.create(project.id, name)
-        }
-        else {
+            applicationSoftwareService.create(project.id, host.id, name)
+        } else {
             println("No project selected")
         }
     }
