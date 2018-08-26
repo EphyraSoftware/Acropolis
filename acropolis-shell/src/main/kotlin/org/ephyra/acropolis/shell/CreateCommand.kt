@@ -1,9 +1,6 @@
 package org.ephyra.acropolis.shell
 
-import org.ephyra.acropolis.service.api.IApplicationSoftwareService
-import org.ephyra.acropolis.service.api.IDatastoreService
-import org.ephyra.acropolis.service.api.IProjectService
-import org.ephyra.acropolis.service.api.ISystemSoftwareService
+import org.ephyra.acropolis.service.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
@@ -15,6 +12,9 @@ class CreateCommand {
 
     @Autowired
     private lateinit var projectService : IProjectService
+
+    @Autowired
+    private lateinit var hostService: IHostService
 
     @Autowired
     private lateinit var applicationSoftwareService: IApplicationSoftwareService
@@ -32,6 +32,7 @@ class CreateCommand {
             "application-software" -> createApplicationSoftware(name)
             "system-software" -> createSystemSoftware(name)
             "datastore" -> createDatastore(name)
+            "host" -> createHost(name)
             else -> println("Don't know how to create an item with type [$itemType]")
         }
     }
@@ -68,5 +69,9 @@ class CreateCommand {
 
     private fun createProject(name: String) {
         projectService.create(name)
+    }
+
+    private fun createHost(name: String) {
+        hostService.createHost(name)
     }
 }
