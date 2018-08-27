@@ -1,0 +1,12 @@
+logging:
+  level:
+    root: 'warn'
+    org:
+      ephyra:
+        acropolis: 'trace'
+  pattern:
+    console: '%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n'
+
+context:
+  initializer:
+    classes: 'org.ephyra.acropolis.shell.ConfigLoader'

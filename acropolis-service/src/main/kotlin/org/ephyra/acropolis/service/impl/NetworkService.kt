@@ -8,11 +8,14 @@ import org.ephyra.acropolis.persistence.api.persistence.NetworkPersistence
 import org.ephyra.acropolis.service.api.IDatastoreService
 import org.ephyra.acropolis.service.api.INetworkService
 import org.ephyra.acropolis.service.api.IProjectService
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class NetworkService : INetworkService {
+    val Logger = LoggerFactory.getLogger(INetworkService::class.java)
+
     @Autowired
     private lateinit var persistence: NetworkPersistence
 
@@ -37,6 +40,8 @@ class NetworkService : INetworkService {
     }
 
     override fun linkDatastore(networkId: Long, datastoreName: String) {
+        Logger.info("Linking datastore [$datastoreName]")
+
         val network = persistence.getNetwork(networkId)
             ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
 
