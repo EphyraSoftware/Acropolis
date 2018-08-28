@@ -1,6 +1,5 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.persistence.api.entity.DatastoreEntity
 import org.ephyra.acropolis.persistence.api.entity.GroupingEntity
 import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
 import org.ephyra.acropolis.persistence.api.persistence.GroupingPersistence
@@ -35,14 +34,14 @@ class NetworkService : INetworkService {
         persistence.create(network)
     }
 
-    override fun get(name: String): NetworkEntity? {
-        return persistence.findByName(name)
+    override fun get(name: String, projectId: Long): NetworkEntity? {
+        return persistence.findByName(name, projectId)
     }
 
-    override fun linkDatastore(networkId: Long, datastoreName: String) {
+    override fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long) {
         Logger.info("Linking datastore [$datastoreName]")
 
-        val network = persistence.getNetwork(networkId)
+        val network = persistence.getNetwork(networkId, projectId)
             ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
 
         var grouping = network.groupingEntity
@@ -53,6 +52,7 @@ class NetworkService : INetworkService {
             grouping = newGrouping
         }
 
+        // TODO lookup with project id
         val datastore = datastoreService.get(datastoreName)
             ?: throw IllegalStateException("Cannot link datastore to network because datastore with name [$datastoreName] was not found")
 
@@ -62,11 +62,11 @@ class NetworkService : INetworkService {
         persistence.updateGrouping(network)
     }
 
-    override fun linkApplicationSoftware(networkId: Long, applicationSoftwareId: Long) {
+    override fun linkApplicationSoftware(networkId: Long, applicationSoftwareId: Long, projectId: Long) {
 
     }
 
-    override fun linkSystemSoftware(networkId: Long, systemSoftwareId: Long) {
+    override fun linkSystemSoftware(networkId: Long, systemSoftwareId: Long, projectId: Long) {
 
     }
 }
