@@ -10,6 +10,7 @@ import org.ephyra.acropolis.service.api.IProjectService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
 class NetworkService : INetworkService {
@@ -38,28 +39,30 @@ class NetworkService : INetworkService {
         return persistence.findByName(name, projectId)
     }
 
+    @Transactional
     override fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long) {
         Logger.info("Linking datastore [$datastoreName]")
 
         val network = persistence.getNetwork(networkId, projectId)
             ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
 
-        var grouping = network.groupingEntity
-        if (grouping == null) {
-            val newGrouping = GroupingEntity()
-            groupingPersistence.create(newGrouping)
-            network.groupingEntity = newGrouping
-            grouping = newGrouping
-        }
-
         // TODO lookup with project id
         val datastore = datastoreService.get(datastoreName)
             ?: throw IllegalStateException("Cannot link datastore to network because datastore with name [$datastoreName] was not found")
 
-        val datastoreList = grouping.dataStoreList
-        datastoreList.add(datastore)
-
-        persistence.updateGrouping(network)
+        val grouping = network.groupingEntity
+        if (grouping == null) {
+            Logger.trace("There is no grouping, creating one")
+            val newGrouping = GroupingEntity(mutableListOf(datastore))
+            groupingPersistence.create(newGrouping)
+            network.groupingEntity = newGrouping
+            persistence.updateGrouping(network)
+        }
+        else {
+            Logger.trace("Updating grouping to include datastore")
+            grouping.datastoreList.add(datastore)
+            groupingPersistence.updateDatastoreList(grouping)
+        }
     }
 
     override fun linkApplicationSoftware(networkId: Long, applicationSoftwareId: Long, projectId: Long) {

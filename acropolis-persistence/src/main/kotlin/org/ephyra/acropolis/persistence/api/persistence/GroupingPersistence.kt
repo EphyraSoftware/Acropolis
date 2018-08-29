@@ -13,4 +13,8 @@ class GroupingPersistence {
     fun create(grouping: GroupingEntity) {
         repo.save(grouping)
     }
+
+    fun updateDatastoreList(grouping: GroupingEntity) {
+        repo.save(grouping)
+    }
 }
