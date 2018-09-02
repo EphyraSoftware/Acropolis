@@ -15,8 +15,8 @@ data class DatastoreEntity @JvmOverloads constructor(
     @ManyToOne(optional = false)
     val project: ProjectEntity,
 
-    @ManyToOne(optional = false)
-    val hostedBy: HostEntity,
+    @ManyToOne(optional = true)
+    val hostedBy: HostEntity?,
 
     @Column(nullable = true)
     var description: String? = null
