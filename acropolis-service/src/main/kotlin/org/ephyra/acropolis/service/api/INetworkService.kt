@@ -11,5 +11,5 @@ interface INetworkService {
 
     fun linkApplicationSoftware(networkId: Long, applicationSoftwareName: String, projectId: Long)
 
-    fun linkSystemSoftware(networkId: Long, systemSoftwareId: Long, projectId: Long)
+    fun linkSystemSoftware(networkId: Long, systemSoftwareName: String, projectId: Long)
 }

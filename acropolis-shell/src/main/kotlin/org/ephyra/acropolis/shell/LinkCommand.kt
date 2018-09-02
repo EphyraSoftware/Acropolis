@@ -36,7 +36,20 @@ class LinkCommand {
         when (fromType) {
             "datastore" -> linkDatastoreToNetwork(fromName, toName, projectId)
             "application-software" -> linkApplicationSoftwareToNetwork(fromName, toName, projectId)
+            "system-software" -> linkSystemSoftwareToNetwork(fromName, toName, projectId)
             else -> Logger.error("Cannot link unknown type [$fromType] to network")
+        }
+    }
+
+    private fun linkSystemSoftwareToNetwork(fromName: String, toName: String, projectId: Long) {
+        val network = networkService.get(toName, projectId)
+
+        val networkId = network?.id
+        if (networkId != null) {
+            networkService.linkSystemSoftware(networkId, fromName, projectId)
+        }
+        else {
+            Logger.error("No network found with name [$toName]")
         }
     }
 

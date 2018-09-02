@@ -21,7 +21,7 @@ class SystemSoftwareService : ISystemSoftwareService {
         persistence.create(systemSoftware)
     }
 
-    override fun get(name: String): SystemSoftwareEntity? {
-        return persistence.findByName(name)
+    override fun get(name: String, projectId: Long): SystemSoftwareEntity? {
+        return persistence.findByName(name, projectId)
     }
 }

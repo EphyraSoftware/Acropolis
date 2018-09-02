@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 import java.util.*
 
 internal interface SystemSoftwareRepository : CrudRepository<SystemSoftwareEntity, Long> {
-    fun findByName(name: String): Optional<SystemSoftwareEntity>
+    fun findByNameAndProjectId(name: String, projectId: Int): Optional<SystemSoftwareEntity>
 }

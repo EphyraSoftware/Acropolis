@@ -19,8 +19,8 @@ class SystemSoftwarePersistence {
         return if (entity.isPresent) entity.get() else null
     }
 
-    fun findByName(name: String): SystemSoftwareEntity? {
-        val entity = repo.findByName(name)
+    fun findByName(name: String, projectId: Long): SystemSoftwareEntity? {
+        val entity = repo.findByNameAndProjectId(name, projectId.toInt())
         return if (entity.isPresent) entity.get() else null
     }
 

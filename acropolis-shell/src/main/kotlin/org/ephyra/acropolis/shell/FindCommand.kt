@@ -33,14 +33,14 @@ class FindCommand {
         }
 
         when (itemType) {
-            "system-software" -> findSystemSoftware(itemIdentifier)
+            "system-software" -> findSystemSoftware(proj.id, itemIdentifier)
             "network" -> networkFinder.findNetwork(proj.id, itemIdentifier)
             else -> Logger.warn("Don't know how to look for item type $itemType")
         }
     }
 
-    private fun findSystemSoftware(name: String) {
-        val systemSoftware = systemSoftwareService.get(name)
+    private fun findSystemSoftware(projectId: Int, name: String) {
+        val systemSoftware = systemSoftwareService.get(name, projectId.toLong())
         if (systemSoftware == null) {
             println("Not found")
         } else {

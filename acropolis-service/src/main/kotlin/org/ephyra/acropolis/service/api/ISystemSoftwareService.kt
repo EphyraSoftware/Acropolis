@@ -5,5 +5,5 @@ import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
 interface ISystemSoftwareService {
     fun create(projectId: Int, name: String)
 
-    fun get(name: String): SystemSoftwareEntity?
+    fun get(name: String, projectId: Long): SystemSoftwareEntity?
 }

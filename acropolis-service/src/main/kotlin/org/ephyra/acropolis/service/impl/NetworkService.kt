@@ -4,10 +4,7 @@ import org.ephyra.acropolis.persistence.api.entity.GroupingEntity
 import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
 import org.ephyra.acropolis.persistence.api.persistence.GroupingPersistence
 import org.ephyra.acropolis.persistence.api.persistence.NetworkPersistence
-import org.ephyra.acropolis.service.api.IApplicationSoftwareService
-import org.ephyra.acropolis.service.api.IDatastoreService
-import org.ephyra.acropolis.service.api.INetworkService
-import org.ephyra.acropolis.service.api.IProjectService
+import org.ephyra.acropolis.service.api.*
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -31,6 +28,9 @@ class NetworkService : INetworkService {
 
     @Autowired
     private lateinit var applicationSoftwareService: IApplicationSoftwareService
+
+    @Autowired
+    private lateinit var systemSoftwareService: ISystemSoftwareService
 
     override fun create(name: String, projectName: String) {
         val project = projectService.getProject(projectName)
@@ -65,7 +65,7 @@ class NetworkService : INetworkService {
         else {
             Logger.trace("Updating grouping to include datastore")
             grouping.datastoreList.add(datastore)
-            groupingPersistence.updateDatastoreList(grouping)
+            groupingPersistence.update(grouping)
         }
     }
 
@@ -90,11 +90,31 @@ class NetworkService : INetworkService {
         else {
             Logger.trace("Updating grouping to include application-software [$applicationSoftware.name]")
             grouping.applicationSoftwareList.add(applicationSoftware)
-            groupingPersistence.updateApplicationSoftwareList(grouping)
+            groupingPersistence.update(grouping)
         }
     }
 
-    override fun linkSystemSoftware(networkId: Long, systemSoftwareId: Long, projectId: Long) {
+    override fun linkSystemSoftware(networkId: Long, systemSoftwareName: String, projectId: Long) {
+        Logger.info("Linking system-software [$systemSoftwareName]")
 
+        val network = persistence.getNetwork(networkId, projectId)
+                ?: throw IllegalStateException("Cannot link system-software to network because network with id [$networkId] was not found")
+
+        val systemSoftware = systemSoftwareService.get(systemSoftwareName, projectId)
+                ?: throw IllegalStateException("Cannot link system-software to network because system-software with name [$systemSoftwareName] was not found")
+
+        val grouping = network.groupingEntity
+        if (grouping == null) {
+            Logger.trace("There is no grouping, creating one")
+            val newGrouping = GroupingEntity(mutableListOf(), mutableListOf(systemSoftware), mutableListOf())
+            groupingPersistence.create(newGrouping)
+            network.groupingEntity = newGrouping
+            persistence.updateGrouping(network)
+        }
+        else {
+            Logger.trace("Updating grouping to include system-software [$systemSoftware.name]")
+            grouping.systemSoftwareList.add(systemSoftware)
+            groupingPersistence.update(grouping)
+        }
     }
 }
