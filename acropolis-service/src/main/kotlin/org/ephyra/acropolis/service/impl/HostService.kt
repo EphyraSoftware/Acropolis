@@ -11,13 +11,13 @@ class HostService : IHostService {
     @Autowired
     private lateinit var persistence: HostPersistence
 
-    override fun create(name: String, hostedBy: String?) {
+    override fun create(name: String, hostname: String?) {
         println("Acropolis service is creating host with name $name")
         val host = HostEntity()
 
         host.name = name
-        if (hostedBy != null) {
-            host.hostedBy = get(hostedBy)
+        if (hostname != null) {
+            host.hostedBy = get(hostname)
         }
         persistence.create(host)
     }
