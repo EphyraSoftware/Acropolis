@@ -18,11 +18,13 @@ class HostPersistence {
         repo.deleteById(id)
     }
 
-    fun getHosts(): List<HostEntity> {
+    fun getAll(): List<HostEntity> {
         return repo.findAll().toList()
     }
 
-    fun getHost(name: String): HostEntity {
-        return repo.findByName(name)
+    fun find(name: String): HostEntity? {
+        val entity = repo.findByName(name)
+        return if (entity.isPresent) entity.get() else null
     }
+
 }

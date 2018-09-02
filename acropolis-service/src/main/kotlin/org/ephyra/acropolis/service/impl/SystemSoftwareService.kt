@@ -13,12 +13,15 @@ class SystemSoftwareService : ISystemSoftwareService {
     @Autowired
     private lateinit var persistence: SystemSoftwarePersistence
 
-    override fun create(projectId: Long, hostId: Long?, name: String) {
+    override fun create(projectId : Long, hostname: String?, name: String) {
         val project = ProjectEntity()
         project.id = projectId
 
-        val host = HostEntity()
-        host.id = hostId
+        var host: HostEntity? = null
+        if (hostname != null) {
+            val hostService = HostService()
+            host = hostService.get(hostname)
+        }
 
         val systemSoftware = SystemSoftwareEntity(name, project, host)
 

@@ -14,12 +14,15 @@ class DatastoreService : IDatastoreService {
     @Autowired
     private lateinit var persistence: DatastorePersistence
 
-    override fun create(projectId: Long, hostId: Long?, name: String) {
+    override fun create(projectId : Long, hostname: String?, name: String) {
         val project = ProjectEntity()
         project.id = projectId
 
-        val host = HostEntity()
-        host.id = hostId
+        var host: HostEntity? = null
+        if (hostname != null) {
+            val hostService = HostService()
+            host = hostService.get(hostname)
+        }
 
         val datastore = DatastoreEntity(name, project, host)
         datastore.name = name
