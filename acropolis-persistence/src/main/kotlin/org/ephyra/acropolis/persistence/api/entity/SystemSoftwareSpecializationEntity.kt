@@ -8,7 +8,7 @@ import javax.persistence.*
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 open class SystemSoftwareSpecializationEntity constructor (
     @Column(nullable=true)
-    var description: String? = null
+    open var description: String? = null
 ) : IConnectable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
