@@ -1,7 +1,6 @@
 package org.ephyra.acropolis.service.impl
 
 import org.ephyra.acropolis.persistence.api.entity.DatastoreEntity
-import org.ephyra.acropolis.persistence.api.entity.HostEntity
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.ephyra.acropolis.persistence.api.persistence.DatastorePersistence
 import org.ephyra.acropolis.service.api.IDatastoreService
@@ -14,17 +13,11 @@ class DatastoreService : IDatastoreService {
     @Autowired
     private lateinit var persistence: DatastorePersistence
 
-    override fun create(projectId : Long, hostname: String?, name: String) {
+    override fun create(projectId : Long, name: String) {
         val project = ProjectEntity()
         project.id = projectId
 
-        var host: HostEntity? = null
-        if (hostname != null) {
-            val hostService = HostService()
-            host = hostService.get(hostname)
-        }
-
-        val datastore = DatastoreEntity(name, project, host)
+        val datastore = DatastoreEntity(name, project)
         datastore.name = name
 
         persistence.create(datastore)

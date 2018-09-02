@@ -23,9 +23,6 @@ data class SystemSoftwareEntity @JvmOverloads constructor(
         @ManyToOne(optional = false)
         val project: ProjectEntity,
 
-        @ManyToOne(optional = true)
-        val hostedBy: HostEntity?,
-
         @OneToOne(optional = true)
         var specialization: SystemSoftwareSpecializationEntity? = null,
 

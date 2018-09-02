@@ -1,7 +1,6 @@
 package org.ephyra.acropolis.service.impl
 
 import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
-import org.ephyra.acropolis.persistence.api.entity.HostEntity
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.ephyra.acropolis.persistence.api.persistence.ApplicationSoftwarePersistence
 import org.ephyra.acropolis.service.api.IApplicationSoftwareService
@@ -13,17 +12,11 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
     @Autowired
     private lateinit var persistence: ApplicationSoftwarePersistence
 
-    override fun create(projectId : Long, hostname: String?, name: String) {
+    override fun create(projectId : Long, name: String) {
         val project = ProjectEntity()
         project.id = projectId
 
-        var host: HostEntity? = null
-        if (hostname != null) {
-            val hostService = HostService()
-            host = hostService.get(hostname)
-        }
-
-        val applicationSoftware = ApplicationSoftwareEntity(name, project, host)
+        val applicationSoftware = ApplicationSoftwareEntity(name, project)
         applicationSoftware.name = name
 
         persistence.create(applicationSoftware)
