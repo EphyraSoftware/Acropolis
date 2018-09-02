@@ -1,7 +1,6 @@
 package org.ephyra.acropolis.service.impl
 
 import org.ephyra.acropolis.persistence.api.entity.LoadBalancerEntity
-import org.ephyra.acropolis.persistence.api.entity.ReverseProxyEntity
 import org.ephyra.acropolis.persistence.api.persistence.LoadBalancerPersistence
 import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistence
 import org.ephyra.acropolis.service.api.ILoadBalancerService
