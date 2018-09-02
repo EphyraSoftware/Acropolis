@@ -94,6 +94,7 @@ class NetworkService : INetworkService {
         }
     }
 
+    @Transactional
     override fun linkSystemSoftware(networkId: Long, systemSoftwareName: String, projectId: Long) {
         Logger.info("Linking system-software [$systemSoftwareName]")
 
