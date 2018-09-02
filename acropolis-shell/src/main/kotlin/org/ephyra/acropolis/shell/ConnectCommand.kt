@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.shell;
 
+import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import org.ephyra.acropolis.service.api.IConnectionService
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,11 +16,14 @@ class ConnectCommand {
     private lateinit var connectHelper: ConnectHelper
 
     @ShellMethod("Connect two items")
-    fun connect(fromType: String, fromId: String, to: String, toType: String, toId: String) {
-        val source: IConnectable = connectHelper.typenameToConnectable(fromId, fromType)
-        val target: IConnectable = connectHelper.typenameToConnectable(toId, toType)
-
-        connectionService.create(source, target)
+    fun connect(fromEndpointType: String, fromId: String, connectionType: String, toEndpointType: String, toId: String) {
+        val source: IConnectable = connectHelper.typenameToConnectable(fromId, fromEndpointType)
+        val target: IConnectable = connectHelper.typenameToConnectable(toId, toEndpointType)
+        when (connectionType) {
+            "talks-to" -> connectionService.create(source, target, ConnectionType.TALKS_TO)
+            "hosts" -> connectionService.create(source, target, ConnectionType.TALKS_TO)
+            else -> println("Don't know how to create a [$connectionType] connection")
+        }
     }
 
 

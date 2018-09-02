@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.persistence.api.entity
 
+import org.ephyra.acropolis.persistence.api.ConnectionType
 import javax.persistence.*
 
 @Entity
@@ -8,13 +9,16 @@ data class ConnectionEntity @JvmOverloads constructor(
         val fromId: Long,
 
         @Column(nullable = false)
-        val fromType: Int,
+        val fromEndpointType: Int,
 
         @Column(nullable = false)
         val toId: Long,
 
         @Column(nullable = false)
-        val toType: Int,
+        val toEndpointType: Int,
+
+        @Column(nullable = false)
+        val connectionType: Int = ConnectionType.TALKS_TO.type,
 
         @Column(nullable = true)
         var description: String? = null

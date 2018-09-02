@@ -51,7 +51,7 @@ class ListCommand {
         val connections = connectionService.getConnectionsFrom(fromConnectable)
 
         connections.forEach { it ->
-            println("Connection to [${it.getConnectionType()}, ${it.getConnectionType()}]")
+            println("Connection to [${it.getConnectionEndpointType()}, ${it.getConnectionEndpointType()}]")
         }
     }
 }

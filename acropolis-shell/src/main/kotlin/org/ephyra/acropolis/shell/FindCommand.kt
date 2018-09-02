@@ -40,7 +40,7 @@ class FindCommand {
                     if (specialization == null) {
                         println("The software is not specialized")
                     } else {
-                        val connectionType = specialization.getConnectionType()
+                        val connectionType = specialization.getConnectionEndpointType()
                         println("unknown specialization $connectionType")
                     }
                 }

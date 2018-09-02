@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.persistence.api.entity
 
+import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -12,7 +13,7 @@ class QueueEntity @JvmOverloads constructor(
         desc: String? = null
 ) : SystemSoftwareSpecializationEntity(desc) {
 
-    override fun getConnectionType(): Int {
-        return ConnectionType.QUEUE.type
+    override fun getConnectionEndpointType(): Int {
+        return ConnectionEndpointType.QUEUE.type
     }
 }
