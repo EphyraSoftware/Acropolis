@@ -17,7 +17,7 @@ class ConnectCommand {
     @ShellMethod("Connect two items")
     fun connect(fromType: String, fromId: String, to: String, toType: String, toId: String) {
         val source: IConnectable = connectHelper.typenameToConnectable(fromId, fromType)
-        val target : IConnectable = connectHelper.typenameToConnectable(toId, toType)
+        val target: IConnectable = connectHelper.typenameToConnectable(toId, toType)
 
         connectionService.create(source, target)
     }

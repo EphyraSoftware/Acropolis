@@ -42,8 +42,8 @@ class ConnectionService : IConnectionService {
         val res = connections.map { connectionEntity ->
             when (ConnectionType.fromInt(connectionEntity.toType)) {
                 ConnectionType.SYSTEM_SOFTWARE -> systemSoftwarePersistence.find(connectionEntity.toId)
-                ConnectionType.APPLICATION_SOFTWARE ->applicationSoftwarePersistence.find(connectionEntity.toId)
-                ConnectionType.DATASTORE ->datastorePersistence.find(connectionEntity.toId)
+                ConnectionType.APPLICATION_SOFTWARE -> applicationSoftwarePersistence.find(connectionEntity.toId)
+                ConnectionType.DATASTORE -> datastorePersistence.find(connectionEntity.toId)
                 else -> throw IllegalStateException("Connection entity with connection to unknown type [${connectionEntity.toType}")
             }
         }

@@ -14,7 +14,7 @@ class FindCommand {
 
     @ShellMethod("Query an entity")
     fun find(itemType: String, itemIdentifier: String) {
-        when(itemType) {
+        when (itemType) {
             "system-software" -> findSystemSoftware(itemIdentifier)
         }
     }
@@ -23,8 +23,7 @@ class FindCommand {
         val systemSoftware = systemSoftwareService.get(name)
         if (systemSoftware == null) {
             println("Not found")
-        }
-        else {
+        } else {
             println("Found system-software with name $name.")
             if (systemSoftware.description != null) println("Description is ${systemSoftware.description}")
             val specialization = systemSoftware.specialization
@@ -40,8 +39,7 @@ class FindCommand {
                 else -> {
                     if (specialization == null) {
                         println("The software is not specialized")
-                    }
-                    else {
+                    } else {
                         val connectionType = specialization.getConnectionType()
                         println("unknown specialization $connectionType")
                     }

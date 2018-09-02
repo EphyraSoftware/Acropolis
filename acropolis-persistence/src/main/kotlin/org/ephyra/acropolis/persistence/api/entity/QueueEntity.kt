@@ -6,10 +6,10 @@ import javax.persistence.Entity
 
 @Entity
 class QueueEntity @JvmOverloads constructor(
-    @Column(nullable = false)
-    var name: String,
+        @Column(nullable = false)
+        var name: String,
 
-    desc: String? = null
+        desc: String? = null
 ) : SystemSoftwareSpecializationEntity(desc) {
 
     override fun getConnectionType(): Int {

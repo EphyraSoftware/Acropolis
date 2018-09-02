@@ -17,7 +17,7 @@ class ReverseProxyService : IReverseProxyService {
 
     override fun create(baseSoftwareId: Long) {
         val systemSoftwareEntity = systemSoftwarePersistence.find(baseSoftwareId)
-            ?: throw IllegalStateException("Cannot specialize system software because no system software exists with id [$baseSoftwareId]")
+                ?: throw IllegalStateException("Cannot specialize system software because no system software exists with id [$baseSoftwareId]")
 
         val reverseProxy = ReverseProxyEntity("Hello, World!")
         persistence.create(reverseProxy)
