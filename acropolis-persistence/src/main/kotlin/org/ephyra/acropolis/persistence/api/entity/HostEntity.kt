@@ -6,7 +6,7 @@ import javax.persistence.*
 class HostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int = 0
+    var id: Long? = null
 
     var name: String = ""
 

@@ -14,7 +14,7 @@ class DatastoreService : IDatastoreService {
     @Autowired
     private lateinit var persistence: DatastorePersistence
 
-    override fun create(projectId: Long, hostId: Int, name: String) {
+    override fun create(projectId: Long, hostId: Long?, name: String) {
         val project = ProjectEntity()
         project.id = projectId
 
