@@ -39,7 +39,7 @@ class CreateCommand {
 
     private fun createSystemSoftware(name: String, hostname: String) {
         val project = appState.currentProject
-        val host = hostService.getHost(hostname)
+        val host = hostService.get(hostname)
         if (project != null) {
             systemSoftwareService.create(project.id, host.id, name)
         } else {
@@ -49,7 +49,7 @@ class CreateCommand {
 
     private fun createApplicationSoftware(name: String, hostname: String) {
         val project = appState.currentProject
-        val host = hostService.getHost(hostname)
+        val host = hostService.get(hostname)
         if (project != null) {
             applicationSoftwareService.create(project.id, host.id, name)
         } else {
@@ -59,7 +59,7 @@ class CreateCommand {
 
     private fun createDatastore(name: String, hostname: String) {
         val project = appState.currentProject
-        val host = hostService.getHost(hostname)
+        val host = hostService.get(hostname)
         if (project != null) {
             datastoreService.create(project.id, host.id, name)
         } else {
@@ -72,6 +72,6 @@ class CreateCommand {
     }
 
     private fun createHost(name: String, hostedBy: String) {
-        hostService.createHost(name, hostedBy)
+        hostService.create(name, hostedBy)
     }
 }

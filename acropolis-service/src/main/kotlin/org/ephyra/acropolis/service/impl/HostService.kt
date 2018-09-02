@@ -11,27 +11,27 @@ class HostService : IHostService {
     @Autowired
     private lateinit var persistence: HostPersistence
 
-    override fun createHost(name: String, hostedBy: String) {
+    override fun create(name: String, hostedBy: String) {
         println("Acropolis service is creating host with name $name")
         val host = HostEntity()
 
         host.name = name
         if (hostedBy.isNotEmpty()) {
-            host.hostedBy = getHost(hostedBy)
+            host.hostedBy = get(hostedBy)
         }
         persistence.create(host)
     }
 
-    override fun deleteHost(id: Long) {
+    override fun delete(id: Long) {
         println("Acropolis service is deleting host #$id")
         persistence.delete(id)
     }
 
-    override fun listHosts(): List<HostEntity> {
+    override fun list(): List<HostEntity> {
         return persistence.getHosts()
     }
 
-    override fun getHost(name: String): HostEntity {
+    override fun get(name: String): HostEntity {
         return persistence.getHost(name)
     }
 }
