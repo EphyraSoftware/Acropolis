@@ -4,6 +4,7 @@ import org.ephyra.acropolis.persistence.api.entity.GroupingEntity
 import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
 import org.ephyra.acropolis.persistence.api.persistence.GroupingPersistence
 import org.ephyra.acropolis.persistence.api.persistence.NetworkPersistence
+import org.ephyra.acropolis.service.api.IApplicationSoftwareService
 import org.ephyra.acropolis.service.api.IDatastoreService
 import org.ephyra.acropolis.service.api.INetworkService
 import org.ephyra.acropolis.service.api.IProjectService
@@ -27,6 +28,9 @@ class NetworkService : INetworkService {
 
     @Autowired
     private lateinit var datastoreService: IDatastoreService
+
+    @Autowired
+    private lateinit var applicationSoftwareService: IApplicationSoftwareService
 
     override fun create(name: String, projectName: String) {
         val project = projectService.getProject(projectName)
@@ -65,8 +69,29 @@ class NetworkService : INetworkService {
         }
     }
 
-    override fun linkApplicationSoftware(networkId: Long, applicationSoftwareId: Long, projectId: Long) {
+    @Transactional
+    override fun linkApplicationSoftware(networkId: Long, applicationSoftwareName: String, projectId: Long) {
+        Logger.info("Linking application software [$applicationSoftwareName]")
 
+        val network = persistence.getNetwork(networkId, projectId)
+                ?: throw IllegalStateException("Cannot link application-software to network because network with id [$networkId] was not found")
+
+        val applicationSoftware = applicationSoftwareService.find(applicationSoftwareName, projectId)
+                ?: throw IllegalStateException("Cannot link application-software to network because application-software with name [$applicationSoftwareName] was not found")
+
+        val grouping = network.groupingEntity
+        if (grouping == null) {
+            Logger.trace("There is no grouping, creating one")
+            val newGrouping = GroupingEntity(mutableListOf(), mutableListOf(), mutableListOf(applicationSoftware))
+            groupingPersistence.create(newGrouping)
+            network.groupingEntity = newGrouping
+            persistence.updateGrouping(network)
+        }
+        else {
+            Logger.trace("Updating grouping to include application-software [$applicationSoftware.name]")
+            grouping.applicationSoftwareList.add(applicationSoftware)
+            groupingPersistence.updateApplicationSoftwareList(grouping)
+        }
     }
 
     override fun linkSystemSoftware(networkId: Long, systemSoftwareId: Long, projectId: Long) {

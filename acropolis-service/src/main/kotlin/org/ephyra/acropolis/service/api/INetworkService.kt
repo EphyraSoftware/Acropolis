@@ -9,7 +9,7 @@ interface INetworkService {
 
     fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long)
 
-    fun linkApplicationSoftware(networkId: Long, applicationSoftwareId: Long, projectId: Long)
+    fun linkApplicationSoftware(networkId: Long, applicationSoftwareName: String, projectId: Long)
 
     fun linkSystemSoftware(networkId: Long, systemSoftwareId: Long, projectId: Long)
 }

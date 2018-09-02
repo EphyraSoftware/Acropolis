@@ -21,4 +21,8 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
 
         persistence.create(applicationSoftware)
     }
+
+    override fun find(name: String, projectId: Long): ApplicationSoftwareEntity? {
+        return persistence.findByName(name, projectId)
+    }
 }

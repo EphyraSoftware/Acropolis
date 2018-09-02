@@ -17,4 +17,8 @@ class GroupingPersistence {
     fun updateDatastoreList(grouping: GroupingEntity) {
         repo.save(grouping)
     }
+
+    fun updateApplicationSoftwareList(grouping: GroupingEntity) {
+        repo.save(grouping)
+    }
 }
