@@ -16,17 +16,17 @@ class ProjectController {
     @RequestMapping(value = ["/projects"], method = [(RequestMethod.POST)])
     @ResponseStatus(value = HttpStatus.OK)
     fun createProject(@RequestParam(value="name", defaultValue="World") name: String) {
-        service.createProject(name)
+        service.create(name)
     }
 
     @RequestMapping(value = ["/project/{id}"], method = [(RequestMethod.DELETE)])
     fun deleteProject(@PathVariable("id") id: Long) {
-        service.deleteProject(id)
+        service.delete(id)
     }
 
     @RequestMapping(value = ["/projects"], method = [(RequestMethod.GET)])
     fun getProjects(): List<ProjectEntity> {
-        return service.listProjects()
+        return service.list()
     }
 
 }

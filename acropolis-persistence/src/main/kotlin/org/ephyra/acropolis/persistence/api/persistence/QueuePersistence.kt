@@ -14,7 +14,7 @@ class QueuePersistence {
         repo.save(queue)
     }
 
-    fun getQueues(): List<QueueEntity> {
+    fun getAll(): List<QueueEntity> {
         return repo.findAll().toList()
     }
 }

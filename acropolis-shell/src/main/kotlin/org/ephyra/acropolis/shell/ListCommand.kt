@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import org.springframework.shell.standard.ShellOption
-import java.util.function.Consumer
 
 @ShellComponent
 class ListCommand {
@@ -29,7 +28,7 @@ class ListCommand {
     }
 
     private fun listProjects() {
-        val result = projectService.listProjects()
+        val result = projectService.list()
         for (r in result) {
             println(r.name)
         }
