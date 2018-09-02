@@ -29,7 +29,7 @@ class ListCommand {
     }
 
     private fun listProjects() {
-        val result = projectService.listProjects()
+        val result = projectService.list()
         for (r in result) {
             println(r.name)
         }
