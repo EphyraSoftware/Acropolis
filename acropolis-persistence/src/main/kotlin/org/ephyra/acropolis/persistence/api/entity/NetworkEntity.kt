@@ -19,5 +19,5 @@ class NetworkEntity @JvmOverloads constructor (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    public val id: Long? = null
+    val id: Long? = null
 }

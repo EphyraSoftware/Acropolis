@@ -33,7 +33,12 @@ class NetworkService : INetworkService {
     private lateinit var systemSoftwareService: ISystemSoftwareService
 
     override fun create(name: String, projectName: String) {
-        val project = projectService.getProject(projectName)
+        val project = projectService.get(projectName)
+
+        if (project == null) {
+            Logger.error("Could not find project with name [$projectName]")
+            throw IllegalStateException("Project not found [$projectName]")
+        }
 
         val network = NetworkEntity(name, project)
         persistence.create(network)

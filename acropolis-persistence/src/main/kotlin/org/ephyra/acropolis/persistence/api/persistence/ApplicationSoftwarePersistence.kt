@@ -20,7 +20,7 @@ class ApplicationSoftwarePersistence {
     }
 
     fun findByName(name: String, projectId: Long): ApplicationSoftwareEntity? {
-        val entity = repo.findByNameAndProjectId(name, projectId.toInt())
+        val entity = repo.findByNameAndProjectId(name, projectId)
         return if (entity.isPresent) entity.get() else null
     }
 }
