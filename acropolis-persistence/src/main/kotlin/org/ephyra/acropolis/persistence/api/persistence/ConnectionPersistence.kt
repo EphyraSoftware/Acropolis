@@ -15,6 +15,6 @@ class ConnectionPersistence {
     }
 
     fun getConnectionsFrom(fromId: Long, fromEndpointType: Int): List<ConnectionEntity> {
-        return repository.getByFromIdAndFromType(fromId, fromEndpointType)
+        return repository.getByFromIdAndFromEndpointType(fromId, fromEndpointType)
     }
 }
