@@ -12,7 +12,7 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
     @Autowired
     private lateinit var persistence: ApplicationSoftwarePersistence
 
-    override fun create(projectId : Long, name: String) {
+    override fun create(projectId: Long, name: String) {
         val project = ProjectEntity()
         project.id = projectId
 

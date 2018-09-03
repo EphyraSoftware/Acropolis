@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.service.impl
 
+import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import org.ephyra.acropolis.persistence.api.entity.ConnectionEntity
@@ -25,26 +26,27 @@ class ConnectionService : IConnectionService {
     @Autowired
     private lateinit var datastorePersistence: DatastorePersistence
 
-    override fun create(fromConnectable: IConnectable, toConnectable: IConnectable) {
+    override fun create(fromConnectable: IConnectable, toConnectable: IConnectable, connectionType: ConnectionType) {
         val connection = ConnectionEntity(
                 fromConnectable.getConnectionId(),
-                fromConnectable.getConnectionType(),
+                fromConnectable.getConnectionEndpointType(),
                 toConnectable.getConnectionId(),
-                toConnectable.getConnectionType()
+                toConnectable.getConnectionEndpointType(),
+                connectionType.type
         )
 
         persistence.create(connection)
     }
 
     override fun getConnectionsFrom(fromConnectable: IConnectable): List<IConnectable> {
-        val connections = persistence.getConnectionsFrom(fromConnectable.getConnectionId(), fromConnectable.getConnectionType())
+        val connections = persistence.getConnectionsFrom(fromConnectable.getConnectionId(), fromConnectable.getConnectionEndpointType())
 
         val res = connections.map { connectionEntity ->
-            when (ConnectionType.fromInt(connectionEntity.toType)) {
-                ConnectionType.SYSTEM_SOFTWARE -> systemSoftwarePersistence.find(connectionEntity.toId)
-                ConnectionType.APPLICATION_SOFTWARE ->applicationSoftwarePersistence.find(connectionEntity.toId)
-                ConnectionType.DATASTORE ->datastorePersistence.find(connectionEntity.toId)
-                else -> throw IllegalStateException("Connection entity with connection to unknown type [${connectionEntity.toType}")
+            when (ConnectionEndpointType.fromInt(connectionEntity.toEndpointType)) {
+                ConnectionEndpointType.SYSTEM_SOFTWARE -> systemSoftwarePersistence.find(connectionEntity.toId)
+                ConnectionEndpointType.APPLICATION_SOFTWARE -> applicationSoftwarePersistence.find(connectionEntity.toId)
+                ConnectionEndpointType.DATASTORE -> datastorePersistence.find(connectionEntity.toId)
+                else -> throw IllegalStateException("Connection entity with connection to unknown type [${connectionEntity.toEndpointType}")
             }
         }
 

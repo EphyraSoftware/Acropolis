@@ -1,6 +1,6 @@
 package org.ephyra.acropolis.persistence.api.entity
 
-import org.ephyra.acropolis.persistence.api.ConnectionType
+import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import javax.persistence.*
 
@@ -16,15 +16,15 @@ import javax.persistence.*
  *  - An interactive shell or terminal
  */
 @Entity
-data class ApplicationSoftwareEntity @JvmOverloads constructor (
-    @Column(nullable=false)
-    var name: String,
+data class ApplicationSoftwareEntity @JvmOverloads constructor(
+        @Column(nullable = false)
+        var name: String,
 
-    @ManyToOne(optional=false)
-    val project: ProjectEntity,
+        @ManyToOne(optional = false)
+        val project: ProjectEntity,
 
-    @Column(nullable=true)
-    var description: String? = null
+        @Column(nullable = true)
+        var description: String? = null
 ) : IConnectable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,7 +34,7 @@ data class ApplicationSoftwareEntity @JvmOverloads constructor (
         return id ?: -1
     }
 
-    override fun getConnectionType(): Int {
-        return ConnectionType.APPLICATION_SOFTWARE.type
+    override fun getConnectionEndpointType(): Int {
+        return ConnectionEndpointType.APPLICATION_SOFTWARE.type
     }
 }

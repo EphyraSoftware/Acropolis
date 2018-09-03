@@ -1,6 +1,6 @@
 package org.ephyra.acropolis.persistence.api.entity
 
-import org.ephyra.acropolis.persistence.api.ConnectionType
+import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import javax.persistence.*
 
@@ -26,8 +26,8 @@ data class DatastoreEntity @JvmOverloads constructor(
         return id ?: -1
     }
 
-    override fun getConnectionType(): Int {
-        return ConnectionType.SYSTEM_SOFTWARE.type
+    override fun getConnectionEndpointType(): Int {
+        return ConnectionEndpointType.SYSTEM_SOFTWARE.type
     }
 }
 

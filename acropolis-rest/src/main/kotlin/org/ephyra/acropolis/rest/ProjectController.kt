@@ -15,7 +15,7 @@ class ProjectController {
 
     @RequestMapping(value = ["/projects"], method = [(RequestMethod.POST)])
     @ResponseStatus(value = HttpStatus.OK)
-    fun createProject(@RequestParam(value="name", defaultValue="World") name: String) {
+    fun createProject(@RequestParam(value = "name", defaultValue = "World") name: String) {
         service.create(name)
     }
 
