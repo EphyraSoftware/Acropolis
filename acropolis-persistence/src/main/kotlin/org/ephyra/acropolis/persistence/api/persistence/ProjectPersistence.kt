@@ -14,11 +14,21 @@ class ProjectPersistence {
         repo.save(project)
     }
 
-    fun getProjects(): List<ProjectEntity> {
+    fun delete(id: Long) {
+        repo.deleteById(id)
+    }
+
+    fun getAll(): List<ProjectEntity> {
         return repo.findAll().toList()
     }
 
-    fun getProject(name: String): ProjectEntity {
-        return repo.findByName(name)
+    fun find(id: Long): ProjectEntity? {
+        val entity = repo.findById(id)
+        return if (entity.isPresent) entity.get() else null
+    }
+
+    fun findByName(name: String): ProjectEntity? {
+        val entity = repo.findByName(name)
+        return if (entity.isPresent) entity.get() else null
     }
 }

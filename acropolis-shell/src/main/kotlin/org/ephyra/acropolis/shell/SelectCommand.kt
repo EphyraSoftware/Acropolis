@@ -21,6 +21,6 @@ class SelectCommand {
     }
 
     private fun selectProject(name: String) {
-        appState.currentProject = projectService.getProject(name)
+        appState.currentProject = projectService.get(name)
     }
 }

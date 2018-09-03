@@ -3,7 +3,8 @@ package org.ephyra.acropolis.service.api
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 
 interface IProjectService {
-    fun createProject(name: String)
-    fun listProjects(): List<ProjectEntity>
-    fun getProject(name: String): ProjectEntity
+    fun create(name: String)
+    fun delete(id: Long)
+    fun list(): List<ProjectEntity>
+    fun get(name: String): ProjectEntity?
 }

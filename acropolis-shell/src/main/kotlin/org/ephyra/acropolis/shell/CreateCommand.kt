@@ -78,6 +78,6 @@ class CreateCommand {
     }
 
     private fun createProject(name: String) {
-        projectService.createProject(name)
+        projectService.create(name)
     }
 }

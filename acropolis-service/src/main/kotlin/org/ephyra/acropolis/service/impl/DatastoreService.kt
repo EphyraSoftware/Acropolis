@@ -1,8 +1,8 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.persistence.api.persistence.DatastorePersistence
 import org.ephyra.acropolis.persistence.api.entity.DatastoreEntity
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
+import org.ephyra.acropolis.persistence.api.persistence.DatastorePersistence
 import org.ephyra.acropolis.service.api.IDatastoreService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -13,7 +13,7 @@ class DatastoreService : IDatastoreService {
     @Autowired
     private lateinit var persistence: DatastorePersistence
 
-    override fun create(projectId: Int, name: String) {
+    override fun create(projectId : Long, name: String) {
         val project = ProjectEntity()
         project.id = projectId
 

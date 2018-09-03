@@ -11,18 +11,23 @@ class ProjectService : IProjectService {
     @Autowired
     private lateinit var persistence: ProjectPersistence
 
-    override fun createProject(name: String) {
+    override fun create(name: String) {
         println("Acropolis service is creating project with name $name")
         val project = ProjectEntity()
         project.name = name
         persistence.create(project)
     }
 
-    override fun listProjects(): List<ProjectEntity> {
-        return persistence.getProjects()
+    override fun delete(id: Long) {
+        println("Acropolis service is deleting project #$id")
+        persistence.delete(id)
     }
 
-    override fun getProject(name: String): ProjectEntity {
-        return persistence.getProject(name)
+    override fun list(): List<ProjectEntity> {
+        return persistence.getAll()
+    }
+
+    override fun get(name: String): ProjectEntity? {
+        return persistence.findByName(name)
     }
 }

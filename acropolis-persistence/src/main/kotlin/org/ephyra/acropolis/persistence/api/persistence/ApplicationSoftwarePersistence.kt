@@ -4,7 +4,6 @@ import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
 import org.ephyra.acropolis.persistence.impl.ApplicationSoftwareRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 class ApplicationSoftwarePersistence {
