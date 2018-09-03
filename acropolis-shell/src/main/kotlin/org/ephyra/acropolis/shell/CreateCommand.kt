@@ -11,7 +11,7 @@ class CreateCommand {
     private lateinit var appState: AppState
 
     @Autowired
-    private lateinit var projectService : IProjectService
+    private lateinit var projectService: IProjectService
 
     @Autowired
     private lateinit var applicationSoftwareService: IApplicationSoftwareService
@@ -41,8 +41,7 @@ class CreateCommand {
         val project = appState.currentProject
         if (project != null) {
             systemSoftwareService.create(project.id, name)
-        }
-        else {
+        } else {
             println("No project selected")
         }
     }
@@ -51,8 +50,7 @@ class CreateCommand {
         val project = appState.currentProject
         if (project != null) {
             applicationSoftwareService.create(project.id, name)
-        }
-        else {
+        } else {
             println("No project selected")
         }
     }
@@ -61,8 +59,7 @@ class CreateCommand {
         val project = appState.currentProject
         if (project != null) {
             datastoreService.create(project.id, name)
-        }
-        else {
+        } else {
             println("No project selected")
         }
     }
@@ -80,4 +77,5 @@ class CreateCommand {
     private fun createProject(name: String) {
         projectService.create(name)
     }
+
 }

@@ -10,7 +10,7 @@ import org.springframework.shell.standard.ShellOption
 @ShellComponent
 class ListCommand {
     @Autowired
-    private lateinit var projectService : IProjectService
+    private lateinit var projectService: IProjectService
 
     @Autowired
     private lateinit var connectionService: IConnectionService
@@ -50,8 +50,8 @@ class ListCommand {
 
         val connections = connectionService.getConnectionsFrom(fromConnectable)
 
-        connections.forEach {it ->
-            println("Connection to [${it.getConnectionType()}, ${it.getConnectionType()}]")
+        connections.forEach { it ->
+            println("Connection to [${it.getConnectionEndpointType()}, ${it.getConnectionEndpointType()}]")
         }
     }
 }

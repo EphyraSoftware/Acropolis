@@ -1,13 +1,13 @@
 package org.ephyra.acropolis.persistence.api.entity
 
-import org.ephyra.acropolis.persistence.api.ConnectionType
+import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import javax.persistence.Entity
 
 @Entity
-class LoadBalancerEntity @JvmOverloads constructor (
+class LoadBalancerEntity @JvmOverloads constructor(
         desc: String? = null
 ) : SystemSoftwareSpecializationEntity(desc) {
-    override fun getConnectionType(): Int {
-        return ConnectionType.LOAD_BALANCER.type
+    override fun getConnectionEndpointType(): Int {
+        return ConnectionEndpointType.LOAD_BALANCER.type
     }
 }
