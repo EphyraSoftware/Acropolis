@@ -14,7 +14,7 @@ class NetworkPersistence {
         repo.save(network)
     }
 
-    fun getNetwork(networkId: Long, projectId: Long): NetworkEntity? {
+    fun find(networkId: Long, projectId: Long): NetworkEntity? {
         val entity = repo.findById(networkId)
         return if (entity.isPresent) entity.get() else null
     }

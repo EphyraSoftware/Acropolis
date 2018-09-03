@@ -52,7 +52,7 @@ class NetworkService : INetworkService {
     override fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long) {
         Logger.info("Linking datastore [$datastoreName]")
 
-        val network = persistence.getNetwork(networkId, projectId)
+        val network = persistence.find(networkId, projectId)
             ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
 
         // TODO lookup with project id
@@ -78,7 +78,7 @@ class NetworkService : INetworkService {
     override fun linkApplicationSoftware(networkId: Long, applicationSoftwareName: String, projectId: Long) {
         Logger.info("Linking application software [$applicationSoftwareName]")
 
-        val network = persistence.getNetwork(networkId, projectId)
+        val network = persistence.find(networkId, projectId)
                 ?: throw IllegalStateException("Cannot link application-software to network because network with id [$networkId] was not found")
 
         val applicationSoftware = applicationSoftwareService.find(applicationSoftwareName, projectId)
@@ -103,7 +103,7 @@ class NetworkService : INetworkService {
     override fun linkSystemSoftware(networkId: Long, systemSoftwareName: String, projectId: Long) {
         Logger.info("Linking system-software [$systemSoftwareName]")
 
-        val network = persistence.getNetwork(networkId, projectId)
+        val network = persistence.find(networkId, projectId)
                 ?: throw IllegalStateException("Cannot link system-software to network because network with id [$networkId] was not found")
 
         val systemSoftware = systemSoftwareService.get(systemSoftwareName, projectId)
