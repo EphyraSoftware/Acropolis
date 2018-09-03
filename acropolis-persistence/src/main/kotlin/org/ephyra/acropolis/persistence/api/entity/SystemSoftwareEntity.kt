@@ -1,7 +1,6 @@
 package org.ephyra.acropolis.persistence.api.entity
 
 import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
-import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import javax.persistence.*
 
