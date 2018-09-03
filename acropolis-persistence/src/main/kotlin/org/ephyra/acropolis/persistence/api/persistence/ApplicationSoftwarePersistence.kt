@@ -18,4 +18,9 @@ class ApplicationSoftwarePersistence {
         val entity = repo.findById(id)
         return if (entity.isPresent) entity.get() else null
     }
+
+    fun findByName(name: String, projectId: Long): ApplicationSoftwareEntity? {
+        val entity = repo.findByNameAndProjectId(name, projectId)
+        return if (entity.isPresent) entity.get() else null
+    }
 }
