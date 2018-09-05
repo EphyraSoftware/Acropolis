@@ -5,10 +5,10 @@ import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.ephyra.acropolis.persistence.api.persistence.ComputeInstancePersistence
 import org.ephyra.acropolis.service.api.IComputeInstanceService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
 
-@Component
+@Service
 class ComputeInstanceService : IComputeInstanceService {
     @Autowired
     private lateinit var persistence: ComputeInstancePersistence
