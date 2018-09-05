@@ -47,8 +47,7 @@ class LinkCommand {
         val networkId = network?.id
         if (networkId != null) {
             networkService.linkSystemSoftware(networkId, fromName, projectId)
-        }
-        else {
+        } else {
             Logger.error("No network found with name [$toName]")
         }
     }
@@ -59,8 +58,7 @@ class LinkCommand {
         val networkId = network?.id
         if (networkId != null) {
             networkService.linkApplicationSoftware(networkId, fromName, projectId)
-        }
-        else {
+        } else {
             Logger.error("No network found with name [$toName]")
         }
     }
@@ -71,8 +69,7 @@ class LinkCommand {
         val networkId = network?.id
         if (networkId != null) {
             networkService.linkDatastore(networkId, fromName, projectId)
-        }
-        else {
+        } else {
             Logger.error("No network found with name [$toName]")
         }
     }
