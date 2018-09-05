@@ -9,11 +9,16 @@ import org.springframework.stereotype.Component
 class QueuePersistence {
     @Autowired
     private lateinit var repo: QueueRepository
-
-    fun create(queue: QueueEntity) {
-        repo.save(queue)
+    /**
+     * @param entity The newly created instance of this entity to be persisted to the database
+     * */
+    fun create(entity: QueueEntity) {
+        repo.save(entity)
     }
 
+    /**
+     * @return The entire List<> of entities of this type
+     * */
     fun getAll(): List<QueueEntity> {
         return repo.findAll().toList()
     }

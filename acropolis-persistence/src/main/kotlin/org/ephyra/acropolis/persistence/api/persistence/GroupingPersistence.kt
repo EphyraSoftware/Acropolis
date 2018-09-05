@@ -9,12 +9,17 @@ import org.springframework.stereotype.Component
 class GroupingPersistence {
     @Autowired
     private lateinit var repo: GroupingRepository
-
-    fun create(grouping: GroupingEntity) {
-        repo.save(grouping)
+    /**
+     * @param entity The newly created instance of this entity to be persisted to the database
+     * */
+    fun create(entity: GroupingEntity) {
+        repo.save(entity)
     }
 
-    fun update(grouping: GroupingEntity) {
-        repo.save(grouping)
+    /**
+     * @param entity the instance of the entity containing modified fields to be persisted to the database
+     * */
+    fun update(entity: GroupingEntity) {
+        repo.save(entity)
     }
 }

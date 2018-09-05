@@ -10,6 +10,9 @@ class LoadBalancerPersistence {
     @Autowired
     private lateinit var repo: LoadBalancerRepository
 
+    /**
+     * @param entity The newly created instance of this entity to be persisted to the database
+     * */
     fun create(entity: LoadBalancerEntity) {
         repo.save(entity)
     }

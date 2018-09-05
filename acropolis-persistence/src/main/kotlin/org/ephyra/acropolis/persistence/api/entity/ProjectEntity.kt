@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
+/**
+ * Specialisation of SystemSoftware
+ *  @see SystemSoftwareEntity for params
+ * */
 @Entity
 class ProjectEntity {
     @Id
