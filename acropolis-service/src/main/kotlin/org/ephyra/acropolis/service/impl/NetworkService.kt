@@ -53,11 +53,11 @@ class NetworkService : INetworkService {
         Logger.info("Linking datastore [$datastoreName]")
 
         val network = persistence.find(networkId, projectId)
-            ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
+                ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
 
         // TODO lookup with project id
         val datastore = datastoreService.get(datastoreName)
-            ?: throw IllegalStateException("Cannot link datastore to network because datastore with name [$datastoreName] was not found")
+                ?: throw IllegalStateException("Cannot link datastore to network because datastore with name [$datastoreName] was not found")
 
         val grouping = network.groupingEntity
         if (grouping == null) {
@@ -66,8 +66,7 @@ class NetworkService : INetworkService {
             groupingPersistence.create(newGrouping)
             network.groupingEntity = newGrouping
             persistence.updateGrouping(network)
-        }
-        else {
+        } else {
             Logger.trace("Updating grouping to include datastore")
             grouping.datastoreList.add(datastore)
             groupingPersistence.update(grouping)
@@ -91,8 +90,7 @@ class NetworkService : INetworkService {
             groupingPersistence.create(newGrouping)
             network.groupingEntity = newGrouping
             persistence.updateGrouping(network)
-        }
-        else {
+        } else {
             Logger.trace("Updating grouping to include application-software [$applicationSoftware.name]")
             grouping.applicationSoftwareList.add(applicationSoftware)
             groupingPersistence.update(grouping)
@@ -116,8 +114,7 @@ class NetworkService : INetworkService {
             groupingPersistence.create(newGrouping)
             network.groupingEntity = newGrouping
             persistence.updateGrouping(network)
-        }
-        else {
+        } else {
             Logger.trace("Updating grouping to include system-software [$systemSoftware.name]")
             grouping.systemSoftwareList.add(systemSoftware)
             groupingPersistence.update(grouping)
