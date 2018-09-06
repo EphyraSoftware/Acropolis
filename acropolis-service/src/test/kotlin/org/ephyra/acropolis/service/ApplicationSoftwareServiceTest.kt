@@ -13,6 +13,9 @@ import org.ephyra.acropolis.persistence.api.persistence.ApplicationSoftwarePersi
 import org.ephyra.acropolis.service.api.IApplicationSoftwareService
 import org.ephyra.acropolis.service.impl.ApplicationSoftwareService
 
+/**
+ * Tests for the application-software service.
+ */
 class ApplicationSoftwareServiceTest : StringSpec() {
     @MockK(relaxUnitFun = true)
     lateinit var persistence: ApplicationSoftwarePersistence
@@ -30,6 +33,12 @@ class ApplicationSoftwareServiceTest : StringSpec() {
     }
 }
 
+/**
+ * Helper for initialising MockK on a test class.
+ *
+ * Uses a kotlin-test TestListener to instruct MockK to scan for annotations before
+ * any tests run.
+ */
 class MockKInitializer (
         private var initMe: ApplicationSoftwareServiceTest
 ) : TestListener {
