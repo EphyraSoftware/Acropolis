@@ -17,6 +17,6 @@ jobs:
     - run:
         name: Create master coverage report
         command: ./gradlew codeCoverageReport
-  test:
-    post:
-      - pip install codecov && codecov
+    - run:
+        name: Upload coverage report
+        command: pip install codecov && codecov
