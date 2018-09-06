@@ -3,4 +3,37 @@ subprojects {
         jcenter()
         maven { url "https://repo.spring.io/milestone" }
     }
+
+    apply plugin: 'java'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+apply plugin: 'jacoco'
+
+task codeCoverageReport(type: JacocoReport) {
+    // These properties are available on projects with the java plugin, after they've been
+    // evaluated. Ignore that IntelliJ doesn't think they'll exist because the will be there
+    // for Kotlin sub-projects.
+    //noinspection GroovyAssignabilityCheck
+    additionalSourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs)
+    //noinspection GroovyAssignabilityCheck
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    //noinspection GroovyAssignabilityCheck
+    classDirectories =  files(subprojects.sourceSets.main.output)
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    // Can use this if all sub-projects have a jacocoReport task configured.
+    // executionData = files(subprojects.jacocoTestReport.executionData)
+    // dependsOn subprojects.jacocoTestReport
+
+    reports {
+        xml.enabled = true
+        xml.setDestination(new File("${buildDir}/reports/jacoco/report.xml"))
+        html.enabled = true
+        csv.enabled = false
+    }
 }
