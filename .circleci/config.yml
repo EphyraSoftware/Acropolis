@@ -19,4 +19,4 @@ jobs:
         command: ./gradlew codeCoverageReport
     - run:
         name: Upload coverage report
-        command: bash -c "bash <(curl -s https://codecov.io/bash)"
+        command: sh <(curl -s https://codecov.io/bash)
