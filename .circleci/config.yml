@@ -19,4 +19,4 @@ jobs:
         command: ./gradlew codeCoverageReport
     - run:
         name: Upload coverage report
-        command: pip install codecov && codecov
+        command: bash <(curl -s https://codecov.io/bash)
