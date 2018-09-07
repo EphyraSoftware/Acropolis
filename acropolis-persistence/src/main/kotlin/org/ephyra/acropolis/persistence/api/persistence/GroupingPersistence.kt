@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 class GroupingPersistence {
     @Autowired
     private lateinit var repo: GroupingRepository
+
     /**
      * @param entity The newly created instance of this entity to be persisted to the database
      * */
