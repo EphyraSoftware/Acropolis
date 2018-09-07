@@ -10,8 +10,8 @@ class ComputeInstancePersistence {
     @Autowired
     private lateinit var repo: ComputeInstanceRepository
 
-    fun create(ComputeInstance: ComputeInstanceEntity) {
-        repo.save(ComputeInstance)
+    fun create(computeInstance: ComputeInstanceEntity) {
+        repo.save(computeInstance)
     }
 
     fun find(id: Long): ComputeInstanceEntity? {
