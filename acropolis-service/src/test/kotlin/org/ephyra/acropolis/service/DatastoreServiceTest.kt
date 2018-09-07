@@ -19,6 +19,8 @@ import org.ephyra.acropolis.service.impl.DatastoreService
  * Tests for the datastore service
  */
 class DatastoreServiceTest : StringSpec() {
+    private val myStoreName = "my-store"
+
     @MockK(relaxUnitFun = true)
     lateinit var persistence: DatastorePersistence
 
@@ -29,7 +31,7 @@ class DatastoreServiceTest : StringSpec() {
 
     init {
         "Create a new datastore" {
-            testClass.create(1, "my-store")
+            testClass.create(1, myStoreName)
             verify { persistence.create(datastore = any()) }
         }
 
@@ -37,13 +39,13 @@ class DatastoreServiceTest : StringSpec() {
             every { persistence.create(datastore= any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create(1, "my-store")
+                testClass.create(1, myStoreName)
             }
             exception.message.shouldStartWith("failed to save")
         }
 
         "Find datastore by name, not found" {
-            val name = "my-store"
+            val name = myStoreName
 
             every { persistence.findByName(name) } returns null
 
@@ -53,7 +55,7 @@ class DatastoreServiceTest : StringSpec() {
         }
 
         "Find datastore by name" {
-            val name = "my-store"
+            val name = myStoreName
 
             every { persistence.findByName(name) } returns mockk()
 
