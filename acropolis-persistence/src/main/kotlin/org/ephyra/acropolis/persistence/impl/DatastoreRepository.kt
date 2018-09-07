@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 import java.util.*
 
 internal interface DatastoreRepository : CrudRepository<DatastoreEntity, Long> {
-    fun findByName(name: String): Optional<DatastoreEntity>
+    fun findByNameAndProjectId(name: String, projectId: Long): Optional<DatastoreEntity>
 }
