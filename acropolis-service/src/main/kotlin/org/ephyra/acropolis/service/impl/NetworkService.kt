@@ -32,6 +32,11 @@ class NetworkService : INetworkService {
     @Autowired
     private lateinit var systemSoftwareService: ISystemSoftwareService
 
+    /**
+     * Creates a new entity, to be associated with the given project name
+     * @param projectName the name of the project to find and associate this entity with
+     * @param name the name of the entity to create
+     * */
     override fun create(name: String, projectName: String) {
         val project = projectService.get(projectName)
 
@@ -44,6 +49,12 @@ class NetworkService : INetworkService {
         persistence.create(network)
     }
 
+    /**
+     * Find an instance with the given name that exists within the scope of the given project ID
+     * @param name the name of the entity to try and find
+     * @param projectId the ID of the project to scope the query to
+     * @return an instance of the entity if found, or nil
+     * */
     override fun get(name: String, projectId: Long): NetworkEntity? {
         return persistence.findByName(name, projectId)
     }
