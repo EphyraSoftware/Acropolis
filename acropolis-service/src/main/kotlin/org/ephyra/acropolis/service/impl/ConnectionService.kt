@@ -46,7 +46,7 @@ class ConnectionService : IConnectionService {
                 ConnectionEndpointType.SYSTEM_SOFTWARE -> systemSoftwarePersistence.find(connectionEntity.toId)
                 ConnectionEndpointType.APPLICATION_SOFTWARE -> applicationSoftwarePersistence.find(connectionEntity.toId)
                 ConnectionEndpointType.DATASTORE -> datastorePersistence.find(connectionEntity.toId)
-                else -> throw IllegalStateException("Connection entity with connection to unknown type [${connectionEntity.toEndpointType}")
+                else -> throw IllegalStateException("Connection entity with connection to unknown type [${connectionEntity.toEndpointType}]")
             }
         }
 
