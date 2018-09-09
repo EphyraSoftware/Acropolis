@@ -3,7 +3,6 @@ package org.ephyra.acropolis.service
 import io.kotlintest.extensions.TestListener
 import io.kotlintest.matchers.collections.shouldBeEmpty
 import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.StringSpec
 import io.mockk.every
@@ -15,7 +14,10 @@ import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import org.ephyra.acropolis.persistence.api.entity.ConnectionEntity
+import org.ephyra.acropolis.persistence.api.persistence.ApplicationSoftwarePersistence
 import org.ephyra.acropolis.persistence.api.persistence.ConnectionPersistence
+import org.ephyra.acropolis.persistence.api.persistence.DatastorePersistence
+import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistence
 import org.ephyra.acropolis.service.api.IConnectionService
 import org.ephyra.acropolis.service.impl.ConnectionService
 
@@ -25,6 +27,15 @@ import org.ephyra.acropolis.service.impl.ConnectionService
 class ConnectionServiceTest : StringSpec() {
     @MockK(relaxUnitFun = true)
     lateinit var persistence: ConnectionPersistence
+
+    @MockK
+    lateinit var systemSoftwarePersistence: SystemSoftwarePersistence
+
+    @MockK
+    lateinit var applicationSoftwarePersistence: ApplicationSoftwarePersistence
+
+    @MockK
+    lateinit var datastorePersistence: DatastorePersistence
 
     @InjectMockKs
     var testClass: IConnectionService = ConnectionService()
@@ -71,6 +82,56 @@ class ConnectionServiceTest : StringSpec() {
             }
 
             exception.message.shouldBe("Connection entity with connection to unknown type [9999]")
+        }
+
+        "Get connections from with valid connections looked up, returns list of connected items" {
+            val toSystemSoftwareConnection = ConnectionEntity(1, ConnectionEndpointType.APPLICATION_SOFTWARE.type, 2, ConnectionEndpointType.SYSTEM_SOFTWARE.type)
+            val toApplicationSoftwareConnection = ConnectionEntity(1, ConnectionEndpointType.APPLICATION_SOFTWARE.type, 3, ConnectionEndpointType.APPLICATION_SOFTWARE.type)
+            val toDatastoreConnection = ConnectionEntity(1, ConnectionEndpointType.APPLICATION_SOFTWARE.type, 4, ConnectionEndpointType.DATASTORE.type)
+
+            every { persistence.getConnectionsFrom(fromId = 1, fromEndpointType = ConnectionEndpointType.APPLICATION_SOFTWARE.type) } returns
+                    listOf(toSystemSoftwareConnection, toApplicationSoftwareConnection, toDatastoreConnection)
+
+            val fromConnection: IConnectable = mockk()
+            every { fromConnection.getConnectionId() } returns 1
+            every { fromConnection.getConnectionEndpointType() } returns ConnectionEndpointType.APPLICATION_SOFTWARE.type
+
+            every { systemSoftwarePersistence.find(id = 2) } returns mockk()
+            every { applicationSoftwarePersistence.find(id = 3) } returns mockk()
+            every { datastorePersistence.find(id = 4) } returns mockk()
+
+            val connections = testClass.getConnectionsFrom(fromConnection)
+
+            connections.size.shouldBe(3)
+
+            verify { systemSoftwarePersistence.find(2) }
+            verify { applicationSoftwarePersistence.find(3) }
+            verify { datastorePersistence.find(4) }
+        }
+
+        "Get connections from with a missing endpoint looked up, invalid endpoint filtered" {
+            val toSystemSoftwareConnection = ConnectionEntity(1, ConnectionEndpointType.APPLICATION_SOFTWARE.type, 2, ConnectionEndpointType.SYSTEM_SOFTWARE.type)
+            val toApplicationSoftwareConnection = ConnectionEntity(1, ConnectionEndpointType.APPLICATION_SOFTWARE.type, 3, ConnectionEndpointType.APPLICATION_SOFTWARE.type)
+            val toDatastoreConnection = ConnectionEntity(1, ConnectionEndpointType.APPLICATION_SOFTWARE.type, 4, ConnectionEndpointType.DATASTORE.type)
+
+            every { persistence.getConnectionsFrom(fromId = 1, fromEndpointType = ConnectionEndpointType.APPLICATION_SOFTWARE.type) } returns
+                    listOf(toSystemSoftwareConnection, toApplicationSoftwareConnection, toDatastoreConnection)
+
+            val fromConnection: IConnectable = mockk()
+            every { fromConnection.getConnectionId() } returns 1
+            every { fromConnection.getConnectionEndpointType() } returns ConnectionEndpointType.APPLICATION_SOFTWARE.type
+
+            every { systemSoftwarePersistence.find(id = 2) } returns mockk()
+            every { applicationSoftwarePersistence.find(id = 3) } returns null
+            every { datastorePersistence.find(id = 4) } returns mockk()
+
+            val connections = testClass.getConnectionsFrom(fromConnection)
+
+            connections.size.shouldBe(2)
+
+            verify { systemSoftwarePersistence.find(2) }
+            verify { applicationSoftwarePersistence.find(3) }
+            verify { datastorePersistence.find(4) }
         }
     }
 }
