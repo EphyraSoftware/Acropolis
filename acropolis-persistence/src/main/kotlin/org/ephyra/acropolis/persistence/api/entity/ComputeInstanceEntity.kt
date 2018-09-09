@@ -28,10 +28,16 @@ data class ComputeInstanceEntity @JvmOverloads constructor(
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
 
+    /**
+     * @return The ID of this model in a connection context
+     */
     override fun getConnectionId(): Long {
         return id ?: -1
     }
 
+    /**
+     * @return The Enumerated ConnectionEndpointType value that corresponds to this type of entity
+     */
     override fun getConnectionEndpointType(): Int {
         return ConnectionEndpointType.COMPUTE_INSTANCE.type
     }
