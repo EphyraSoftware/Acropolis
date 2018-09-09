@@ -28,17 +28,13 @@ class DatastoreService : IDatastoreService {
         persistence.create(datastore)
     }
 
-<<<<<<< HEAD
-    override fun get(name: String, projectId: Long): DatastoreEntity? {
-        return persistence.findByName(name, projectId)
-=======
     /**
-     * Find an instance with the given name
+     * Find an instance with the given name that exists within the scope of the given project ID
      * @param name the name of the entity to try and find
+     * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    override fun get(name: String): DatastoreEntity? {
-        return persistence.findByName(name)
->>>>>>> Service layer doc comments, for all create, list, find, delete operations
+    override fun get(name: String, projectId: Long): DatastoreEntity? {
+        return persistence.findByName(name, projectId)
     }
 } 
