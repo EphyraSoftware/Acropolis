@@ -11,6 +11,7 @@ class DatastorePersistence {
     private lateinit var repo: DatastoreRepository
 
     /**
+     * Create a new record for the entity in the database
      * @param entity The newly created instance of this entity to be persisted to the database
      */
     fun create(entity: DatastoreEntity) {
@@ -18,6 +19,7 @@ class DatastorePersistence {
     }
 
     /**
+     * Find an instance with the given ID
      * @param id The ID to try and find in the database
      * @return The entity corresponding to the specified ID, or null if not found
      */

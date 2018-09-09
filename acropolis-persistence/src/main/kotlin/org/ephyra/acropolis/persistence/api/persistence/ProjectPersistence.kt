@@ -11,6 +11,7 @@ class ProjectPersistence {
     private lateinit var repo: ProjectRepository
 
     /**
+     * Create a new record for the entity in the database
      * @param entity The newly created instance of this entity to be persisted to the database
      */
     fun create(entity: ProjectEntity) {
@@ -32,6 +33,7 @@ class ProjectPersistence {
     }
 
     /**
+     * Find an instance with the given ID
      * @param id The ID to try and find in the database
      * @return The entity corresponding to the specified ID, or null if not found
      */
@@ -41,7 +43,9 @@ class ProjectPersistence {
     }
 
     /**
+     * Find an instance with the given ID in the project with the given ID
      * @param name The name to try and find in the database
+     * @param projectId The ID of the project that this entity is scoped to
      * @return The entity corresponding to the specified ID, or null if not found
      */
     fun findByName(name: String): ProjectEntity? {
