@@ -19,6 +19,7 @@ class ApplicationSoftwarePersistence {
     }
 
     /**
+     * Find an instance with the given ID
      * @param id The ID to try and find in the database
      * @return The entity corresponding to the specified ID, or null if not found
      */
