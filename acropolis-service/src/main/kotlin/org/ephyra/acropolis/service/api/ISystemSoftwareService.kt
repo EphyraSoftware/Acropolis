@@ -3,7 +3,12 @@ package org.ephyra.acropolis.service.api
 import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
 
 interface ISystemSoftwareService {
-    fun create(projectId: Long, name: String)
+    /**
+     * Creates a new entity, to be associated with the given project
+     * @param name the name of the entity to create
+     * @param projectName the name of the project to associate this entity with
+     */
+    fun create(name: String, projectName: String)
 
     /**
      * Find an instance with the given name that exists within the scope of the given project ID
