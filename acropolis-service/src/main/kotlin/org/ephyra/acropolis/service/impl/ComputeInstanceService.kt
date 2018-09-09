@@ -13,6 +13,10 @@ class ComputeInstanceService : IComputeInstanceService {
     @Autowired
     private lateinit var persistence: ComputeInstancePersistence
 
+    /**
+     * @param projectId the ID of the project to associate this entity with
+     * @param name the name of the entity to create
+     */
     override fun create(projectId: Long, name: String) {
         val project = ProjectEntity()
         project.id = projectId
@@ -23,6 +27,12 @@ class ComputeInstanceService : IComputeInstanceService {
         persistence.create(computeInstance)
     }
 
+    /**
+     * Find an instance with the given name that exists within the scope of the given project ID
+     * @param name the name of the entity to try and find
+     * @param projectId the ID of the project to scope the query to
+     * @return an instance of the entity if found, or nil
+     */
     override fun find(name: String, projectId: Long): ComputeInstanceEntity? {
         return persistence.findByName(name, projectId)
     }
