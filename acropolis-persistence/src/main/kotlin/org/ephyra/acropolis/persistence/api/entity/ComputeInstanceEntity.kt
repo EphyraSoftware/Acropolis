@@ -7,6 +7,11 @@ import javax.persistence.*
 /**
  * Entity to model any such instance that is capable of running Application Software
  * i.e. Docker Container, Heroku Dyno, EC2 Instance, Local Machine, Server
+ *
+ *  @property id Auto-generated database ID
+ *  @property name The name of the entity
+ *  @property project The project to which this entity belongs, ManyToOne
+ *  @property description A short, optional, string to describe this entity in more detail
  */
 @Entity
 data class ComputeInstanceEntity @JvmOverloads constructor(
