@@ -44,7 +44,7 @@ class CreateCommand {
     private fun createSystemSoftware(name: String) {
         val project = appState.currentProject
         if (project != null) {
-            systemSoftwareService.create(project.id, name)
+            systemSoftwareService.create(project.name, name)
         } else {
             println("No project selected")
         }
@@ -53,7 +53,7 @@ class CreateCommand {
     private fun createApplicationSoftware(name: String) {
         val project = appState.currentProject
         if (project != null) {
-            applicationSoftwareService.create(project.id, name)
+            applicationSoftwareService.create(project.name, name)
         } else {
             println("No project selected")
         }
@@ -62,7 +62,7 @@ class CreateCommand {
     private fun createDatastore(name: String) {
         val project = appState.currentProject
         if (project != null) {
-            datastoreService.create(project.id, name)
+            datastoreService.create(project.name, name)
         } else {
             println("No project selected")
         }
@@ -71,7 +71,7 @@ class CreateCommand {
     private fun createComputeInstance(name: String) {
         val project = appState.currentProject
         if (project != null) {
-            computeInstanceService.create(project.id, name)
+            computeInstanceService.create(project.name, name)
         } else {
             println("No project selected")
         }

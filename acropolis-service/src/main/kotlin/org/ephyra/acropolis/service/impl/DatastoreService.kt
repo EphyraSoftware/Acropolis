@@ -1,31 +1,38 @@
 package org.ephyra.acropolis.service.impl
 
 import org.ephyra.acropolis.persistence.api.entity.DatastoreEntity
-import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.ephyra.acropolis.persistence.api.persistence.DatastorePersistence
 import org.ephyra.acropolis.service.api.IDatastoreService
+import org.ephyra.acropolis.service.api.IProjectService
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
 class DatastoreService : IDatastoreService {
+    val Logger = LoggerFactory.getLogger(IDatastoreService::class.java)
 
     @Autowired
     private lateinit var persistence: DatastorePersistence
 
+    @Autowired
+    private lateinit var projectService: IProjectService
+
     /**
-     * Creates a new entity, to be associated with the given project ID
-     * @param projectId the ID of the project to associate this entity with
+     * Creates a new entity, to be associated with the given project
      * @param name the name of the entity to create
+     * @param projectName the name of the project to associate this entity with
      */
-    override fun create(projectId: Long, name: String) {
-        val project = ProjectEntity()
-        project.id = projectId
+    override fun create(name: String, projectName: String) {
+        val project = projectService.get(projectName)
 
-        val datastore = DatastoreEntity(name, project)
-        datastore.name = name
+        if (project == null) {
+            Logger.error("Could not find project with name [$projectName]")
+            throw IllegalStateException("Project not found [$projectName]")
+        }
 
-        persistence.create(datastore)
+        val entity = DatastoreEntity(name, project)
+        persistence.create(entity)
     }
 
     /**
