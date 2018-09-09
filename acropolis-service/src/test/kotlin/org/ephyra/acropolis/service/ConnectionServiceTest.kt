@@ -1,6 +1,9 @@
 package org.ephyra.acropolis.service
 
 import io.kotlintest.extensions.TestListener
+import io.kotlintest.matchers.collections.shouldBeEmpty
+import io.kotlintest.shouldBe
+import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.StringSpec
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -38,6 +41,18 @@ class ConnectionServiceTest : StringSpec() {
 
             testClass.create(connectFrom, connectTo, ConnectionType.TALKS_TO)
             verify { persistence.create(connection = any()) }
+        }
+
+        "Get connections from with no connections found, yields empty result" {
+            every { persistence.getConnectionsFrom(fromId = any(), fromEndpointType = any()) } returns listOf()
+
+            val connection: IConnectable = mockk()
+            every { connection.getConnectionId() } returns 1
+            every { connection.getConnectionEndpointType() } returns ConnectionEndpointType.APPLICATION_SOFTWARE.type
+
+            val connectionsFrom = testClass.getConnectionsFrom(connection)
+
+            connectionsFrom.shouldBeEmpty()
         }
     }
 }
