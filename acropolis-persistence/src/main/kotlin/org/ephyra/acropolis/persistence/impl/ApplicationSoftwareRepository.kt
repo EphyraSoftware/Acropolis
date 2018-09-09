@@ -9,6 +9,6 @@ internal interface ApplicationSoftwareRepository : CrudRepository<ApplicationSof
      * @param name The name of the entity to find
      * @param projectId the ID of the project this name is scoped to
      * @return An instance of ApplicationSoftwareEntity if one is found
-     * */
+     */
     fun findByNameAndProjectId(name: String, projectId: Long): Optional<ApplicationSoftwareEntity>
 }

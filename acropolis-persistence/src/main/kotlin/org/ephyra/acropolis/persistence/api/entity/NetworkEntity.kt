@@ -8,7 +8,7 @@ import javax.persistence.*
  *  @property project The project to which this entity belongs, ManyToOne
  *  @property groupingEntity The group which contains entities that belong to this network
  *  @property description A short, optional, string to describe this entity in more detail
- * */
+ */
 @Entity
 class NetworkEntity @JvmOverloads constructor(
         @Column(nullable = false)

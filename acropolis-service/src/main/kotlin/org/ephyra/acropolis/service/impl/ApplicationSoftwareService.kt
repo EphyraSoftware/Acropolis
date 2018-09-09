@@ -15,7 +15,7 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
     /**
      * @param projectId the ID of the project to associate this entity with
      * @param name the name of the entity to create
-     * */
+     */
     override fun create(projectId: Long, name: String) {
         val project = ProjectEntity()
         project.id = projectId
@@ -31,7 +31,7 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
      * @param name the name of the entity to try and find
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
-     * */
+     */
     override fun find(name: String, projectId: Long): ApplicationSoftwareEntity? {
         return persistence.findByName(name, projectId)
     }

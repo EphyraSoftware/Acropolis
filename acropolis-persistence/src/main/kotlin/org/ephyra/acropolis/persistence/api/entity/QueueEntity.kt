@@ -7,7 +7,7 @@ import javax.persistence.Entity
 /**
  * Specialisation of SystemSoftware
  *  @see SystemSoftwareEntity for params
- * */
+ */
 @Entity
 class QueueEntity @JvmOverloads constructor(
         @Column(nullable = false)
@@ -18,7 +18,7 @@ class QueueEntity @JvmOverloads constructor(
 
     /**
      * @return The Enumerated ConnectionEndpointType value that corresponds to this type of entity
-     * */
+     */
     override fun getConnectionEndpointType(): Int {
         return ConnectionEndpointType.QUEUE.type
     }

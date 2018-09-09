@@ -12,14 +12,14 @@ class QueuePersistence {
 
     /**
      * @param entity The newly created instance of this entity to be persisted to the database
-     * */
+     */
     fun create(entity: QueueEntity) {
         repo.save(entity)
     }
 
     /**
      * @return The entire List<> of entities of this type
-     * */
+     */
     fun getAll(): List<QueueEntity> {
         return repo.findAll().toList()
     }

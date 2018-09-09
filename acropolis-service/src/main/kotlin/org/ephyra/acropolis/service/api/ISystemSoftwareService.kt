@@ -10,6 +10,6 @@ interface ISystemSoftwareService {
      * @param name the name of the entity to try and find
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
-     * */
+     */
     fun get(name: String, projectId: Long): SystemSoftwareEntity?
 }
