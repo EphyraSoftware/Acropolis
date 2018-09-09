@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class DatastoreService : IDatastoreService {
-    val Logger = LoggerFactory.getLogger(IDatastoreService::class.java)
+    val Logger = LoggerFactory.getLogger(DatastoreService::class.java)
 
     @Autowired
     private lateinit var persistence: DatastorePersistence

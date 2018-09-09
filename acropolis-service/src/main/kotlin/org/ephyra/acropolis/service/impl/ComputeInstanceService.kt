@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ComputeInstanceService : IComputeInstanceService {
-    val Logger = LoggerFactory.getLogger(IComputeInstanceService::class.java)
+    val Logger = LoggerFactory.getLogger(ComputeInstanceService::class.java)
 
     @Autowired
     private lateinit var persistence: ComputeInstancePersistence

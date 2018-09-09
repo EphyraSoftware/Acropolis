@@ -12,7 +12,7 @@ import javax.transaction.Transactional
 
 @Service
 class NetworkService : INetworkService {
-    val Logger = LoggerFactory.getLogger(INetworkService::class.java)
+    val Logger = LoggerFactory.getLogger(NetworkService::class.java)
 
     @Autowired
     private lateinit var persistence: NetworkPersistence

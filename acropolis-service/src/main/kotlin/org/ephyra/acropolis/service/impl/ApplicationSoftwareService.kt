@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ApplicationSoftwareService : IApplicationSoftwareService {
-    val Logger = LoggerFactory.getLogger(IApplicationSoftwareService::class.java)
+    val Logger = LoggerFactory.getLogger(ApplicationSoftwareService::class.java)
 
     @Autowired
     private lateinit var persistence: ApplicationSoftwarePersistence
