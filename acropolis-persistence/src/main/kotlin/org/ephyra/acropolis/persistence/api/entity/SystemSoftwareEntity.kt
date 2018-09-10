@@ -14,6 +14,12 @@ import javax.persistence.*
  *  - An operating system
  *  - A game engine
  *  - An automated industrial control system
+ *
+ *  @property id auto-generated database ID
+ *  @property name The name of this entity
+ *  @property project the project to which this entity belongs
+ *  @property specialization polymorphic type field, auto-populated by Hibernate with the type of derived specialisations of SystemSoftwareEntity
+ *  @property description A short description
  */
 @Entity
 data class SystemSoftwareEntity @JvmOverloads constructor(
@@ -33,10 +39,16 @@ data class SystemSoftwareEntity @JvmOverloads constructor(
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
 
+    /**
+     * @return The ID of this model in a connection context
+     */
     override fun getConnectionId(): Long {
         return id ?: -1
     }
 
+    /**
+     * @return The Enumerated ConnectionEndpointType value that corresponds to this type of entity
+     */
     override fun getConnectionEndpointType(): Int {
         return ConnectionEndpointType.SYSTEM_SOFTWARE.type
     }

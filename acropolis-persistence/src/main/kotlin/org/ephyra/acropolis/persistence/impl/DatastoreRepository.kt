@@ -5,5 +5,10 @@ import org.springframework.data.repository.CrudRepository
 import java.util.*
 
 internal interface DatastoreRepository : CrudRepository<DatastoreEntity, Long> {
-    fun findByName(name: String): Optional<DatastoreEntity>
+    /**
+     * @param name The name of the entity to find
+     * @param projectId the ID of the project to scope the find to
+     * @return An instance of DatastoreEntity if one is found
+     */
+    fun findByNameAndProjectId(name: String, projectId: Long): Optional<DatastoreEntity>
 }

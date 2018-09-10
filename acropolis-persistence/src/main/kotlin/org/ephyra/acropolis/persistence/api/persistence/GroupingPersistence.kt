@@ -10,11 +10,19 @@ class GroupingPersistence {
     @Autowired
     private lateinit var repo: GroupingRepository
 
-    fun create(grouping: GroupingEntity) {
-        repo.save(grouping)
+    /**
+     * Create a new record for the entity in the database
+     * @param entity The newly created instance of this entity to be persisted to the database
+     */
+    fun create(entity: GroupingEntity) {
+        repo.save(entity)
     }
 
-    fun update(grouping: GroupingEntity) {
-        repo.save(grouping)
+    /**
+     * Updates an existing database record with the details contained within the entity parameter
+     * @param entity the instance of the entity containing modified fields to be persisted to the database
+     */
+    fun update(entity: GroupingEntity) {
+        repo.save(entity)
     }
 }

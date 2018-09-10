@@ -12,7 +12,7 @@ import javax.transaction.Transactional
 
 @Service
 class NetworkService : INetworkService {
-    val Logger = LoggerFactory.getLogger(INetworkService::class.java)
+    val Logger = LoggerFactory.getLogger(NetworkService::class.java)
 
     @Autowired
     private lateinit var persistence: NetworkPersistence
@@ -32,6 +32,11 @@ class NetworkService : INetworkService {
     @Autowired
     private lateinit var systemSoftwareService: ISystemSoftwareService
 
+    /**
+     * Creates a new entity, to be associated with the given project name
+     * @param projectName the name of the project to find and associate this entity with
+     * @param name the name of the entity to create
+     */
     override fun create(name: String, projectName: String) {
         val project = projectService.get(projectName)
 
@@ -44,6 +49,12 @@ class NetworkService : INetworkService {
         persistence.create(network)
     }
 
+    /**
+     * Find an instance with the given name that exists within the scope of the given project ID
+     * @param name the name of the entity to try and find
+     * @param projectId the ID of the project to scope the query to
+     * @return an instance of the entity if found, or nil
+     */
     override fun get(name: String, projectId: Long): NetworkEntity? {
         return persistence.findByName(name, projectId)
     }
@@ -56,7 +67,7 @@ class NetworkService : INetworkService {
                 ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
 
         // TODO lookup with project id
-        val datastore = datastoreService.get(datastoreName)
+        val datastore = datastoreService.get(datastoreName, projectId)
                 ?: throw IllegalStateException("Cannot link datastore to network because datastore with name [$datastoreName] was not found")
 
         val grouping = network.groupingEntity

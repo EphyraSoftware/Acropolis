@@ -3,6 +3,19 @@ package org.ephyra.acropolis.persistence.api.entity
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import javax.persistence.*
 
+/**
+ *
+ * @property id Auto-generated database ID
+ *
+ * @property fromId The database ID of the left-hand type
+ * @property fromEndpointType The ConnectionEndpointType enum value that represents the left-hand type
+ *
+ * @property toId The database ID of the right-hand type
+ * @property toEndpointType The ConnectionEndpointType enum value that represents the right-hand type
+ *
+ * @property connectionType Enum ConnectionType value that represents what type of connection this is, i.e. HostedBy, TalksTo
+ * @property description A short, optional, string to describe this connection
+ */
 @Entity
 data class ConnectionEntity @JvmOverloads constructor(
         @Column(nullable = false)

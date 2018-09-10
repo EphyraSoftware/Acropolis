@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
+/**
+ * The base type around which everything is centred. Acts as an entrypoint/parent scoping for all subsequent types and operations.
+ *  @see SystemSoftwareEntity for params
+ */
 @Entity
 class ProjectEntity {
     @Id
