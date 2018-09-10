@@ -12,10 +12,10 @@ class ApplicationSoftwarePersistence {
 
     /**
      * Create a new record for the entity in the database
-     * @param entity The newly created instance of this entity to be persisted to the database
+     * @param applicationSoftware The newly created instance of this entity to be persisted to the database
      */
-    fun create(entity: ApplicationSoftwareEntity) {
-        repo.save(entity)
+    fun create(applicationSoftware: ApplicationSoftwareEntity) {
+        repo.save(applicationSoftware)
     }
 
     /**

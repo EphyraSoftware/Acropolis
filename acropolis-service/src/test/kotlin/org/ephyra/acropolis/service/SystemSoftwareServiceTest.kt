@@ -11,11 +11,8 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
-import org.ephyra.acropolis.persistence.api.persistence.ApplicationSoftwarePersistence
 import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistence
-import org.ephyra.acropolis.service.api.IApplicationSoftwareService
 import org.ephyra.acropolis.service.api.ISystemSoftwareService
-import org.ephyra.acropolis.service.impl.ApplicationSoftwareService
 import org.ephyra.acropolis.service.impl.SystemSoftwareService
 
 /**
@@ -32,7 +29,7 @@ class SystemSoftwareServiceTest : StringSpec() {
 
     init {
         "Create a new system software" {
-            testClass.create(1, "my-service")
+            testClass.create("my-service", "my-project")
             verify { persistence.create(systemSoftware = any()) }
         }
 
@@ -40,7 +37,7 @@ class SystemSoftwareServiceTest : StringSpec() {
             every { persistence.create(systemSoftware = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create(1, "my-service")
+                testClass.create("my-service", "my-project")
             }
             exception.message.shouldStartWith("failed to save")
         }

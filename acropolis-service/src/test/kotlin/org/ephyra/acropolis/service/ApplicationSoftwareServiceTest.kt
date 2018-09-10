@@ -29,15 +29,15 @@ class ApplicationSoftwareServiceTest : StringSpec() {
 
     init {
         "Create a new application software" {
-            testClass.create(1, "my-app")
-            verify { persistence.create(application = any()) }
+            testClass.create("my-app", "my-project")
+            verify { persistence.create(applicationSoftware = any()) }
         }
 
         "Create a new application software, fails to save" {
-            every { persistence.create(application = any()) } throws Exception("failed to save")
+            every { persistence.create(applicationSoftware = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create(1, "my-app")
+                testClass.create("my-app", "my-project")
             }
             exception.message.shouldStartWith("failed to save")
         }

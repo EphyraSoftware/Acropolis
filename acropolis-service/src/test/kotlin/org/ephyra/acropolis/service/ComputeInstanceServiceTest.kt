@@ -31,7 +31,7 @@ class ComputeInstanceServiceTest : StringSpec() {
 
     init {
         "Create a new compute instance" {
-            testClass.create(1, myInstanceName)
+            testClass.create(myInstanceName, "my-project")
             verify { persistence.create(computeInstance = any()) }
         }
 
@@ -39,7 +39,7 @@ class ComputeInstanceServiceTest : StringSpec() {
             every { persistence.create(computeInstance = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create(1, myInstanceName)
+                testClass.create(myInstanceName, "my-project")
             }
             exception.message.shouldStartWith("failed to save")
         }

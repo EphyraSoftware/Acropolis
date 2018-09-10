@@ -31,7 +31,7 @@ class DatastoreServiceTest : StringSpec() {
 
     init {
         "Create a new datastore" {
-            testClass.create(1, myStoreName)
+            testClass.create(myStoreName, "my-project")
             verify { persistence.create(datastore = any()) }
         }
 
@@ -39,7 +39,7 @@ class DatastoreServiceTest : StringSpec() {
             every { persistence.create(datastore= any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create(1, myStoreName)
+                testClass.create(myStoreName, "my-project")
             }
             exception.message.shouldStartWith("failed to save")
         }
@@ -47,28 +47,28 @@ class DatastoreServiceTest : StringSpec() {
         "Find datastore by name, not found" {
             val name = myStoreName
 
-            every { persistence.findByName(name) } returns null
+            every { persistence.findByName(name, 1) } returns null
 
-            testClass.get(name).shouldBe(null)
+            testClass.get(name, 1).shouldBe(null)
 
-            verify { persistence.findByName(name) }
+            verify { persistence.findByName(name, 1) }
         }
 
         "Find datastore by name" {
             val name = myStoreName
 
-            every { persistence.findByName(name) } returns mockk()
+            every { persistence.findByName(name, 1) } returns mockk()
 
-            testClass.get(name).shouldNotBe(null)
+            testClass.get(name, 1).shouldNotBe(null)
 
-            verify { persistence.findByName(name) }
+            verify { persistence.findByName(name, 1) }
         }
 
         "Find datastore by name, fails to lookup" {
-            every { persistence.findByName(name = any()) } throws Exception("failed to lookup")
+            every { persistence.findByName(name = any(), projectId = 1) } throws Exception("failed to lookup")
 
             val exception = shouldThrowAny {
-                testClass.get("")
+                testClass.get("", 1)
             }
             exception.message.shouldStartWith("failed to lookup")
         }
