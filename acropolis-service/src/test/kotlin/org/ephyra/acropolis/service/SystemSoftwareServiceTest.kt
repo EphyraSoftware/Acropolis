@@ -12,6 +12,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
 import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistence
+import org.ephyra.acropolis.service.api.IProjectService
 import org.ephyra.acropolis.service.api.ISystemSoftwareService
 import org.ephyra.acropolis.service.impl.SystemSoftwareService
 
@@ -22,6 +23,9 @@ class SystemSoftwareServiceTest : StringSpec() {
     @MockK(relaxUnitFun = true)
     lateinit var persistence: SystemSoftwarePersistence
 
+    @MockK
+    lateinit var projectService: IProjectService
+
     @InjectMockKs
     var testClass: ISystemSoftwareService = SystemSoftwareService()
 
@@ -29,6 +33,7 @@ class SystemSoftwareServiceTest : StringSpec() {
 
     init {
         "Create a new system software" {
+            every { projectService.get("my-project") } returns mockk()
             testClass.create("my-service", "my-project")
             verify { persistence.create(systemSoftware = any()) }
         }

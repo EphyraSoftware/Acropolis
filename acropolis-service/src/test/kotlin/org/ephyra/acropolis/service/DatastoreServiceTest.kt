@@ -13,6 +13,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.ephyra.acropolis.persistence.api.persistence.DatastorePersistence
 import org.ephyra.acropolis.service.api.IDatastoreService
+import org.ephyra.acropolis.service.api.IProjectService
 import org.ephyra.acropolis.service.impl.DatastoreService
 
 /**
@@ -24,6 +25,9 @@ class DatastoreServiceTest : StringSpec() {
     @MockK(relaxUnitFun = true)
     lateinit var persistence: DatastorePersistence
 
+    @MockK
+    lateinit var projectService: IProjectService
+
     @InjectMockKs
     var testClass: IDatastoreService = DatastoreService()
 
@@ -31,6 +35,7 @@ class DatastoreServiceTest : StringSpec() {
 
     init {
         "Create a new datastore" {
+            every { projectService.get("my-project") } returns mockk()
             testClass.create(myStoreName, "my-project")
             verify { persistence.create(datastore = any()) }
         }
