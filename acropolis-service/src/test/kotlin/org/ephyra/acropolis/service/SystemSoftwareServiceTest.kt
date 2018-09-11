@@ -34,10 +34,12 @@ class SystemSoftwareServiceTest : StringSpec() {
 
     private val testProjectName = "my-project"
 
+    private val testServiceName = "my-service"
+
     init {
         "Create a new system software" {
             every { projectService.get(testProjectName) } returns mockk()
-            testClass.create("my-service", testProjectName)
+            testClass.create(testServiceName, testProjectName)
             verify { persistence.create(systemSoftware = any()) }
         }
 
@@ -45,7 +47,7 @@ class SystemSoftwareServiceTest : StringSpec() {
             every { projectService.get(testProjectName) } returns null
 
             val exception = shouldThrow<IllegalStateException> {
-                testClass.create("my-service", testProjectName)
+                testClass.create(testServiceName, testProjectName)
             }
             exception.message.shouldBe("Project not found [$testProjectName]")
         }
@@ -55,7 +57,7 @@ class SystemSoftwareServiceTest : StringSpec() {
             every { persistence.create(systemSoftware = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create("my-service", testProjectName)
+                testClass.create(testServiceName, testProjectName)
             }
             exception.message.shouldStartWith("failed to save")
         }
