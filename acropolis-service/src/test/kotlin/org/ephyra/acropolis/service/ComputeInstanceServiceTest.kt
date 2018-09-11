@@ -13,6 +13,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.ephyra.acropolis.persistence.api.persistence.ComputeInstancePersistence
 import org.ephyra.acropolis.service.api.IComputeInstanceService
+import org.ephyra.acropolis.service.api.IProjectService
 import org.ephyra.acropolis.service.impl.ComputeInstanceService
 
 /**
@@ -24,6 +25,9 @@ class ComputeInstanceServiceTest : StringSpec() {
     @MockK(relaxUnitFun = true)
     lateinit var persistence: ComputeInstancePersistence
 
+    @MockK()
+    lateinit var projectService: IProjectService
+
     @InjectMockKs
     var testClass: IComputeInstanceService = ComputeInstanceService()
 
@@ -31,6 +35,7 @@ class ComputeInstanceServiceTest : StringSpec() {
 
     init {
         "Create a new compute instance" {
+            every { projectService.get("my-project") } returns mockk()
             testClass.create(myInstanceName, "my-project")
             verify { persistence.create(computeInstance = any()) }
         }

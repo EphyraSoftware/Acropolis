@@ -33,6 +33,7 @@ class ApplicationSoftwareServiceTest : StringSpec() {
 
     init {
         "Create a new application software" {
+            every { projectService.get("my-project") } returns mockk()
             testClass.create("my-app", "my-project")
             verify { persistence.create(applicationSoftware = any()) }
         }
