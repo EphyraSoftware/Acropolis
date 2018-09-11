@@ -4,6 +4,7 @@ import io.kotlintest.extensions.TestListener
 import io.kotlintest.matchers.string.shouldStartWith
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
+import io.kotlintest.shouldThrow
 import io.kotlintest.shouldThrowAny
 import io.kotlintest.specs.StringSpec
 import io.mockk.every
@@ -33,18 +34,30 @@ class DatastoreServiceTest : StringSpec() {
 
     override fun listeners(): List<TestListener> = listOf(MockKInitializer(this))
 
+    private val testProjectName = "my-project"
+
     init {
         "Create a new datastore" {
-            every { projectService.get("my-project") } returns mockk()
-            testClass.create(myStoreName, "my-project")
+            every { projectService.get(testProjectName) } returns mockk()
+            testClass.create(myStoreName, testProjectName)
             verify { persistence.create(datastore = any()) }
         }
 
+        "Create datastore with project not found, throws exception" {
+            every { projectService.get(testProjectName) } returns null
+
+            val exception = shouldThrow<IllegalStateException> {
+                testClass.create(myStoreName, testProjectName)
+            }
+            exception.message.shouldBe("Project not found [$testProjectName]")
+        }
+
         "Create a new datastore, fails to save" {
+            every { projectService.get(testProjectName) } returns mockk()
             every { persistence.create(datastore= any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create(myStoreName, "my-project")
+                testClass.create(myStoreName, testProjectName)
             }
             exception.message.shouldStartWith("failed to save")
         }

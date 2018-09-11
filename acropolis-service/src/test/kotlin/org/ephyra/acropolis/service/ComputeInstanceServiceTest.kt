@@ -4,6 +4,7 @@ import io.kotlintest.extensions.TestListener
 import io.kotlintest.matchers.string.shouldStartWith
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
+import io.kotlintest.shouldThrow
 import io.kotlintest.shouldThrowAny
 import io.kotlintest.specs.StringSpec
 import io.mockk.every
@@ -33,18 +34,31 @@ class ComputeInstanceServiceTest : StringSpec() {
 
     override fun listeners(): List<TestListener> = listOf(MockKInitializer(this))
 
+    private val testProjectName = "my-project"
+
     init {
         "Create a new compute instance" {
-            every { projectService.get("my-project") } returns mockk()
-            testClass.create(myInstanceName, "my-project")
+            every { projectService.get(testProjectName) } returns mockk()
+            testClass.create(myInstanceName, testProjectName)
             verify { persistence.create(computeInstance = any()) }
         }
 
+        "Create compute instance with project not found, throws exception" {
+            every { projectService.get(testProjectName) } returns null
+
+            val exception = shouldThrow<IllegalStateException> {
+                testClass.create(myInstanceName, testProjectName)
+            }
+
+            exception.message.shouldBe("Project not found [$testProjectName]")
+        }
+
         "Create a new compute instance, fails to save" {
+            every { projectService.get(testProjectName) } returns mockk()
             every { persistence.create(computeInstance = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create(myInstanceName, "my-project")
+                testClass.create(myInstanceName, testProjectName)
             }
             exception.message.shouldStartWith("failed to save")
         }

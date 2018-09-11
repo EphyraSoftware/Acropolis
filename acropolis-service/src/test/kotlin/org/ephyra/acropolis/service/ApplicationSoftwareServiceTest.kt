@@ -31,19 +31,30 @@ class ApplicationSoftwareServiceTest : StringSpec() {
 
     override fun listeners(): List<TestListener> = listOf(MockKInitializer(this))
 
+    private val testProjectName = "my-project"
+
     init {
         "Create a new application software" {
-            every { projectService.get("my-project") } returns mockk()
-            testClass.create("my-app", "my-project")
+            every { projectService.get(testProjectName) } returns mockk()
+            testClass.create("my-app", testProjectName)
             verify { persistence.create(applicationSoftware = any()) }
         }
 
+        "Create application software with project not found, throws exception" {
+            every { projectService.get(testProjectName) } returns null
+
+            val exception = shouldThrow<IllegalStateException> {
+                testClass.create("my-app", testProjectName)
+            }
+            exception.message.shouldBe("Project not found [$testProjectName]")
+        }
+
         "Create a new application software, fails to save" {
-            every { projectService.get("my-project") } returns mockk()
+            every { projectService.get(testProjectName) } returns mockk()
             every { persistence.create(applicationSoftware = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
-                testClass.create("my-app", "my-project")
+                testClass.create("my-app", testProjectName)
             }
             exception.message.shouldStartWith("failed to save")
         }
