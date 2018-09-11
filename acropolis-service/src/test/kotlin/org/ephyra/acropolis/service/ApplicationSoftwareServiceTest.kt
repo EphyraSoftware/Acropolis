@@ -13,6 +13,7 @@ import io.mockk.verify
 import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
 import org.ephyra.acropolis.persistence.api.persistence.ApplicationSoftwarePersistence
 import org.ephyra.acropolis.service.api.IApplicationSoftwareService
+import org.ephyra.acropolis.service.api.IProjectService
 import org.ephyra.acropolis.service.impl.ApplicationSoftwareService
 
 /**
@@ -21,6 +22,9 @@ import org.ephyra.acropolis.service.impl.ApplicationSoftwareService
 class ApplicationSoftwareServiceTest : StringSpec() {
     @MockK(relaxUnitFun = true)
     lateinit var persistence: ApplicationSoftwarePersistence
+
+    @MockK
+    lateinit var projectService: IProjectService
 
     @InjectMockKs
     var testClass: IApplicationSoftwareService = ApplicationSoftwareService()
@@ -34,6 +38,7 @@ class ApplicationSoftwareServiceTest : StringSpec() {
         }
 
         "Create a new application software, fails to save" {
+            every { projectService.get("my-project") } returns mockk()
             every { persistence.create(applicationSoftware = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {
