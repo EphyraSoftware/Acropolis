@@ -18,6 +18,9 @@ import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistenc
 import org.ephyra.acropolis.service.api.IReverseProxyService
 import org.ephyra.acropolis.service.impl.ReverseProxyService
 
+/**
+ * Tests for the reverse proxy service
+ */
 class ReverseProxyServiceTest : StringSpec() {
     lateinit var fixture: ReverseProxyServiceTestFixture
 
@@ -43,6 +46,9 @@ class ReverseProxyServiceTest : StringSpec() {
     }
 }
 
+/**
+ * Fixture to encapsulate state for the reverse proxy service tests
+ */
 class ReverseProxyServiceTestFixture {
     @MockK
     lateinit var persistence: ReverseProxyPersistence
