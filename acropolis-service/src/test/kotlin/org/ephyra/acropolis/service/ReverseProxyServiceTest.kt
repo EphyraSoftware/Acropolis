@@ -23,7 +23,7 @@ class ReverseProxyServiceTest : StringSpec() {
 
     override fun listeners(): List<TestListener> = listOf(FixtureListener {
         fixture = ReverseProxyServiceTestFixture()
-        MockKAnnotations.init(fixture)
+        MockKAnnotations.init(fixture, relaxUnitFun = true)
     })
 
     init {
@@ -44,7 +44,7 @@ class ReverseProxyServiceTest : StringSpec() {
 }
 
 class ReverseProxyServiceTestFixture {
-    @MockK(relaxUnitFun = true)
+    @MockK
     lateinit var persistence: ReverseProxyPersistence
 
     @MockK
