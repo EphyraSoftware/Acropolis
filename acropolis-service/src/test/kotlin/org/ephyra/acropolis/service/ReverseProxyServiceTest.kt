@@ -22,7 +22,7 @@ import org.ephyra.acropolis.service.impl.ReverseProxyService
  * Tests for the reverse proxy service
  */
 class ReverseProxyServiceTest : StringSpec() {
-    lateinit var fixture: ReverseProxyServiceTestFixture
+    private lateinit var fixture: ReverseProxyServiceTestFixture
 
     override fun listeners(): List<TestListener> = listOf(FixtureListener {
         fixture = ReverseProxyServiceTestFixture()
@@ -49,7 +49,7 @@ class ReverseProxyServiceTest : StringSpec() {
 /**
  * Fixture to encapsulate state for the reverse proxy service tests
  */
-class ReverseProxyServiceTestFixture {
+internal class ReverseProxyServiceTestFixture {
     @MockK
     lateinit var persistence: ReverseProxyPersistence
 
@@ -61,32 +61,32 @@ class ReverseProxyServiceTestFixture {
 
     private var specialization: SystemSoftwareSpecializationEntity? = null
 
-    fun givenBaseSoftwareDoesNotExist(baseSoftwareId: Long) {
+    internal fun givenBaseSoftwareDoesNotExist(baseSoftwareId: Long) {
         every { systemSoftwarePersistence.find(baseSoftwareId) } returns null
     }
 
-    fun whenReverseProxyCreatedThenExceptionThrown(baseSoftwareId: Long) {
+    internal fun whenReverseProxyCreatedThenExceptionThrown(baseSoftwareId: Long) {
         val exception = shouldThrow<IllegalStateException> {
             testClass.create(baseSoftwareId)
         }
         exception.message.shouldBe("Cannot specialize system software because no system software exists with id [$baseSoftwareId]")
     }
 
-    fun givenBaseSoftwareExists(baseSoftwareId: Long) {
+    internal fun givenBaseSoftwareExists(baseSoftwareId: Long) {
         val mockSystemSoftwareEntity: SystemSoftwareEntity = mockk()
         every { mockSystemSoftwareEntity.specialization = any() } propertyType SystemSoftwareSpecializationEntity::class answers { specialization = value }
         every { systemSoftwarePersistence.find(baseSoftwareId) } returns mockSystemSoftwareEntity
     }
 
-    fun whenReverseProxyCreated(baseSoftwareId: Long) {
+    internal fun whenReverseProxyCreated(baseSoftwareId: Long) {
         testClass.create(baseSoftwareId)
     }
 
-    fun thenReverseProxyCreated() {
+    internal fun thenReverseProxyCreated() {
         verify { persistence.create(entity = any() ) }
     }
 
-    fun thenSpecializationUpdated() {
+    internal fun thenSpecializationUpdated() {
         specialization.shouldNotBe(null)
         verify { systemSoftwarePersistence.updateSpecialization(systemSoftware = any()) }
     }
