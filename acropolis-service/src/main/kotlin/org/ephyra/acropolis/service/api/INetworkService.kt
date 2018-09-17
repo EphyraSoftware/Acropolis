@@ -8,8 +8,8 @@ import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
 interface INetworkService {
     /**
      * Creates a new entity, to be associated with the given project
-     * @param projectId the name of the project to find and associate this entity with
      * @param name the name of the entity to create
+     * @param projectName the name of the project to find and associate this entity with
      */
     fun create(name: String, projectName: String)
 
