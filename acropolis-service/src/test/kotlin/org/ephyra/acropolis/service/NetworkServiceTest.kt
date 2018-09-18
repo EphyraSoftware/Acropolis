@@ -85,6 +85,7 @@ class NetworkServiceTest : StringSpec() {
 /**
  * Fixture to encapsulate state for the network service tests
  */
+@Suppress("TooManyFunctions")
 internal class NetworkServiceTestFixture {
     @MockK
     private lateinit var persistence: NetworkPersistence
