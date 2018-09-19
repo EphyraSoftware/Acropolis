@@ -66,7 +66,6 @@ class NetworkService : INetworkService {
         val network = persistence.find(networkId, projectId)
                 ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
 
-        // TODO lookup with project id
         val datastore = datastoreService.get(datastoreName, projectId)
                 ?: throw IllegalStateException("Cannot link datastore to network because datastore with name [$datastoreName] was not found")
 

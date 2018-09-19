@@ -14,8 +14,8 @@ class ComputeInstancePersistence {
      * Create a new record for the entity in the database
      * @param entity The newly created instance of this entity to be persisted to the database
      */
-    fun create(ComputeInstance: ComputeInstanceEntity) {
-        repo.save(ComputeInstance)
+    fun create(computeInstance: ComputeInstanceEntity) {
+        repo.save(computeInstance)
     }
 
     /**

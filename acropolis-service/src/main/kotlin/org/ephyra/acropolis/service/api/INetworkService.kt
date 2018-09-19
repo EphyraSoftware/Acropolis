@@ -2,11 +2,14 @@ package org.ephyra.acropolis.service.api
 
 import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
 
+/**
+ * Service for working with network model data
+ */
 interface INetworkService {
     /**
      * Creates a new entity, to be associated with the given project
-     * @param projectId the name of the project to find and associate this entity with
      * @param name the name of the entity to create
+     * @param projectName the name of the project to find and associate this entity with
      */
     fun create(name: String, projectName: String)
 
@@ -18,9 +21,30 @@ interface INetworkService {
      */
     fun get(name: String, projectId: Long): NetworkEntity?
 
+    /**
+     * Include a datastore in the specified network.
+     *
+     * @param networkId The network id to link to
+     * @param datastoreName The name of the datastore to be linked
+     * @param projectId The parent project for the network and datastore
+     */
     fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long)
 
+    /**
+     * Include an application software in the specified network.
+     *
+     * @param networkId The network id to link to
+     * @param applicationSoftwareName The name of the application software to be linked
+     * @param projectId The parent project for the network and datastore
+     */
     fun linkApplicationSoftware(networkId: Long, applicationSoftwareName: String, projectId: Long)
 
+    /**
+     * Include a system software in the specified network.
+     *
+     * @param networkId The network id to link to
+     * @param systemSoftwareName The name of the system software to be linked
+     * @param projectId The parent project for the network and datastore
+     */
     fun linkSystemSoftware(networkId: Long, systemSoftwareName: String, projectId: Long)
 }

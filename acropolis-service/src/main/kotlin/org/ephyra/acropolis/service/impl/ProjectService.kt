@@ -3,11 +3,14 @@ package org.ephyra.acropolis.service.impl
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.ephyra.acropolis.persistence.api.persistence.ProjectPersistence
 import org.ephyra.acropolis.service.api.IProjectService
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
 class ProjectService : IProjectService {
+    private val Logger = LoggerFactory.getLogger(ProjectService::class.java)
+
     @Autowired
     private lateinit var persistence: ProjectPersistence
 
@@ -16,7 +19,8 @@ class ProjectService : IProjectService {
      * @param name the name of the entity to create
      */
     override fun create(name: String) {
-        println("Acropolis service is creating project with name $name")
+        Logger.trace("Acropolis service is creating project with name $name")
+
         val project = ProjectEntity()
         project.name = name
         persistence.create(project)
@@ -27,7 +31,8 @@ class ProjectService : IProjectService {
      * @param id the id of the record to find and delete
      */
     override fun delete(id: Long) {
-        println("Acropolis service is deleting project #$id")
+        Logger.trace("Acropolis service is deleting project #$id")
+
         persistence.delete(id)
     }
 
@@ -36,6 +41,8 @@ class ProjectService : IProjectService {
      * @return A list of all existing records
      */
     override fun list(): List<ProjectEntity> {
+        Logger.trace("Fetching list of projects")
+
         return persistence.getAll()
     }
 
@@ -45,6 +52,8 @@ class ProjectService : IProjectService {
      * @return an instance of the entity if found, or nil
      */
     override fun get(name: String): ProjectEntity? {
+        Logger.trace("Getting project by name [$name]")
+
         return persistence.findByName(name)
     }
 }

@@ -12,10 +12,10 @@ class DatastorePersistence {
 
     /**
      * Create a new record for the entity in the database
-     * @param entity The newly created instance of this entity to be persisted to the database
+     * @param datastore The newly created instance of this entity to be persisted to the database
      */
-    fun create(entity: DatastoreEntity) {
-        repo.save(entity)
+    fun create(datastore: DatastoreEntity) {
+        repo.save(datastore)
     }
 
     /**

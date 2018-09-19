@@ -12,10 +12,10 @@ class SystemSoftwarePersistence {
 
     /**
      * Create a new record for the entity in the database
-     * @param entity The newly created instance of this entity to be persisted to the database
+     * @param systemSoftware The newly created instance of this entity to be persisted to the database
      */
-    fun create(entity: SystemSoftwareEntity) {
-        repo.save(entity)
+    fun create(systemSoftware: SystemSoftwareEntity) {
+        repo.save(systemSoftware)
     }
 
     /**

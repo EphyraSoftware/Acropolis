@@ -12,5 +12,15 @@ jobs:
         name: Build
         command: ./gradlew build
     - run:
-        name: Test
-        command: ./gradlew test
+        name: Test coverage
+        command: ./gradlew jacocoTestReport
+    - run:
+        name: Create master coverage report
+        command: ./gradlew codeCoverageReport
+    - run:
+        name: Upload coverage report
+        command: >-
+          apk update
+          && apk add bash
+          && apk add curl
+          && bash -c "bash <(curl -s https://codecov.io/bash)"
