@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ReverseProxyService : IReverseProxyService {
-    @Autowired
-    private lateinit var persistence: ReverseProxyPersistence
+class ReverseProxyService @Autowired constructor(
+        private val persistence: ReverseProxyPersistence,
 
-    @Autowired
-    private lateinit var systemSoftwarePersistence: SystemSoftwarePersistence
-
+        private val systemSoftwarePersistence: SystemSoftwarePersistence
+) : IReverseProxyService {
     /**
      * Creates a new entity, to be associated with the given SystemSoftware ID
      * @param baseSoftwareId the ID of the base SystemSofware to associate this entity with

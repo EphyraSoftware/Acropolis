@@ -7,8 +7,6 @@ import io.kotlintest.shouldThrow
 import io.kotlintest.specs.StringSpec
 import io.mockk.MockKAnnotations
 import io.mockk.every
-import io.mockk.impl.annotations.InjectMockKs
-import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
 import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
@@ -26,7 +24,6 @@ class ReverseProxyServiceTest : StringSpec() {
 
     override fun listeners(): List<TestListener> = listOf(FixtureListener {
         fixture = ReverseProxyServiceTestFixture()
-        MockKAnnotations.init(fixture, relaxUnitFun = true)
     })
 
     init {
@@ -50,14 +47,11 @@ class ReverseProxyServiceTest : StringSpec() {
  * Fixture to encapsulate state for the reverse proxy service tests
  */
 internal class ReverseProxyServiceTestFixture {
-    @MockK
-    lateinit var persistence: ReverseProxyPersistence
+    private val persistence: ReverseProxyPersistence = mockk(relaxUnitFun = true)
 
-    @MockK
-    lateinit var systemSoftwarePersistence: SystemSoftwarePersistence
+    private val systemSoftwarePersistence: SystemSoftwarePersistence = mockk(relaxUnitFun = true)
 
-    @InjectMockKs
-    var testClass: IReverseProxyService = ReverseProxyService()
+    private var testClass: IReverseProxyService = ReverseProxyService(persistence, systemSoftwarePersistence)
 
     private var specialization: SystemSoftwareSpecializationEntity? = null
 
