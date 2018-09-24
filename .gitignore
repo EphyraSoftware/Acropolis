@@ -19,3 +19,4 @@ out
 # Output files
 spring-shell.log
 .idea/*
+*.log
