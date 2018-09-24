@@ -5,6 +5,9 @@ import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.StringSpec
 import org.ephyra.acropolis.external.model.Project
 
+/**
+ * Tests for @see org.ephyra.acropolis.external.YamlHelper
+ */
 class YamlHelperTest : StringSpec() {
     private val testClass = YamlHelper()
 

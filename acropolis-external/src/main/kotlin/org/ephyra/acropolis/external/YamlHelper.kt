@@ -6,9 +6,15 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.ephyra.acropolis.external.model.Project
 import org.slf4j.LoggerFactory
 
+/**
+ * Helper for working with YAML as an external format for the Acropolis external data model.
+ */
 class YamlHelper {
     private val logger = LoggerFactory.getLogger(YamlHelper::class.java)
 
+    /**
+     * Deserialize the input string to a project model.
+     */
     fun loadFromString(yamlData: String): Project? {
         val mapper = ObjectMapper(YAMLFactory())
         mapper.registerModule(KotlinModule())
