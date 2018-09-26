@@ -5,5 +5,6 @@ package org.ephyra.acropolis.external.model
  */
 data class ApplicationSoftware (
         var name: String,
-        var description: String
+        var description: String,
+        var talks_to: List<String>?
 )
