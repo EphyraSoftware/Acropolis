@@ -7,5 +7,13 @@ interface IImportService {
     /**
      * Import a project from a YAML serialised model
      */
-    fun importProject(yamlData: String)
+    fun importProject(data: String, importType: ImportType)
+}
+
+/**
+ * Enumeration for the format used with the external model
+ */
+enum class ImportType {
+    YAML,
+    JSON
 }

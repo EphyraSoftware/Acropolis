@@ -4,13 +4,14 @@ import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
 import org.ephyra.acropolis.persistence.api.persistence.ApplicationSoftwarePersistence
 import org.ephyra.acropolis.service.api.IApplicationSoftwareService
 import org.ephyra.acropolis.service.api.IProjectService
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
 class ApplicationSoftwareService : IApplicationSoftwareService {
-    val Logger = LoggerFactory.getLogger(ApplicationSoftwareService::class.java)
+    val logger: Logger = LoggerFactory.getLogger(ApplicationSoftwareService::class.java)
 
     @Autowired
     private lateinit var persistence: ApplicationSoftwarePersistence
@@ -27,7 +28,7 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
         val project = projectService.get(projectName)
 
         if (project == null) {
-            Logger.error("Could not find project with name [$projectName]")
+            logger.error("Could not find project with name [$projectName]")
             throw IllegalStateException("Project not found [$projectName]")
         }
 
