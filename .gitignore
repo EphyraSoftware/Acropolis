@@ -20,3 +20,4 @@ out
 spring-shell.log
 .idea/*
 *.log
+*.yml

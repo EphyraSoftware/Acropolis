@@ -21,15 +21,15 @@ import javax.transaction.Transactional
  */
 @Service
 class ImportService @Autowired constructor(
-        val projectService: IProjectService,
+        private val projectService: IProjectService,
 
-        val applicationSoftwareService: IApplicationSoftwareService,
+        private val applicationSoftwareService: IApplicationSoftwareService,
 
-        val systemSoftwareService: ISystemSoftwareService,
+        private val systemSoftwareService: ISystemSoftwareService,
 
-        val connectionService: IConnectionService
+        private val connectionService: IConnectionService
 ) : IImportService {
-    val logger: Logger = LoggerFactory.getLogger(ImportService::class.java)
+    private val logger: Logger = LoggerFactory.getLogger(ImportService::class.java)
 
     @Transactional
     override fun importProject(data: String, importType: ImportType) {
