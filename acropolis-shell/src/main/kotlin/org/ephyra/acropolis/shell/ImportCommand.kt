@@ -7,11 +7,17 @@ import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import java.io.File
 
+/**
+ * Shell command for running imports
+ */
 @ShellComponent
 class ImportCommand {
     @Autowired
     lateinit var importService: ImportService
 
+    /**
+     * The import method for the import command
+     */
     @ShellMethod("Command for running imports")
     fun import(filePath: String) {
         val file = File(filePath)

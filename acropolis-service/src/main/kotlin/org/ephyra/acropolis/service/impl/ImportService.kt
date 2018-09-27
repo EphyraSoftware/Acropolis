@@ -8,6 +8,7 @@ import org.ephyra.acropolis.external.model.Project
 import org.ephyra.acropolis.external.model.SoftwareContainer
 import org.ephyra.acropolis.external.model.SystemSoftware
 import org.ephyra.acropolis.persistence.api.ConnectionType
+import org.ephyra.acropolis.persistence.api.IConnectable
 import org.ephyra.acropolis.service.api.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -82,6 +83,10 @@ class ImportService @Autowired constructor(
         }
     }
 
+    private val missingApplicationForTalksToMessage = "Application must exist to import talks_to connection"
+
+    private val missingSystemForTalksToMessage = "System must exist to import talks_to connection"
+
     private fun importTalksToConnections(projectName: String, software: SoftwareContainer?) {
         if (software == null) {
             logger.info("Not importing talks_to links because there is no software to be imported")
@@ -98,74 +103,51 @@ class ImportService @Autowired constructor(
             val fromApplication = applicationSoftwareService.find(app.name, project.id)
             if (fromApplication == null) {
                 logger.error("Attempting to import talks to connections for application [${app.name}] but the application was not found")
-                throw IllegalStateException("Application must exist to import talks_to connection")
+                throw IllegalStateException(missingApplicationForTalksToMessage)
             }
 
-            app.talks_to?.forEach { talksToRef ->
-                val (refType, name) = extractRef(talksToRef)
-
-                val toElement = when (refType) {
-                    RefType.APPLICATION -> {
-                        val toApplication = applicationSoftwareService.find(name, project.id)
-
-                        if (toApplication == null) {
-                            logger.error("Attempting to import talks to connection for application [$name] but the application was not found")
-                            throw IllegalStateException("Application must exist to import talks_to connection")
-                        }
-
-                        toApplication
-                    }
-                    RefType.SYSTEM -> {
-                        val toSystem = systemSoftwareService.get(name, project.id)
-
-                        if (toSystem == null) {
-                            logger.error("Attempting to import talks to connection for system [$name] but the system was not found")
-                            throw IllegalStateException("System must exist to import talks_to connection")
-                        }
-
-                        toSystem
-                    }
-                }
-
-                connectionService.create(fromApplication, toElement, ConnectionType.TALKS_TO)
-            }
+            configureConnectionsFrom(app.talks_to, project.id, fromApplication)
         }
 
         software.systems.forEach { system ->
             val fromSystem = systemSoftwareService.get(system.name, project.id)
             if (fromSystem == null) {
                 logger.error("Attempting to import talks to connections for system [${system.name}] but the system was not found")
-                throw IllegalStateException("System must exist to import talks_to connection")
+                throw IllegalStateException(missingSystemForTalksToMessage)
             }
 
-            system.talks_to?.forEach { talksToRef ->
-                val (refType, name) = extractRef(talksToRef)
+            configureConnectionsFrom(system.talks_to, project.id, fromSystem)
+        }
+    }
 
-                val toElement = when (refType) {
-                    RefType.APPLICATION -> {
-                        val toApplication = applicationSoftwareService.find(name, project.id)
+    private fun configureConnectionsFrom(talks_to: List<String>?, projectId: Long, fromApplication: IConnectable) {
+        talks_to?.forEach { talksToRef ->
+            val (refType, name) = extractRef(talksToRef)
 
-                        if (toApplication == null) {
-                            logger.error("Attempting to import talks to connection for application [$name] but the application was not found")
-                            throw IllegalStateException("Application must exist to import talks_to connection")
-                        }
+            val toElement = when (refType) {
+                RefType.APPLICATION -> {
+                    val toApplication = applicationSoftwareService.find(name, projectId)
 
-                        toApplication
+                    if (toApplication == null) {
+                        logger.error("Attempting to import talks to connection for application [$name] but the application was not found")
+                        throw IllegalStateException(missingApplicationForTalksToMessage)
                     }
-                    RefType.SYSTEM -> {
-                        val toSystem = systemSoftwareService.get(name, project.id)
 
-                        if (toSystem == null) {
-                            logger.error("Attempting to import talks to connection for system [$name] but the system was not found")
-                            throw IllegalStateException("System must exist to import talks_to connection")
-                        }
-
-                        toSystem
-                    }
+                    toApplication
                 }
+                RefType.SYSTEM -> {
+                    val toSystem = systemSoftwareService.get(name, projectId)
 
-                connectionService.create(fromSystem, toElement, ConnectionType.TALKS_TO)
+                    if (toSystem == null) {
+                        logger.error("Attempting to import talks to connection for system [$name] but the system was not found")
+                        throw IllegalStateException(missingSystemForTalksToMessage)
+                    }
+
+                    toSystem
+                }
             }
+
+            connectionService.create(fromApplication, toElement, ConnectionType.TALKS_TO)
         }
     }
 }
