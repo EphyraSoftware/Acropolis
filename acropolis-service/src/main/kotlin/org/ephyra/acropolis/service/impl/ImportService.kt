@@ -1,8 +1,6 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.external.RefType
-import org.ephyra.acropolis.external.YamlHelper
-import org.ephyra.acropolis.external.extractRef
+import org.ephyra.acropolis.external.*
 import org.ephyra.acropolis.external.model.ApplicationSoftware
 import org.ephyra.acropolis.external.model.Project
 import org.ephyra.acropolis.external.model.SoftwareContainer
@@ -14,7 +12,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.lang.IllegalStateException
 import javax.transaction.Transactional
 
 /**
@@ -28,9 +25,19 @@ class ImportService @Autowired constructor(
 
         private val systemSoftwareService: ISystemSoftwareService,
 
-        private val connectionService: IConnectionService
+        private val connectionService: IConnectionService,
+
+        private val reverseProxyService: IReverseProxyService,
+
+        private val loadBalancerService: ILoadBalancerService,
+
+        private val queueService: IQueueService
 ) : IImportService {
     private val logger: Logger = LoggerFactory.getLogger(ImportService::class.java)
+
+    private val missingApplicationForTalksToMessage = "Application must exist to import talks_to connection"
+
+    private val missingSystemForTalksToMessage = "System must exist to import talks_to connection"
 
     @Transactional
     override fun importProject(data: String, importType: ImportType) {
@@ -56,12 +63,19 @@ class ImportService @Autowired constructor(
     private fun importProjectFromExternalModel(project: Project) {
         projectService.create(project.name)
 
+        val newProject = projectService.get(project.name)
+        if (newProject == null) {
+            val msg = "Failed to create project [${project.name}]";
+            logger.error(msg)
+            throw IllegalStateException(msg)
+        }
+
         importApplications(project.name, project.software?.applications)
-        importSystems(project.name, project.software?.systems)
-        importTalksToConnections(project.name, project.software)
+        importSystems(project.name, newProject.id, project.software?.systems)
+        importTalksToConnections(newProject.id, project.software)
     }
 
-    private fun importSystems(projectName: String, systems: List<SystemSoftware>?) {
+    private fun importSystems(projectName: String, projectId: Long, systems: List<SystemSoftware>?) {
         if (systems == null) {
             logger.info("No systems to import")
             return
@@ -69,6 +83,27 @@ class ImportService @Autowired constructor(
 
         systems.forEach { sys ->
             systemSoftwareService.create(sys.name, projectName)
+
+            val specialization = sys.specialization
+            if (specialization != null) {
+                val systemId = systemSoftwareService.get(sys.name, projectId)?.id
+
+                if (systemId == null) {
+                    val msg = "Failed to create system [${sys.name}]"
+                    logger.error(msg)
+                    throw IllegalStateException(msg)
+                }
+
+                when (extractSystemSpecialization(specialization)) {
+                    SystemSoftwareSpecialization.ReverseProxy -> reverseProxyService.create(systemId)
+                    SystemSoftwareSpecialization.LoadBalancer -> loadBalancerService.create(systemId)
+                    SystemSoftwareSpecialization.Queue -> queueService.create(systemId)
+                    else -> {
+                        logger.warn("The specialization [$specialization] will be ignored")
+                    }
+                }
+
+            }
         }
     }
 
@@ -83,40 +118,30 @@ class ImportService @Autowired constructor(
         }
     }
 
-    private val missingApplicationForTalksToMessage = "Application must exist to import talks_to connection"
-
-    private val missingSystemForTalksToMessage = "System must exist to import talks_to connection"
-
-    private fun importTalksToConnections(projectName: String, software: SoftwareContainer?) {
+    private fun importTalksToConnections(projectId: Long, software: SoftwareContainer?) {
         if (software == null) {
             logger.info("Not importing talks_to links because there is no software to be imported")
             return
         }
 
-        val project = projectService.get(projectName)
-        if (project == null) {
-            logger.error("Attempting to import talks_to connections for project [$projectName] but the project was not found")
-            throw IllegalStateException("Project must exist to import talks_to connection")
-        }
-
         software.applications.forEach { app ->
-            val fromApplication = applicationSoftwareService.find(app.name, project.id)
+            val fromApplication = applicationSoftwareService.find(app.name, projectId)
             if (fromApplication == null) {
                 logger.error("Attempting to import talks to connections for application [${app.name}] but the application was not found")
                 throw IllegalStateException(missingApplicationForTalksToMessage)
             }
 
-            configureConnectionsFrom(app.talks_to, project.id, fromApplication)
+            configureConnectionsFrom(app.talks_to, projectId, fromApplication)
         }
 
         software.systems.forEach { system ->
-            val fromSystem = systemSoftwareService.get(system.name, project.id)
+            val fromSystem = systemSoftwareService.get(system.name, projectId)
             if (fromSystem == null) {
                 logger.error("Attempting to import talks to connections for system [${system.name}] but the system was not found")
                 throw IllegalStateException(missingSystemForTalksToMessage)
             }
 
-            configureConnectionsFrom(system.talks_to, project.id, fromSystem)
+            configureConnectionsFrom(system.talks_to, projectId, fromSystem)
         }
     }
 

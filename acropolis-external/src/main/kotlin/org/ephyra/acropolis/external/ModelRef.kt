@@ -26,3 +26,28 @@ fun extractRef(ref: String): Pair<RefType, String> {
 
     return Pair(refType, refParts[1])
 }
+
+/**
+ * Types of supported system software specializations
+ */
+enum class SystemSoftwareSpecialization {
+    ReverseProxy,
+    LoadBalancer,
+    Queue,
+    UnknownSpecialization
+}
+
+/**
+ * Extracts the enumerated type from the input name.
+ * Unrecognised names are mapped to the UnknownSpecialization enumeration value.
+ *
+ * Note that the match against the name is NOT case-sensitive.
+ */
+fun extractSystemSpecialization(name: String): SystemSoftwareSpecialization {
+    return when (name.toUpperCase()) {
+        "REVERSEPROXY" -> SystemSoftwareSpecialization.ReverseProxy
+        "LOADBALANCER" -> SystemSoftwareSpecialization.LoadBalancer
+        "QUEUE" -> SystemSoftwareSpecialization.Queue
+        else -> SystemSoftwareSpecialization.UnknownSpecialization
+    }
+}
