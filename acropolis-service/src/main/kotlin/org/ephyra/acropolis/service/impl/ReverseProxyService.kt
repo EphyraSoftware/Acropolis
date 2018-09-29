@@ -25,6 +25,6 @@ class ReverseProxyService @Autowired constructor(
         persistence.create(reverseProxy)
 
         systemSoftwareEntity.specialization = reverseProxy
-        systemSoftwarePersistence.updateSpecialization(systemSoftwareEntity)
+        systemSoftwarePersistence.update(systemSoftwareEntity)
     }
 }

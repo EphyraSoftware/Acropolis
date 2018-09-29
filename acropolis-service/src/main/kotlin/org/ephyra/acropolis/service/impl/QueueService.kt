@@ -27,6 +27,6 @@ class QueueService : IQueueService {
         persistence.create(queue)
 
         systemSoftwareEntity.specialization = queue
-        systemSoftwarePersistence.updateSpecialization(systemSoftwareEntity)
+        systemSoftwarePersistence.update(systemSoftwareEntity)
     }
 }

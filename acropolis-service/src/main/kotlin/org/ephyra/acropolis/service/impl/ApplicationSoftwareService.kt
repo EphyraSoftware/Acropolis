@@ -45,4 +45,8 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
     override fun find(name: String, projectId: Long): ApplicationSoftwareEntity? {
         return persistence.findByName(name, projectId)
     }
+
+    override fun update(applicationSoftware: ApplicationSoftwareEntity) {
+        persistence.update(applicationSoftware)
+    }
 }

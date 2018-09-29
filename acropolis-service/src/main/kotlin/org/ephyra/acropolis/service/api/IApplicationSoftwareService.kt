@@ -18,4 +18,12 @@ interface IApplicationSoftwareService {
      * @return an instance of the entity if found, or nil
      */
     fun find(name: String, projectId: Long): ApplicationSoftwareEntity?
+
+    /**
+     * Update an application software instance by saving the changes which have been made
+     * to the managed entity
+     *
+     * @param applicationSoftware The application to update
+     */
+    fun update(applicationSoftware: ApplicationSoftwareEntity)
 }

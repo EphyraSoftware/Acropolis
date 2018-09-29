@@ -5,7 +5,6 @@ import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.StringSpec
-import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -82,7 +81,7 @@ internal class ReverseProxyServiceTestFixture {
 
     internal fun thenSpecializationUpdated() {
         specialization.shouldNotBe(null)
-        verify { systemSoftwarePersistence.updateSpecialization(systemSoftware = any()) }
+        verify { systemSoftwarePersistence.update(systemSoftware = any()) }
     }
 }
 

@@ -44,4 +44,8 @@ class SystemSoftwareService : ISystemSoftwareService {
     override fun get(name: String, projectId: Long): SystemSoftwareEntity? {
         return persistence.findByName(name, projectId)
     }
+
+    override fun update(systemSoftware: SystemSoftwareEntity) {
+        return persistence.update(systemSoftware)
+    }
 }

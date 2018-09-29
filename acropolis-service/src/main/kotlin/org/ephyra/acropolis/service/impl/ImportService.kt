@@ -70,7 +70,7 @@ class ImportService @Autowired constructor(
             throw IllegalStateException(msg)
         }
 
-        importApplications(project.name, project.software?.applications)
+        importApplications(project.name, newProject.id, project.software?.applications)
         importSystems(project.name, newProject.id, project.software?.systems)
         importTalksToConnections(newProject.id, project.software)
     }
@@ -86,13 +86,18 @@ class ImportService @Autowired constructor(
 
             val specialization = sys.specialization
             if (specialization != null) {
-                val systemId = systemSoftwareService.get(sys.name, projectId)?.id
+                val newSystem = systemSoftwareService.get(sys.name, projectId)
+                val systemId = newSystem?.id
 
                 if (systemId == null) {
                     val msg = "Failed to create system [${sys.name}]"
                     logger.error(msg)
                     throw IllegalStateException(msg)
                 }
+
+                newSystem.description = sys.description
+
+                systemSoftwareService.update(newSystem)
 
                 when (extractSystemSpecialization(specialization)) {
                     SystemSoftwareSpecialization.ReverseProxy -> reverseProxyService.create(systemId)
@@ -107,7 +112,7 @@ class ImportService @Autowired constructor(
         }
     }
 
-    private fun importApplications(projectName: String, applications: List<ApplicationSoftware>?) {
+    private fun importApplications(projectName: String, projectId: Long, applications: List<ApplicationSoftware>?) {
         if (applications == null) {
             logger.info("No applications to import")
             return
@@ -115,6 +120,13 @@ class ImportService @Autowired constructor(
 
         applications.forEach { app ->
             applicationSoftwareService.create(app.name, projectName)
+
+            val newApplication = applicationSoftwareService.find(app.name, projectId)
+            if (newApplication != null) {
+                newApplication.description = app.description
+
+                applicationSoftwareService.update(newApplication)
+            }
         }
     }
 

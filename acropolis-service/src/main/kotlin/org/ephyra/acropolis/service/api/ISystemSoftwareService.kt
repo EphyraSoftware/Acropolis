@@ -17,4 +17,12 @@ interface ISystemSoftwareService {
      * @return an instance of the entity if found, or nil
      */
     fun get(name: String, projectId: Long): SystemSoftwareEntity?
+
+    /**
+     * Update an application software instance by saving the changes which have been made
+     * to the managed entity
+     *
+     * @param systemSoftware The system to update
+     */
+    fun update(systemSoftware: SystemSoftwareEntity)
 }

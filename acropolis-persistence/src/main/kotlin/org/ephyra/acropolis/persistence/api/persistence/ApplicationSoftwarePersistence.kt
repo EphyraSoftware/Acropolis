@@ -38,4 +38,13 @@ class ApplicationSoftwarePersistence {
         val entity = repo.findByNameAndProjectId(name, projectId)
         return if (entity.isPresent) entity.get() else null
     }
+
+    /**
+     * Persist changes to a managed application software entity
+     *
+     * @param applicationSoftware The application to persist
+     */
+    fun update(applicationSoftware: ApplicationSoftwareEntity) {
+        repo.save(applicationSoftware)
+    }
 }

@@ -27,7 +27,7 @@ class LoadBalancerService : ILoadBalancerService {
         persistence.create(loadBalancer)
 
         systemSoftwareEntity.specialization = loadBalancer
-        systemSoftwarePersistence.updateSpecialization(systemSoftwareEntity)
+        systemSoftwarePersistence.update(systemSoftwareEntity)
     }
 
 }

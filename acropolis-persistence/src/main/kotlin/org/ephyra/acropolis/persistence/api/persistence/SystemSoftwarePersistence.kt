@@ -39,7 +39,7 @@ class SystemSoftwarePersistence {
         return if (entity.isPresent) entity.get() else null
     }
 
-    fun updateSpecialization(systemSoftware: SystemSoftwareEntity) {
+    fun update(systemSoftware: SystemSoftwareEntity) {
         repo.save(systemSoftware)
     }
 }
