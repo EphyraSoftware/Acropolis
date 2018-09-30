@@ -7,6 +7,9 @@ import org.ephyra.acropolis.service.api.IDatastoreService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+/**
+ * Service for interactions and mutations around DatastoreEntity
+ * */
 @Service
 class DatastoreService @Autowired constructor(
         private val persistence: DatastorePersistence,

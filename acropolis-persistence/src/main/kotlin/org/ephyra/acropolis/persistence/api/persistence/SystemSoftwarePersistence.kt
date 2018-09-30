@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.SystemSoftwareRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around SystemSoftwareRepository operations
+ * */
 @Component
 class SystemSoftwarePersistence {
     @Autowired

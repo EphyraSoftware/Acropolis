@@ -3,6 +3,9 @@ package org.ephyra.acropolis.service.api
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
 
+/**
+ * Service interface for interactions and mutations around Connections
+ * */
 interface IConnectionService {
     /**
      * Creates a new connection between two entities

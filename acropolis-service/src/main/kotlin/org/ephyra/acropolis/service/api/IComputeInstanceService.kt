@@ -2,6 +2,9 @@ package org.ephyra.acropolis.service.api
 
 import org.ephyra.acropolis.persistence.api.entity.ComputeInstanceEntity
 
+/**
+ * Service interface for interactions and mutations around ComputeInstanceEntity
+ * */
 interface IComputeInstanceService {
     /**
      * Creates a new entity, to be associated with the given project

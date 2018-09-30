@@ -2,6 +2,9 @@ package org.ephyra.acropolis.service.api
 
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 
+/**
+ * Service interface for interactions and mutations around ProjectEntity
+ * */
 interface IProjectService {
 
     /**

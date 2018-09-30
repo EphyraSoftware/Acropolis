@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.GroupingRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around GroupingRepository operations
+ * */
 @Component
 class GroupingPersistence {
     @Autowired

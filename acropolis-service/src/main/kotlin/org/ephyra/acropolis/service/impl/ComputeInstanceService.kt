@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
-
+/**
+ * Service for interactions and mutations around ComputeInstanceEntity
+ * */
 @Service
 class ComputeInstanceService : IComputeInstanceService {
     val Logger = LoggerFactory.getLogger(ComputeInstanceService::class.java)

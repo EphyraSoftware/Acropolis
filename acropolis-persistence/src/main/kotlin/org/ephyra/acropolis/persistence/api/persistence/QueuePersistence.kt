@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.QueueRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around QueueRepository operations
+ * */
 @Component
 class QueuePersistence {
     @Autowired

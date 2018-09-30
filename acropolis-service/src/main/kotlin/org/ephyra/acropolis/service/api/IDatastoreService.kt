@@ -1,5 +1,8 @@
 package org.ephyra.acropolis.service.api
 
+/**
+ * Service interface for interactions and mutations around DatastoreEntity
+ * */
 interface IDatastoreService {
     /**
      * Creates a new entity, to be associated with the given project

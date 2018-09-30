@@ -2,6 +2,9 @@ package org.ephyra.acropolis.service.api
 
 import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
 
+/**
+ * Service interface for interactions and mutations around ApplicationSoftwareEntity
+ * */
 interface IApplicationSoftwareService {
 
     /**

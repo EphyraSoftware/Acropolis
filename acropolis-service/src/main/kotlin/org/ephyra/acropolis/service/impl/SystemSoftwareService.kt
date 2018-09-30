@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Service for interactions and mutations around SystemSoftwareEntity
+ * */
 @Component
 class SystemSoftwareService : ISystemSoftwareService {
     val Logger = LoggerFactory.getLogger(SystemSoftwareService::class.java)

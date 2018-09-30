@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.ComputeInstanceRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around ComputeInstanceRepository operations
+ * */
 @Component
 class ComputeInstancePersistence {
     @Autowired

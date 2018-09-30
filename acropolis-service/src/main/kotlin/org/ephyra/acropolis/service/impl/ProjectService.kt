@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Service for interactions and mutations around ProjectEntity
+ * */
 @Component
 class ProjectService : IProjectService {
     private val Logger = LoggerFactory.getLogger(ProjectService::class.java)

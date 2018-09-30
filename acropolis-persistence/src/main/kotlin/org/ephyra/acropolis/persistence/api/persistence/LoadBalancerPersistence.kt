@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.LoadBalancerRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around LoadBalancerRepository operations
+ * */
 @Component
 class LoadBalancerPersistence {
     @Autowired

@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.ProjectRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around ProjectRepository operations
+ * */
 @Component
 class ProjectPersistence {
     @Autowired
