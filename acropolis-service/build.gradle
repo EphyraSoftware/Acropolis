@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = "1.2.61"
+        kotlinVersion = "1.2.71"
         springBootVersion = "2.0.4.RELEASE"
     }
     repositories {
@@ -23,6 +23,35 @@ compileKotlin {
         jvmTarget = "1.8"
     }
 }
+
+configurations {
+    intTestImplementation.extendsFrom implementation
+    intTestRuntimeOnly.extendsFrom runtimeOnly
+
+    intTestImplementation.extendsFrom testImplementation
+}
+
+sourceSets {
+    intTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+
+//        java.srcDir file('src/integration-test/java')
+    }
+}
+
+task('integrationTest', type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.intTest.output.classesDirs
+    classpath = sourceSets.intTest.runtimeClasspath
+    shouldRunAfter test
+}
+
+//check.dependsOn integrationTest
+
+//integrationTest.onlyIf { project.hasProperty('runIntegrationTests') }
 
 jacocoTestReport {
     reports {
