@@ -4,7 +4,10 @@ import org.ephyra.acropolis.persistence.api.entity.GroupingEntity
 import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
 import org.ephyra.acropolis.persistence.api.persistence.GroupingPersistence
 import org.ephyra.acropolis.persistence.api.persistence.NetworkPersistence
-import org.ephyra.acropolis.service.api.*
+import org.ephyra.acropolis.service.api.IApplicationSoftwareService
+import org.ephyra.acropolis.service.api.INetworkService
+import org.ephyra.acropolis.service.api.IProjectService
+import org.ephyra.acropolis.service.api.ISystemSoftwareService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -22,9 +25,6 @@ class NetworkService : INetworkService {
 
     @Autowired
     private lateinit var projectService: IProjectService
-
-    @Autowired
-    private lateinit var datastoreService: IDatastoreService
 
     @Autowired
     private lateinit var applicationSoftwareService: IApplicationSoftwareService
@@ -57,30 +57,6 @@ class NetworkService : INetworkService {
      */
     override fun get(name: String, projectId: Long): NetworkEntity? {
         return persistence.findByName(name, projectId)
-    }
-
-    @Transactional
-    override fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long) {
-        Logger.info("Linking datastore [$datastoreName]")
-
-        val network = persistence.find(networkId, projectId)
-                ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
-
-        val datastore = datastoreService.get(datastoreName, projectId)
-                ?: throw IllegalStateException("Cannot link datastore to network because datastore with name [$datastoreName] was not found")
-
-        val grouping = network.groupingEntity
-        if (grouping == null) {
-            Logger.trace("There is no grouping, creating one")
-            val newGrouping = GroupingEntity(mutableListOf(datastore))
-            groupingPersistence.create(newGrouping)
-            network.groupingEntity = newGrouping
-            persistence.updateGrouping(network)
-        } else {
-            Logger.trace("Updating grouping to include datastore")
-            grouping.datastoreList.add(datastore)
-            groupingPersistence.update(grouping)
-        }
     }
 
     @Transactional

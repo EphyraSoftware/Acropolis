@@ -1,16 +1,17 @@
 package org.ephyra.acropolis.service
 
-import io.kotlintest.*
 import io.kotlintest.extensions.TestListener
 import io.kotlintest.matchers.string.shouldStartWith
+import io.kotlintest.shouldBe
+import io.kotlintest.shouldNotBe
+import io.kotlintest.shouldThrow
+import io.kotlintest.shouldThrowAny
 import io.kotlintest.specs.StringSpec
-import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
-import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
 import org.ephyra.acropolis.persistence.api.persistence.ApplicationSoftwarePersistence
 import org.ephyra.acropolis.service.api.IApplicationSoftwareService
 import org.ephyra.acropolis.service.api.IProjectService

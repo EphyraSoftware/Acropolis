@@ -76,7 +76,7 @@ internal class ReverseProxyServiceTestFixture {
     }
 
     internal fun thenReverseProxyCreated() {
-        verify { persistence.create(entity = any() ) }
+        verify { persistence.create(entity = any()) }
     }
 
     internal fun thenSpecializationUpdated() {

@@ -20,9 +20,6 @@ class CreateCommand {
     private lateinit var systemSoftwareService: ISystemSoftwareService
 
     @Autowired
-    private lateinit var datastoreService: IDatastoreService
-
-    @Autowired
     private lateinit var computeInstanceService: IComputeInstanceService
 
     @Autowired
@@ -35,7 +32,6 @@ class CreateCommand {
             "application-software" -> createApplicationSoftware(name)
             "system-software" -> createSystemSoftware(name)
             "compute-instance" -> createComputeInstance(name)
-            "datastore" -> createDatastore(name)
             "network" -> createNetwork(name)
             else -> println("Don't know how to create an item with type [$itemType]")
         }
@@ -54,15 +50,6 @@ class CreateCommand {
         val project = appState.currentProject
         if (project != null) {
             applicationSoftwareService.create(project.name, name)
-        } else {
-            println("No project selected")
-        }
-    }
-
-    private fun createDatastore(name: String) {
-        val project = appState.currentProject
-        if (project != null) {
-            datastoreService.create(project.name, name)
         } else {
             println("No project selected")
         }

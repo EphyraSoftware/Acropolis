@@ -22,15 +22,6 @@ interface INetworkService {
     fun get(name: String, projectId: Long): NetworkEntity?
 
     /**
-     * Include a datastore in the specified network.
-     *
-     * @param networkId The network id to link to
-     * @param datastoreName The name of the datastore to be linked
-     * @param projectId The parent project for the network and datastore
-     */
-    fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long)
-
-    /**
      * Include an application software in the specified network.
      *
      * @param networkId The network id to link to
