@@ -24,20 +24,18 @@ compileKotlin {
     }
 }
 
+sourceSets {
+    intTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
 configurations {
     intTestImplementation.extendsFrom implementation
     intTestRuntimeOnly.extendsFrom runtimeOnly
 
     intTestImplementation.extendsFrom testImplementation
-}
-
-sourceSets {
-    intTest {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
-
-//        java.srcDir file('src/integration-test/java')
-    }
 }
 
 task('integrationTest', type: Test) {
@@ -47,9 +45,11 @@ task('integrationTest', type: Test) {
     testClassesDirs = sourceSets.intTest.output.classesDirs
     classpath = sourceSets.intTest.runtimeClasspath
     shouldRunAfter test
+
+    useJUnitPlatform()
 }
 
-//check.dependsOn integrationTest
+check.dependsOn integrationTest
 
 //integrationTest.onlyIf { project.hasProperty('runIntegrationTests') }
 
