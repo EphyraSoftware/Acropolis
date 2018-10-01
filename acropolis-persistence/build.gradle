@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        kotlinVersion = "1.2.61"
-        springBootVersion = "2.0.4.RELEASE"
+        kotlinVersion = "1.2.71"
+        springBootVersion = "2.0.5.RELEASE"
     }
     repositories {
         jcenter()
@@ -30,7 +30,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     // Spring boot for use with JPA
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.5.RELEASE'
 
     // MySql connector for use with spring JPA
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
