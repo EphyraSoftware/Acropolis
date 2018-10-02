@@ -4,6 +4,9 @@ import org.ephyra.acropolis.persistence.api.entity.GroupingEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
+/**
+ * Spring Repository for persisting GroupingEntity
+ * */
 interface GroupingRepository : CrudRepository<GroupingEntity, Long> {
     /**
      * @param name The name of the entity to find

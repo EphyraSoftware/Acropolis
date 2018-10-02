@@ -4,6 +4,9 @@ import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
+/**
+ * Spring Repository for persisting ProjectEntity
+ * */
 internal interface ProjectRepository : CrudRepository<ProjectEntity, Long> {
     /**
      * @param name The name of the entity to find

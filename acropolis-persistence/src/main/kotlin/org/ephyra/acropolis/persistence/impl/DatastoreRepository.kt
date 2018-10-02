@@ -4,6 +4,9 @@ import org.ephyra.acropolis.persistence.api.entity.DatastoreEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
+/**
+ * Spring Repository for persisting DatastoreEntity
+ * */
 internal interface DatastoreRepository : CrudRepository<DatastoreEntity, Long> {
     /**
      * @param name The name of the entity to find

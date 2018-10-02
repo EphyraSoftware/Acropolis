@@ -3,6 +3,9 @@ package org.ephyra.acropolis.persistence.impl
 import org.ephyra.acropolis.persistence.api.entity.ConnectionEntity
 import org.springframework.data.repository.CrudRepository
 
+/**
+ * Spring Repository for persisting ConnectionEntity
+ * */
 internal interface ConnectionRepository : CrudRepository<ConnectionEntity, Long> {
     /**
      * @param fromId The ID of the entity to find connections from
