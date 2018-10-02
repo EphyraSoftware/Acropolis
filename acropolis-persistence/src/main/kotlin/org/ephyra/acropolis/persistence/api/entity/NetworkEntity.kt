@@ -18,7 +18,10 @@ class NetworkEntity @JvmOverloads constructor(
         val project: ProjectEntity,
 
         @Column(nullable = true)
-        var description: String? = null
+        var description: String? = null,
+
+        @OneToMany
+        var computeInstanceList: MutableList<ComputeInstanceEntity> = ArrayList()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

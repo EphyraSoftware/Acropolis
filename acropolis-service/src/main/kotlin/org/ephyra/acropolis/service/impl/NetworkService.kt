@@ -22,9 +22,6 @@ class NetworkService : INetworkService {
     private lateinit var persistence: NetworkPersistence
 
     @Autowired
-    private lateinit var computeInstancePersistence: ComputeInstancePersistence
-
-    @Autowired
     private lateinit var projectService: IProjectService
 
     @Autowired
@@ -67,12 +64,8 @@ class NetworkService : INetworkService {
         val computeInstance = computeInstanceService.find(computeInstanceName, projectId)
                 ?: throw IllegalStateException("Cannot link compute-instance to network because compute-instance with name [$computeInstanceName] was not found")
 
-        if (computeInstance.network != null && computeInstance.network != network) {
-            throw IllegalStateException("Cannot link compute-instance to network because compute-instance is already associated with another network")
-        }
-
-        computeInstance.network = network
-        computeInstancePersistence.update(computeInstance)
+        network.computeInstanceList.add(computeInstance)
+        persistence.update(network)
 
     }
 

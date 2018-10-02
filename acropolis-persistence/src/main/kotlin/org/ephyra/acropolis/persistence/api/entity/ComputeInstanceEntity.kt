@@ -21,9 +21,6 @@ data class ComputeInstanceEntity @JvmOverloads constructor(
         @ManyToOne(optional = false)
         val project: ProjectEntity,
 
-        @ManyToOne(optional = true)
-        var network: NetworkEntity? = null,
-
         @Column(nullable = true)
         var description: String? = null,
 

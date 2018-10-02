@@ -45,7 +45,7 @@ class NetworkPersistence {
     /**
      * @param entity The newly created instance of this entity to be persisted to the database
      */
-    fun updateGrouping(entity: NetworkEntity) {
+    fun update(entity: NetworkEntity) {
         repo.save(entity)
     }
 }
