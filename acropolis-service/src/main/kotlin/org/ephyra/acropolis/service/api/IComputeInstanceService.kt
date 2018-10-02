@@ -13,7 +13,6 @@ interface IComputeInstanceService {
      */
     fun create(name: String, projectName: String)
 
-
     /**
      * Find an instance with the given name that exists within the scope of the given project ID
      * @param name the name of the entity to try and find
@@ -21,4 +20,22 @@ interface IComputeInstanceService {
      * @return an instance of the entity if found, or nil
      */
     fun find(name: String, projectId: Long): ComputeInstanceEntity?
+
+    /**
+     * Include an application software in the specified network.
+     *
+     * @param computeInstanceId The id of the computeInstance to link to
+     * @param applicationSoftwareName The name of the application software to be linked
+     * @param projectId The parent project for the application software
+     */
+    fun linkApplicationSoftware(computeInstanceId: Long, applicationSoftwareName: String, projectId: Long)
+
+    /**
+     * Include a system software in the specified network.
+     *
+     * @param computeInstanceId The id of the computeInstance to link to
+     * @param systemSoftwareName The name of the system software to be linked
+     * @param projectId The parent project for the system software
+     */
+    fun linkSystemSoftware(computeInstanceId: Long, systemSoftwareName: String, projectId: Long)
 }

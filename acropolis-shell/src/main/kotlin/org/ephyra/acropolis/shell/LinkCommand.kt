@@ -1,6 +1,7 @@
 package org.ephyra.acropolis.shell
 
-import org.ephyra.acropolis.service.api.INetworkService
+import org.ephyra.acropolis.service.impl.ComputeInstanceService
+import org.ephyra.acropolis.service.impl.NetworkService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
@@ -14,7 +15,10 @@ class LinkCommand {
     private lateinit var appState: AppState
 
     @Autowired
-    private lateinit var networkService: INetworkService
+    private lateinit var computeInstanceService: ComputeInstanceService
+
+    @Autowired
+    private lateinit var networkService: NetworkService
 
     @ShellMethod("Link two items")
     fun link(fromType: String, fromName: String, to: String, toType: String, toName: String) {
@@ -27,6 +31,7 @@ class LinkCommand {
         }
 
         when (toType) {
+            "compute-instance" -> linkToComputeInstance(fromType, fromName, toName, projectId.toLong())
             "network" -> linkToNetwork(fromType, fromName, toName, projectId.toLong())
             else -> Logger.error("Cannot link to unknown type [$toType]")
         }
@@ -34,31 +39,49 @@ class LinkCommand {
 
     private fun linkToNetwork(fromType: String, fromName: String, toName: String, projectId: Long) {
         when (fromType) {
-            "application-software" -> linkApplicationSoftwareToNetwork(fromName, toName, projectId)
-            "system-software" -> linkSystemSoftwareToNetwork(fromName, toName, projectId)
+            "compute-instance" -> linkComputeInstanceToNetwork(fromName, toName, projectId)
             else -> Logger.error("Cannot link unknown type [$fromType] to network")
         }
     }
 
-    private fun linkSystemSoftwareToNetwork(fromName: String, toName: String, projectId: Long) {
-        val network = networkService.get(toName, projectId)
+    private fun linkToComputeInstance(fromType: String, fromName: String, toName: String, projectId: Long) {
+        when (fromType) {
+            "application-software" -> linkApplicationSoftwareToComputeInstance(fromName, toName, projectId)
+            "system-software" -> linkSystemSoftwareToComputeInstance(fromName, toName, projectId)
+            else -> Logger.error("Cannot link unknown type [$fromType] to compute-instance")
+        }
+    }
+
+    private fun linkComputeInstanceToNetwork(fromName: String, toName: String, projectId: Long) {
+        val network = networkService.find(toName, projectId)
 
         val networkId = network?.id
         if (networkId != null) {
-            networkService.linkSystemSoftware(networkId, fromName, projectId)
+            networkService.linkComputeInstance(networkId, fromName, projectId)
         } else {
             Logger.error("No network found with name [$toName]")
         }
     }
 
-    private fun linkApplicationSoftwareToNetwork(fromName: String, toName: String, projectId: Long) {
-        val network = networkService.get(toName, projectId)
+    private fun linkSystemSoftwareToComputeInstance(fromName: String, toName: String, projectId: Long) {
+        val computeInstance = computeInstanceService.find(toName, projectId)
 
-        val networkId = network?.id
-        if (networkId != null) {
-            networkService.linkApplicationSoftware(networkId, fromName, projectId)
+        val computeInstanceId = computeInstance?.id
+        if (computeInstanceId != null) {
+            computeInstanceService.linkSystemSoftware(computeInstanceId, fromName, projectId)
         } else {
-            Logger.error("No network found with name [$toName]")
+            Logger.error("No compute-instance found with name [$toName]")
+        }
+    }
+
+    private fun linkApplicationSoftwareToComputeInstance(fromName: String, toName: String, projectId: Long) {
+        val computeInstance = networkService.find(toName, projectId)
+
+        val computeInstanceId = computeInstance?.id
+        if (computeInstanceId != null) {
+            computeInstanceService.linkApplicationSoftware(computeInstanceId, fromName, projectId)
+        } else {
+            Logger.error("No compute-instance found with name [$toName]")
         }
     }
 

@@ -93,13 +93,6 @@ class NetworkFinder {
 
             Logger.info("Name: [${network.name}]")
             Logger.info("Description: [${network.description}]")
-
-            val networkGrouping = network.groupingEntity;
-            if (networkGrouping == null) {
-                Logger.info("Grouping: None")
-            } else {
-                Logger.info("Grouping: datastore count [${networkGrouping.datastoreList.size}], application software count [${networkGrouping.applicationSoftwareList.size}], system software count [${networkGrouping.systemSoftwareList.size}]")
-            }
         }
     }
 }
