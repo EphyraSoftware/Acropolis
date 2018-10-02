@@ -118,7 +118,7 @@ internal class NetworkServiceTestFixture {
     }
 
     fun whenNetworkLookedUpByNameThenNothingFound() {
-        testClass.get(testNetworkName, testProjectId).shouldBe(null)
+        testClass.find(testNetworkName, testProjectId).shouldBe(null)
     }
 
     fun givenNetworkFoundByName() {
@@ -126,7 +126,7 @@ internal class NetworkServiceTestFixture {
     }
 
     fun whenNetworkLookedUpByNameThenNetworkFound() {
-        testClass.get(testNetworkName, testProjectId).shouldNotBe(null)
+        testClass.find(testNetworkName, testProjectId).shouldNotBe(null)
     }
 
 }

@@ -68,7 +68,7 @@ class SystemSoftwareServiceTest : StringSpec() {
 
             every { persistence.findByName(name, projectId) } returns null
 
-            testClass.get(name, projectId).shouldBe(null)
+            testClass.find(name, projectId).shouldBe(null)
 
             verify { persistence.findByName(name, projectId) }
         }
@@ -79,7 +79,7 @@ class SystemSoftwareServiceTest : StringSpec() {
 
             every { persistence.findByName(name, projectId) } returns mockk()
 
-            testClass.get(name, projectId).shouldNotBe(null)
+            testClass.find(name, projectId).shouldNotBe(null)
 
             verify { persistence.findByName(name, projectId) }
         }
@@ -88,7 +88,7 @@ class SystemSoftwareServiceTest : StringSpec() {
             every { persistence.findByName(name = any(), projectId = any()) } throws Exception("failed to lookup")
 
             val exception = shouldThrowAny {
-                testClass.get("", 1)
+                testClass.find("", 1)
             }
             exception.message.shouldStartWith("failed to lookup")
         }
