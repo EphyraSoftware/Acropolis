@@ -43,7 +43,8 @@ class NetworkPersistence {
     }
 
     /**
-     * @param entity The newly created instance of this entity to be persisted to the database
+     * Updates an existing database record with the details contained within the entity parameter
+     * @param entity the instance of the entity containing modified fields to be persisted to the database
      */
     fun update(entity: NetworkEntity) {
         repo.save(entity)

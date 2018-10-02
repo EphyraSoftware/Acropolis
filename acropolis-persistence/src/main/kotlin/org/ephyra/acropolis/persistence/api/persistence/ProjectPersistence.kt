@@ -22,6 +22,7 @@ class ProjectPersistence {
     }
 
     /**
+     * Delete the ProjectEntity with the ID specified
      * @param id the ID of the model to be deleted
      */
     fun delete(id: Long) {
@@ -29,6 +30,7 @@ class ProjectPersistence {
     }
 
     /**
+     * Get all ProjectEntities
      * @return The entire List<> of entities of this type
      */
     fun getAll(): List<ProjectEntity> {

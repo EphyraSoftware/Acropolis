@@ -22,6 +22,7 @@ class QueuePersistence {
     }
 
     /**
+     * Get all QueueEntities
      * @return The entire List<> of entities of this type
      */
     fun getAll(): List<QueueEntity> {

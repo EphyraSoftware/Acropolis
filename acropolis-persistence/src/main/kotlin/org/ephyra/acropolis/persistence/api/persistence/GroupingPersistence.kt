@@ -23,6 +23,7 @@ class GroupingPersistence {
     }
 
     /**
+     * Updates an existing database record with the details contained within the entity parameter
      * @param id the ID of the model to be deleted
      */
     fun delete(id: Long) {
@@ -30,6 +31,7 @@ class GroupingPersistence {
     }
 
     /**
+     * Get all GroupingEntities
      * @return The entire List<> of entities of this type
      */
     fun getAll(): List<GroupingEntity> {
