@@ -1,7 +1,6 @@
 package org.ephyra.acropolis.service.impl
 
 import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
-import org.ephyra.acropolis.persistence.api.persistence.ComputeInstancePersistence
 import org.ephyra.acropolis.persistence.api.persistence.NetworkPersistence
 import org.ephyra.acropolis.service.api.IComputeInstanceService
 import org.ephyra.acropolis.service.api.INetworkService
