@@ -18,10 +18,10 @@ fun extractRef(ref: String): Pair<RefType, String> {
         throw IllegalArgumentException("Cannot resolve ref because the format is invalid.")
     }
 
-     val refType = when (refParts[0]) {
-         "application" -> RefType.APPLICATION
-         "system" -> RefType.SYSTEM
-         else -> throw java.lang.IllegalArgumentException("Provided ref [${refParts[0]}] is not a known ref type")
+    val refType = when (refParts[0]) {
+        "application" -> RefType.APPLICATION
+        "system" -> RefType.SYSTEM
+        else -> throw java.lang.IllegalArgumentException("Provided ref [${refParts[0]}] is not a known ref type")
     }
 
     return Pair(refType, refParts[1])

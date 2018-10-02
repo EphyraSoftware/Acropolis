@@ -91,7 +91,7 @@ internal class NetworkServiceTestFixture {
     private var datastoreList: MutableList<DatastoreEntity> = ArrayList()
 
     fun givenProjectNotFound() {
-        every { projectService.get(testProjectName) } returns null
+        every { projectService.find(testProjectName) } returns null
     }
 
     fun whenNetworkCreatedExceptionIsThrown() {
@@ -102,7 +102,7 @@ internal class NetworkServiceTestFixture {
     }
 
     fun givenProjectExists() {
-        every { projectService.get(testProjectName) } returns mockk()
+        every { projectService.find(testProjectName) } returns mockk()
     }
 
     fun whenNetworkCreated() {

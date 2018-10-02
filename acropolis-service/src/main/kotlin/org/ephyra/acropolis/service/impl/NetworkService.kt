@@ -2,8 +2,8 @@ package org.ephyra.acropolis.service.impl
 
 import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
 import org.ephyra.acropolis.persistence.api.persistence.ComputeInstancePersistence
-import org.ephyra.acropolis.persistence.api.persistence.GroupingPersistence
 import org.ephyra.acropolis.persistence.api.persistence.NetworkPersistence
+import org.ephyra.acropolis.service.api.IComputeInstanceService
 import org.ephyra.acropolis.service.api.INetworkService
 import org.ephyra.acropolis.service.api.IProjectService
 import org.slf4j.LoggerFactory
@@ -28,7 +28,7 @@ class NetworkService : INetworkService {
     private lateinit var projectService: IProjectService
 
     @Autowired
-    private lateinit var computeInstanceService: ComputeInstanceService
+    private lateinit var computeInstanceService: IComputeInstanceService
 
     /**
      * Creates a new entity, to be associated with the given project name
