@@ -23,6 +23,9 @@ class CreateCommand {
     private lateinit var computeInstanceService: IComputeInstanceService
 
     @Autowired
+    private lateinit var groupingService: IGroupingService
+
+    @Autowired
     private lateinit var networkService: INetworkService
 
     @ShellMethod("Create an item")
@@ -32,6 +35,7 @@ class CreateCommand {
             "application-software" -> createApplicationSoftware(name)
             "system-software" -> createSystemSoftware(name)
             "compute-instance" -> createComputeInstance(name)
+            "grouping" -> createGrouping(name)
             "network" -> createNetwork(name)
             else -> println("Don't know how to create an item with type [$itemType]")
         }
@@ -50,6 +54,15 @@ class CreateCommand {
         val project = appState.currentProject
         if (project != null) {
             applicationSoftwareService.create(name, project.name)
+        } else {
+            println("No project selected")
+        }
+    }
+
+    private fun createGrouping(name: String) {
+        val project = appState.currentProject
+        if (project != null) {
+            groupingService.create(name, project.name)
         } else {
             println("No project selected")
         }
