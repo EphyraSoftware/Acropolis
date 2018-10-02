@@ -18,7 +18,7 @@ class DatastoreEntity @JvmOverloads constructor(
      * @return The Enumerated ConnectionEndpointType value that corresponds to this type of entity
      */
     override fun getConnectionEndpointType(): Int {
-        return ConnectionEndpointType.SYSTEM_SOFTWARE.type
+        return ConnectionEndpointType.DATASTORE.type
     }
 }
 
