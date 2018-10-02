@@ -12,9 +12,6 @@ import javax.persistence.*
 @Entity
 class GroupingEntity @JvmOverloads constructor(
         @ManyToMany
-        var datastoreList: MutableList<DatastoreEntity> = ArrayList(),
-
-        @ManyToMany
         val systemSoftwareList: MutableList<SystemSoftwareEntity> = ArrayList(),
 
         @ManyToMany
