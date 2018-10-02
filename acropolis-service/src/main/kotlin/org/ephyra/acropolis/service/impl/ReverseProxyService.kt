@@ -7,6 +7,9 @@ import org.ephyra.acropolis.service.api.IReverseProxyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+/**
+ * Service for interactions and mutations around ReverseProxyEntity
+ * */
 @Service
 class ReverseProxyService @Autowired constructor(
         private val persistence: ReverseProxyPersistence,

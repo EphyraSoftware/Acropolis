@@ -61,7 +61,7 @@ class ProjectServiceTest : StringSpec() {
         "Get a project by name" {
             every { persistence.findByName(name = testProjectName) } returns mockk()
 
-            val project = testClass.get(testProjectName)
+            val project = testClass.find(testProjectName)
 
             verify(exactly = 1) { persistence.findByName(testProjectName) }
             project.shouldNotBe(null)

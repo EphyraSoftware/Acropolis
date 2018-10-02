@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Service for interactions and mutations around SystemSoftwareEntity
+ * */
 @Component
 class SystemSoftwareService : ISystemSoftwareService {
     val Logger = LoggerFactory.getLogger(SystemSoftwareService::class.java)
@@ -24,7 +27,7 @@ class SystemSoftwareService : ISystemSoftwareService {
      * @param projectName the name of the project to associate this entity with
      */
     override fun create(name: String, projectName: String) {
-        val project = projectService.get(projectName)
+        val project = projectService.find(projectName)
 
         if (project == null) {
             Logger.error("Could not find project with name [$projectName]")
@@ -41,7 +44,7 @@ class SystemSoftwareService : ISystemSoftwareService {
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    override fun get(name: String, projectId: Long): SystemSoftwareEntity? {
+    override fun find(name: String, projectId: Long): SystemSoftwareEntity? {
         return persistence.findByName(name, projectId)
     }
 

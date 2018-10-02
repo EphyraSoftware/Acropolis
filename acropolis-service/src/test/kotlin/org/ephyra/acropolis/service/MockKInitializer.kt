@@ -11,7 +11,7 @@ import io.mockk.MockKAnnotations
  * Uses a kotlin-test TestListener to instruct MockK to scan for annotations before
  * any tests run.
  */
-class MockKInitializer (
+class MockKInitializer(
         private var initMe: Any
 ) : TestListener {
 

@@ -1,11 +1,11 @@
 package org.ephyra.acropolis.service.api
 
-import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
+import org.ephyra.acropolis.persistence.api.entity.GroupingEntity
 
 /**
- * Service interface for interactions and mutations around ApplicationSoftwareEntity
+ * Service interface for interactions and mutations around GroupingEntity
  * */
-interface IApplicationSoftwareService {
+interface IGroupingService {
 
     /**
      * Creates a new entity, to be associated with the given project
@@ -15,18 +15,22 @@ interface IApplicationSoftwareService {
     fun create(name: String, projectName: String)
 
     /**
+     * Find and delete a record with the given ID, if found
+     * @param id the id of the record to find and delete
+     */
+    fun delete(id: Long)
+
+    /**
+     * Return a List of all known records
+     * @return A list of all existing records
+     */
+    fun list(): List<GroupingEntity>
+
+    /**
      * Find an instance with the given name that exists within the scope of the given project ID
      * @param name the name of the entity to try and find
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    fun find(name: String, projectId: Long): ApplicationSoftwareEntity?
-
-    /**
-     * Update an application software instance by saving the changes which have been made
-     * to the managed entity
-     *
-     * @param applicationSoftware The application to update
-     */
-    fun update(applicationSoftware: ApplicationSoftwareEntity)
+    fun find(name: String, projectId: Long): GroupingEntity?
 }

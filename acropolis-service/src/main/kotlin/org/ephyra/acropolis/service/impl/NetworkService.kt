@@ -1,15 +1,18 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.persistence.api.entity.GroupingEntity
 import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
-import org.ephyra.acropolis.persistence.api.persistence.GroupingPersistence
 import org.ephyra.acropolis.persistence.api.persistence.NetworkPersistence
-import org.ephyra.acropolis.service.api.*
+import org.ephyra.acropolis.service.api.IComputeInstanceService
+import org.ephyra.acropolis.service.api.INetworkService
+import org.ephyra.acropolis.service.api.IProjectService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
+/**
+ * Service for interactions and mutations around Networks
+ * */
 @Service
 class NetworkService : INetworkService {
     val Logger = LoggerFactory.getLogger(NetworkService::class.java)
@@ -18,19 +21,10 @@ class NetworkService : INetworkService {
     private lateinit var persistence: NetworkPersistence
 
     @Autowired
-    private lateinit var groupingPersistence: GroupingPersistence
-
-    @Autowired
     private lateinit var projectService: IProjectService
 
     @Autowired
-    private lateinit var datastoreService: IDatastoreService
-
-    @Autowired
-    private lateinit var applicationSoftwareService: IApplicationSoftwareService
-
-    @Autowired
-    private lateinit var systemSoftwareService: ISystemSoftwareService
+    private lateinit var computeInstanceService: IComputeInstanceService
 
     /**
      * Creates a new entity, to be associated with the given project name
@@ -38,7 +32,7 @@ class NetworkService : INetworkService {
      * @param name the name of the entity to create
      */
     override fun create(name: String, projectName: String) {
-        val project = projectService.get(projectName)
+        val project = projectService.find(projectName)
 
         if (project == null) {
             Logger.error("Could not find project with name [$projectName]")
@@ -55,79 +49,23 @@ class NetworkService : INetworkService {
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    override fun get(name: String, projectId: Long): NetworkEntity? {
+    override fun find(name: String, projectId: Long): NetworkEntity? {
         return persistence.findByName(name, projectId)
     }
 
     @Transactional
-    override fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long) {
-        Logger.info("Linking datastore [$datastoreName]")
+    override fun linkComputeInstance(networkId: Long, computeInstanceName: String, projectId: Long) {
+        Logger.info("Linking compute isntance [$computeInstanceName]")
 
         val network = persistence.find(networkId, projectId)
-                ?: throw IllegalStateException("Cannot link datastore to network because network with id [$networkId] was not found")
+                ?: throw IllegalStateException("Cannot link compute-instance to network because network with id [$networkId] was not found")
 
-        val datastore = datastoreService.get(datastoreName, projectId)
-                ?: throw IllegalStateException("Cannot link datastore to network because datastore with name [$datastoreName] was not found")
+        val computeInstance = computeInstanceService.find(computeInstanceName, projectId)
+                ?: throw IllegalStateException("Cannot link compute-instance to network because compute-instance with name [$computeInstanceName] was not found")
 
-        val grouping = network.groupingEntity
-        if (grouping == null) {
-            Logger.trace("There is no grouping, creating one")
-            val newGrouping = GroupingEntity(mutableListOf(datastore))
-            groupingPersistence.create(newGrouping)
-            network.groupingEntity = newGrouping
-            persistence.updateGrouping(network)
-        } else {
-            Logger.trace("Updating grouping to include datastore")
-            grouping.datastoreList.add(datastore)
-            groupingPersistence.update(grouping)
-        }
+        network.computeInstanceList.add(computeInstance)
+        persistence.update(network)
+
     }
 
-    @Transactional
-    override fun linkApplicationSoftware(networkId: Long, applicationSoftwareName: String, projectId: Long) {
-        Logger.info("Linking application software [$applicationSoftwareName]")
-
-        val network = persistence.find(networkId, projectId)
-                ?: throw IllegalStateException("Cannot link application-software to network because network with id [$networkId] was not found")
-
-        val applicationSoftware = applicationSoftwareService.find(applicationSoftwareName, projectId)
-                ?: throw IllegalStateException("Cannot link application-software to network because application-software with name [$applicationSoftwareName] was not found")
-
-        val grouping = network.groupingEntity
-        if (grouping == null) {
-            Logger.trace("There is no grouping, creating one")
-            val newGrouping = GroupingEntity(mutableListOf(), mutableListOf(), mutableListOf(applicationSoftware))
-            groupingPersistence.create(newGrouping)
-            network.groupingEntity = newGrouping
-            persistence.updateGrouping(network)
-        } else {
-            Logger.trace("Updating grouping to include application-software [$applicationSoftware.name]")
-            grouping.applicationSoftwareList.add(applicationSoftware)
-            groupingPersistence.update(grouping)
-        }
-    }
-
-    @Transactional
-    override fun linkSystemSoftware(networkId: Long, systemSoftwareName: String, projectId: Long) {
-        Logger.info("Linking system-software [$systemSoftwareName]")
-
-        val network = persistence.find(networkId, projectId)
-                ?: throw IllegalStateException("Cannot link system-software to network because network with id [$networkId] was not found")
-
-        val systemSoftware = systemSoftwareService.get(systemSoftwareName, projectId)
-                ?: throw IllegalStateException("Cannot link system-software to network because system-software with name [$systemSoftwareName] was not found")
-
-        val grouping = network.groupingEntity
-        if (grouping == null) {
-            Logger.trace("There is no grouping, creating one")
-            val newGrouping = GroupingEntity(mutableListOf(), mutableListOf(systemSoftware), mutableListOf())
-            groupingPersistence.create(newGrouping)
-            network.groupingEntity = newGrouping
-            persistence.updateGrouping(network)
-        } else {
-            Logger.trace("Updating grouping to include system-software [$systemSoftware.name]")
-            grouping.systemSoftwareList.add(systemSoftware)
-            groupingPersistence.update(grouping)
-        }
-    }
 }

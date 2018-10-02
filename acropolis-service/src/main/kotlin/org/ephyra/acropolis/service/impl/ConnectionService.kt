@@ -12,6 +12,9 @@ import org.ephyra.acropolis.service.api.IConnectionService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+/**
+ * Service for interactions and mutations around ConnectionEntity
+ * */
 @Service
 class ConnectionService : IConnectionService {
     @Autowired

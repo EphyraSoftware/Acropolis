@@ -2,6 +2,9 @@ package org.ephyra.acropolis.service.api
 
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
 
+/**
+ * Service interface for interactions and mutations around ProjectEntity
+ * */
 interface IProjectService {
 
     /**
@@ -27,5 +30,5 @@ interface IProjectService {
      * @param name the name of the entity to try and find
      * @return an instance of the entity if found, or nil
      */
-    fun get(name: String): ProjectEntity?
+    fun find(name: String): ProjectEntity?
 }

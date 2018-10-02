@@ -22,7 +22,13 @@ data class ComputeInstanceEntity @JvmOverloads constructor(
         val project: ProjectEntity,
 
         @Column(nullable = true)
-        var description: String? = null
+        var description: String? = null,
+
+        @ManyToMany
+        val systemSoftwareList: MutableList<SystemSoftwareEntity> = ArrayList(),
+
+        @ManyToMany
+        val applicationSoftwareList: MutableList<ApplicationSoftwareEntity> = ArrayList()
 ) : IConnectable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

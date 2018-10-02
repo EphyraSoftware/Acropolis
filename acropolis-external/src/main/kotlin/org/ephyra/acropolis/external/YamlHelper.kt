@@ -20,8 +20,7 @@ class YamlHelper {
         mapper.registerModule(KotlinModule())
         return try {
             mapper.readValue(yamlData, Project::class.java)
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             logger.error("Failed to load project from string [$yamlData]", e)
             null
         }

@@ -19,32 +19,14 @@ interface INetworkService {
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    fun get(name: String, projectId: Long): NetworkEntity?
+    fun find(name: String, projectId: Long): NetworkEntity?
 
     /**
-     * Include a datastore in the specified network.
+     * Include a compute instance in the specified network.
      *
-     * @param networkId The network id to link to
-     * @param datastoreName The name of the datastore to be linked
+     * @param networkId The id of the network to link to
+     * @param computeInstanceName The name of the compute instance to be linked
      * @param projectId The parent project for the network and datastore
      */
-    fun linkDatastore(networkId: Long, datastoreName: String, projectId: Long)
-
-    /**
-     * Include an application software in the specified network.
-     *
-     * @param networkId The network id to link to
-     * @param applicationSoftwareName The name of the application software to be linked
-     * @param projectId The parent project for the network and datastore
-     */
-    fun linkApplicationSoftware(networkId: Long, applicationSoftwareName: String, projectId: Long)
-
-    /**
-     * Include a system software in the specified network.
-     *
-     * @param networkId The network id to link to
-     * @param systemSoftwareName The name of the system software to be linked
-     * @param projectId The parent project for the network and datastore
-     */
-    fun linkSystemSoftware(networkId: Long, systemSoftwareName: String, projectId: Long)
+    fun linkComputeInstance(networkId: Long, computeInstanceName: String, projectId: Long)
 }

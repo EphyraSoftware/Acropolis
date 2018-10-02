@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.NetworkRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around NetworkRepository operations
+ * */
 @Component
 class NetworkPersistence {
     @Autowired
@@ -40,9 +43,10 @@ class NetworkPersistence {
     }
 
     /**
-     * @param entity The newly created instance of this entity to be persisted to the database
+     * Updates an existing database record with the details contained within the entity parameter
+     * @param entity the instance of the entity containing modified fields to be persisted to the database
      */
-    fun updateGrouping(entity: NetworkEntity) {
+    fun update(entity: NetworkEntity) {
         repo.save(entity)
     }
 }

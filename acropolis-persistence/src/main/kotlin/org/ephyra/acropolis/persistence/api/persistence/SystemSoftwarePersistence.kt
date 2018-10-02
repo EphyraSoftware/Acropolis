@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.SystemSoftwareRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around SystemSoftwareRepository operations
+ * */
 @Component
 class SystemSoftwarePersistence {
     @Autowired
@@ -39,6 +42,10 @@ class SystemSoftwarePersistence {
         return if (entity.isPresent) entity.get() else null
     }
 
+    /**
+     * Updates an existing database record with the details contained within the entity parameter
+     * @param entity the instance of the entity containing modified fields to be persisted to the database
+     */
     fun update(systemSoftware: SystemSoftwareEntity) {
         repo.save(systemSoftware)
     }

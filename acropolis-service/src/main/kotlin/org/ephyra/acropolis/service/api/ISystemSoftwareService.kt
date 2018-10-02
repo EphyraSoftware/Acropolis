@@ -2,6 +2,9 @@ package org.ephyra.acropolis.service.api
 
 import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
 
+/**
+ * Service interface for interactions and mutations around SystemSoftwareEntity
+ * */
 interface ISystemSoftwareService {
     /**
      * Creates a new entity, to be associated with the given project
@@ -16,7 +19,7 @@ interface ISystemSoftwareService {
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    fun get(name: String, projectId: Long): SystemSoftwareEntity?
+    fun find(name: String, projectId: Long): SystemSoftwareEntity?
 
     /**
      * Update an application software instance by saving the changes which have been made

@@ -1,5 +1,8 @@
 package org.ephyra.acropolis.service.api
 
+/**
+ * Service interface for interactions and mutations around LoadBalancerEntity
+ * */
 interface ILoadBalancerService {
     /**
      * Creates a new LoadBalancerEntity, to be associated with the given SystemSoftware ID
