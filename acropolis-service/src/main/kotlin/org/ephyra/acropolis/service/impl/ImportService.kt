@@ -63,7 +63,7 @@ class ImportService @Autowired constructor(
     private fun importProjectFromExternalModel(project: Project) {
         projectService.create(project.name)
 
-        val newProject = projectService.get(project.name)
+        val newProject = projectService.find(project.name)
         if (newProject == null) {
             val msg = "Failed to create project [${project.name}]";
             logger.error(msg)
@@ -86,7 +86,7 @@ class ImportService @Autowired constructor(
 
             val specialization = sys.specialization
             if (specialization != null) {
-                val newSystem = systemSoftwareService.get(sys.name, projectId)
+                val newSystem = systemSoftwareService.find(sys.name, projectId)
                 val systemId = newSystem?.id
 
                 if (systemId == null) {
@@ -147,7 +147,7 @@ class ImportService @Autowired constructor(
         }
 
         software.systems.forEach { system ->
-            val fromSystem = systemSoftwareService.get(system.name, projectId)
+            val fromSystem = systemSoftwareService.find(system.name, projectId)
             if (fromSystem == null) {
                 logger.error("Attempting to import talks to connections for system [${system.name}] but the system was not found")
                 throw IllegalStateException(missingSystemForTalksToMessage)
@@ -173,7 +173,7 @@ class ImportService @Autowired constructor(
                     toApplication
                 }
                 RefType.SYSTEM -> {
-                    val toSystem = systemSoftwareService.get(name, projectId)
+                    val toSystem = systemSoftwareService.find(name, projectId)
 
                     if (toSystem == null) {
                         logger.error("Attempting to import talks to connection for system [$name] but the system was not found")

@@ -41,7 +41,7 @@ class NetworkService : INetworkService {
      * @param name the name of the entity to create
      */
     override fun create(name: String, projectName: String) {
-        val project = projectService.get(projectName)
+        val project = projectService.find(projectName)
 
         if (project == null) {
             Logger.error("Could not find project with name [$projectName]")
@@ -58,7 +58,7 @@ class NetworkService : INetworkService {
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    override fun get(name: String, projectId: Long): NetworkEntity? {
+    override fun find(name: String, projectId: Long): NetworkEntity? {
         return persistence.findByName(name, projectId)
     }
 

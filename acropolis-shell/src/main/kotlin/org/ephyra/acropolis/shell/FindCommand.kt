@@ -40,7 +40,7 @@ class FindCommand {
     }
 
     private fun findSystemSoftware(projectId: Long, name: String) {
-        val systemSoftware = systemSoftwareService.get(name, projectId)
+        val systemSoftware = systemSoftwareService.find(name, projectId)
         if (systemSoftware == null) {
             println("Not found")
         } else {
@@ -85,7 +85,7 @@ class NetworkFinder {
     fun findNetwork(projectId: Long, itemIdentifier: String) {
         Logger.trace("Looking for network with name [$itemIdentifier] in project with id [$projectId]")
 
-        val network = networkService.get(itemIdentifier, projectId.toLong())
+        val network = networkService.find(itemIdentifier, projectId.toLong())
         if (network == null) {
             Logger.info("No network was found with name $itemIdentifier")
         } else {

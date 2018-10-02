@@ -28,7 +28,7 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
      * @param projectName the name of the project to associate this entity with
      */
     override fun create(name: String, projectName: String) {
-        val project = projectService.get(projectName)
+        val project = projectService.find(projectName)
 
         if (project == null) {
             logger.error("Could not find project with name [$projectName]")

@@ -19,7 +19,7 @@ interface ISystemSoftwareService {
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    fun get(name: String, projectId: Long): SystemSoftwareEntity?
+    fun find(name: String, projectId: Long): SystemSoftwareEntity?
 
     /**
      * Update an application software instance by saving the changes which have been made

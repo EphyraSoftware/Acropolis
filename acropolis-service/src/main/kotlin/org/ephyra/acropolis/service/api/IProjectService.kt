@@ -30,5 +30,5 @@ interface IProjectService {
      * @param name the name of the entity to try and find
      * @return an instance of the entity if found, or nil
      */
-    fun get(name: String): ProjectEntity?
+    fun find(name: String): ProjectEntity?
 }

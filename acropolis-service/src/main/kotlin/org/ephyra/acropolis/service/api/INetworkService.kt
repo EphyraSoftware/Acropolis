@@ -19,7 +19,7 @@ interface INetworkService {
      * @param projectId the ID of the project to scope the query to
      * @return an instance of the entity if found, or nil
      */
-    fun get(name: String, projectId: Long): NetworkEntity?
+    fun find(name: String, projectId: Long): NetworkEntity?
 
     /**
      * Include an application software in the specified network.

@@ -54,7 +54,7 @@ class ProjectService : IProjectService {
      * @param name the name of the entity to try and find
      * @return an instance of the entity if found, or nil
      */
-    override fun get(name: String): ProjectEntity? {
+    override fun find(name: String): ProjectEntity? {
         Logger.trace("Getting project by name [$name]")
 
         return persistence.findByName(name)
