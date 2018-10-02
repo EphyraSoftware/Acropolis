@@ -1,9 +1,9 @@
 package org.ephyra.acropolis.shell
 
+import org.ephyra.acropolis.service.api.IDatastoreService
 import org.ephyra.acropolis.service.api.ILoadBalancerService
 import org.ephyra.acropolis.service.api.IQueueService
-import org.ephyra.acropolis.service.impl.DatastoreService
-import org.ephyra.acropolis.service.impl.ReverseProxyService
+import org.ephyra.acropolis.service.api.IReverseProxyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
@@ -11,10 +11,10 @@ import org.springframework.shell.standard.ShellMethod
 @ShellComponent
 class SpecializeCommand {
     @Autowired
-    private lateinit var datastoreService: DatastoreService
+    private lateinit var datastoreService: IDatastoreService
 
     @Autowired
-    private lateinit var reverseProxyService: ReverseProxyService
+    private lateinit var reverseProxyService: IReverseProxyService
 
     @Autowired
     private lateinit var loadBalancerService: ILoadBalancerService
