@@ -41,4 +41,12 @@ class ComputeInstancePersistence {
         val entity = repo.findByNameAndProjectId(name, projectId)
         return if (entity.isPresent) entity.get() else null
     }
+
+    /**
+     * Updates an existing database record with the details contained within the entity parameter
+     * @param entity the instance of the entity containing modified fields to be persisted to the database
+     */
+    fun update(entity: ComputeInstanceEntity) {
+        repo.save(entity)
+    }
 }
