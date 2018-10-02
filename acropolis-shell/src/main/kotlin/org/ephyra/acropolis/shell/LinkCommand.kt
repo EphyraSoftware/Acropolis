@@ -1,7 +1,7 @@
 package org.ephyra.acropolis.shell
 
-import org.ephyra.acropolis.service.impl.ComputeInstanceService
-import org.ephyra.acropolis.service.impl.NetworkService
+import org.ephyra.acropolis.service.api.IComputeInstanceService
+import org.ephyra.acropolis.service.api.INetworkService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
@@ -15,10 +15,10 @@ class LinkCommand {
     private lateinit var appState: AppState
 
     @Autowired
-    private lateinit var computeInstanceService: ComputeInstanceService
+    private lateinit var computeInstanceService: IComputeInstanceService
 
     @Autowired
-    private lateinit var networkService: NetworkService
+    private lateinit var networkService: INetworkService
 
     @ShellMethod("Link two items")
     fun link(fromType: String, fromName: String, to: String, toType: String, toName: String) {
