@@ -16,7 +16,7 @@ import org.ephyra.acropolis.service.api.IDatastoreService
 import org.ephyra.acropolis.service.impl.DatastoreService
 
 /**
- * Tests for the reverse proxy service
+ * Tests for the datastore service
  */
 class DatastoreServiceTest : StringSpec() {
     private lateinit var fixture: DatastoreServiceTestFixture
@@ -26,13 +26,13 @@ class DatastoreServiceTest : StringSpec() {
     })
 
     init {
-        "Create reverse proxy with base software missing, throws exception" {
+        "Create datastore with base software missing, throws exception" {
             val baseSoftwareId: Long = 1
             fixture.givenBaseSoftwareDoesNotExist(baseSoftwareId)
             fixture.whenDatastoreCreatedThenExceptionThrown(baseSoftwareId)
         }
 
-        "Create reverse proxy" {
+        "Create datastore" {
             val baseSoftwareId: Long = 2
             fixture.givenBaseSoftwareExists(baseSoftwareId)
             fixture.whenDatastoreCreated(baseSoftwareId)
@@ -43,7 +43,7 @@ class DatastoreServiceTest : StringSpec() {
 }
 
 /**
- * Fixture to encapsulate state for the reverse proxy service tests
+ * Fixture to encapsulate state for the datastore service tests
  */
 internal class DatastoreServiceTestFixture {
     private val persistence: DatastorePersistence = mockk(relaxUnitFun = true)
