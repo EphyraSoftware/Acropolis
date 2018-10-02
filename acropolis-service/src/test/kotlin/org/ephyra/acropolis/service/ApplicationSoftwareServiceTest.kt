@@ -38,13 +38,13 @@ class ApplicationSoftwareServiceTest : StringSpec() {
 
     init {
         "Create a new application software" {
-            every { projectService.get(testProjectName) } returns mockk()
+            every { projectService.find(testProjectName) } returns mockk()
             testClass.create(testAppName, testProjectName)
             verify { persistence.create(applicationSoftware = any()) }
         }
 
         "Create application software with project not found, throws exception" {
-            every { projectService.get(testProjectName) } returns null
+            every { projectService.find(testProjectName) } returns null
 
             val exception = shouldThrow<IllegalStateException> {
                 testClass.create(testAppName, testProjectName)
@@ -53,7 +53,7 @@ class ApplicationSoftwareServiceTest : StringSpec() {
         }
 
         "Create a new application software, fails to save" {
-            every { projectService.get(testProjectName) } returns mockk()
+            every { projectService.find(testProjectName) } returns mockk()
             every { persistence.create(applicationSoftware = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {

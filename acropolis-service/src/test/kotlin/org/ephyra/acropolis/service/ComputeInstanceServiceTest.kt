@@ -38,13 +38,13 @@ class ComputeInstanceServiceTest : StringSpec() {
 
     init {
         "Create a new compute instance" {
-            every { projectService.get(testProjectName) } returns mockk()
+            every { projectService.find(testProjectName) } returns mockk()
             testClass.create(myInstanceName, testProjectName)
             verify { persistence.create(computeInstance = any()) }
         }
 
         "Create compute instance with project not found, throws exception" {
-            every { projectService.get(testProjectName) } returns null
+            every { projectService.find(testProjectName) } returns null
 
             val exception = shouldThrow<IllegalStateException> {
                 testClass.create(myInstanceName, testProjectName)
@@ -54,7 +54,7 @@ class ComputeInstanceServiceTest : StringSpec() {
         }
 
         "Create a new compute instance, fails to save" {
-            every { projectService.get(testProjectName) } returns mockk()
+            every { projectService.find(testProjectName) } returns mockk()
             every { persistence.create(computeInstance = any()) } throws Exception("failed to save")
 
             val exception = shouldThrowAny {

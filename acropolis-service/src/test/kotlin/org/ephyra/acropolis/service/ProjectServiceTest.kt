@@ -2,6 +2,7 @@ package org.ephyra.acropolis.service
 
 import io.kotlintest.extensions.TestListener
 import io.kotlintest.shouldBe
+import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.StringSpec
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -60,7 +61,7 @@ class ProjectServiceTest : StringSpec() {
         "Get a project by name" {
             every { persistence.findByName(name = testProjectName) } returns mockk()
 
-            val project = testClass.get(testProjectName)
+            val project = testClass.find(testProjectName)
 
             verify(exactly = 1) { persistence.findByName(testProjectName) }
             project.shouldNotBe(null)
