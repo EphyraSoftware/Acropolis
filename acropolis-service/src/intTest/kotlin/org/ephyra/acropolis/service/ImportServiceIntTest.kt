@@ -19,6 +19,9 @@ class ImportServiceIntTest {
     @Autowired
     lateinit var importService: IImportService
 
+    /**
+     * Test that YAML can be used to import a project
+     */
     @Test
     @DisplayName("Test that YAML can be used to import a project")
     fun importProjectFromYaml() {
