@@ -15,8 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
  * Integration test for the import service
  */
 @ExtendWith(SpringExtension::class)
-@SpringBootTest(classes = [ServiceConfiguration::class])
-@DataJpaTest
+@SpringBootTest(classes = [IntegrationTestConfiguration::class, ServiceConfiguration::class])
 class ImportServiceIntTest {
     @Autowired
     lateinit var importService: IImportService
