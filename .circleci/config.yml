@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: openjdk:8-alpine
+    - image: circleci/openjdk:10.0.2-jdk-sid
     steps:
     - checkout
     - run:
