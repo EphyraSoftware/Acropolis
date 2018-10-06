@@ -15,7 +15,7 @@ jobs:
         command: chmod +x ./gradlew
     - run:
         name: Build
-        command: ./gradlew build -PrunIntegrationTests
+        command: ./gradlew build -PrunIntegrationTests --debug
     - run:
         name: Test coverage
         command: ./gradlew jacocoTestReport
