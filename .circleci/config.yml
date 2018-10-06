@@ -2,19 +2,17 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/openjdk:10.0.2-jdk-sid
+      - image: circleci/openjdk:10.0.2-jdk-sid
+      - image: 'mysql:8'
+        environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_PASSWORD=root
+          - MYSQL_DATABASE=acropolisdev
     steps:
     - checkout
     - run:
         name: Take Ownership
         command: chmod +x ./gradlew
-    - run:
-        name: Luanch the infrastructure
-        command: >-
-          cd env
-          && sudo service docker status
-          && docker-compose up -d
-          && sleep 5s
     - run:
         name: Build
         command: ./gradlew build -PrunIntegrationTests
