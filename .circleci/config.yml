@@ -12,6 +12,7 @@ jobs:
         name: Luanch the infrastructure
         command: >-
           cd env
+          && sudo service docker status
           && docker-compose up -d
           && sleep 5s
     - run:
