@@ -9,8 +9,14 @@ jobs:
         name: Take Ownership
         command: chmod +x ./gradlew
     - run:
+        name: Luanch the infrastructure
+        command: >-
+          cd env
+          && docker-compose up -d
+          && sleep 5s
+    - run:
         name: Build
-        command: ./gradlew build
+        command: ./gradlew build -PrunIntegrationTests
     - run:
         name: Test coverage
         command: ./gradlew jacocoTestReport

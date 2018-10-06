@@ -47,9 +47,11 @@ task('integrationTest', type: Test) {
     useJUnitPlatform()
 }
 
-check.dependsOn integrationTest
-
-//integrationTest.onlyIf { project.hasProperty('runIntegrationTests') }
+// This allows the integrationTest task to run alone, or when this property is provided
+// the integration tests are triggered by the build task via the check task.
+if (project.hasProperty('runIntegrationTests')) {
+    check.dependsOn integrationTest
+}
 
 jacocoTestReport {
     reports {
@@ -72,10 +74,6 @@ jacocoTestCoverageVerification {
 test {
     useJUnitPlatform()
 }
-
-//configurations.all {
-//    exclude group:'org.springframework.boot', module: 'spring-boot-starter-logging'
-//}
 
 dependencies {
     // The Kotlin standard library
