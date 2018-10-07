@@ -10,12 +10,14 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource
 import javax.sql.DataSource
 import com.google.common.base.Preconditions
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.PropertySource
 import org.springframework.core.env.Environment
 import java.lang.IllegalStateException
 import java.util.*
 
 @Configuration
 @ComponentScan(basePackageClasses = [ServiceConfiguration::class])
+@PropertySource("classpath:application.yml")
 class IntegrationTestConfiguration {
     @Autowired
     lateinit var environment: Environment
