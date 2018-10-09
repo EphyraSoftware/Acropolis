@@ -13,6 +13,9 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
 import java.util.*
 import javax.sql.DataSource
 
+/**
+ * Configuration class for loading consistent configuration across integration tests
+ */
 @Configuration
 @ComponentScan(basePackageClasses = [ServiceConfiguration::class])
 class IntegrationTestConfiguration {
