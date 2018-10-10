@@ -37,6 +37,9 @@ class IntegrationTestConfiguration {
         return entityManagerFactoryBean
     }
 
+    /**
+     * Bean constructor for a dataSource
+     */
     @Bean
     fun dataSource(): DataSource {
         val dataSource = DriverManagerDataSource()
@@ -49,6 +52,11 @@ class IntegrationTestConfiguration {
         return dataSource
     }
 
+    /**
+     * Create additional properties for the entityManagerFactory
+     *
+     * This is where hibernate settings are loaded
+     */
     fun additionalProperties(): Properties {
         val hibernateProperties = Properties()
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create")
