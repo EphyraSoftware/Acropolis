@@ -28,7 +28,7 @@ jobs:
     - run:
         name: Upload coverage report
         command: >-
-          sudo apt update
-          && sudo apt add bash
-          && sudo apt add curl
+          sudo apt-get update
+          && sudo apt-get install bash
+          && sudo apt-get install curl
           && bash -c "bash <(curl -s https://codecov.io/bash)"
