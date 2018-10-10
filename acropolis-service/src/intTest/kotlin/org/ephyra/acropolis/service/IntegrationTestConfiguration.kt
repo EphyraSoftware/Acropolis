@@ -22,6 +22,9 @@ class IntegrationTestConfiguration {
     @Autowired
     lateinit var environment: Environment
 
+    /**
+     * Bean constructor for an entityManagerFactory
+     */
     @Bean
     fun entityManagerFactory(@Autowired dataSource: DataSource): LocalContainerEntityManagerFactoryBean {
         val entityManagerFactoryBean = LocalContainerEntityManagerFactoryBean()
