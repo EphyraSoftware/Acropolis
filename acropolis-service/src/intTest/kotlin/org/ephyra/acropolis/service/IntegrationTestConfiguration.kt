@@ -8,9 +8,12 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.PropertySource
 import org.springframework.core.env.Environment
 import org.springframework.jdbc.datasource.DriverManagerDataSource
+import org.springframework.orm.jpa.EntityManagerFactoryAccessor
+import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
 import java.util.*
+import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
 
 /**
@@ -52,6 +55,16 @@ class IntegrationTestConfiguration {
         dataSource.password = environment.getRequiredProperty("datastore.password")
 
         return dataSource
+    }
+
+    @Bean
+    fun transactionManager(@Autowired entityManagerFactoryBean: EntityManagerFactory, @Autowired dataSource: DataSource): JpaTransactionManager {
+        val transactionManager = JpaTransactionManager()
+
+        transactionManager.entityManagerFactory = entityManagerFactoryBean
+        transactionManager.dataSource = dataSource
+
+        return transactionManager
     }
 
     /**
