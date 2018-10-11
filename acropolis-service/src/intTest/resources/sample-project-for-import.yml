@@ -1,0 +1,30 @@
+version: '1.0'
+name: 'my project version 3'
+software:
+  applications:
+  - name: IceWeasel
+    description: 'Browser which the user interacts with'
+    talks_to:
+    - system.RenderProxy
+  - name: PrettyChart
+    description: 'Web app for rendering charts in a browser'
+    talks_to:
+    - application.IceWeasel
+  systems:
+  - name: ChartRenderer
+    description: 'Engine for rendering charts to offload work from the browser'
+  - name: RenderQueue
+    description: Queue for render jobs
+    specialization: Queue
+    talks_to:
+    - system.ChartRenderer
+  - name: RenderProxy
+    description: Reverse Proxy for the render service
+    specialization: ReverseProxy
+    talks_to:
+    - system.RenderLoadBalancer
+  - name: RenderLoadBalancer
+    description: Load balancer for the render service
+    specialization: LoadBalancer
+    talks_to:
+    - system.RenderQueue
