@@ -2,12 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:10.0.2-jdk-sid
-      - image: 'mysql:8'
-        environment:
-          - MYSQL_ROOT_PASSWORD=root
-          - MYSQL_PASSWORD=root
-          - MYSQL_DATABASE=acropolisdev
+    - image: openjdk:8-alpine
     steps:
     - checkout
     - run:
@@ -15,10 +10,7 @@ jobs:
         command: chmod +x ./gradlew
     - run:
         name: Build
-        command: ./gradlew build -PrunIntegrationTests --debug > build.log
-    - store_artifacts:
-        path: build.log
-        destination: build.log
+        command: ./gradlew build
     - run:
         name: Test coverage
         command: ./gradlew jacocoTestReport
@@ -28,7 +20,7 @@ jobs:
     - run:
         name: Upload coverage report
         command: >-
-          sudo apt-get update
-          && sudo apt-get install bash
-          && sudo apt-get install curl
+          apk update
+          && apk add bash
+          && apk add curl
           && bash -c "bash <(curl -s https://codecov.io/bash)"

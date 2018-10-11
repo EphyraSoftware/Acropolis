@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        kotlinVersion = "1.2.71"
-        springBootVersion = "2.0.5.RELEASE"
+        kotlinVersion = "1.2.61"
+        springBootVersion = "2.0.4.RELEASE"
     }
     repositories {
         jcenter()
@@ -22,39 +22,6 @@ compileKotlin {
         freeCompilerArgs = ["-Xjsr305=strict"]
         jvmTarget = "1.8"
     }
-}
-
-sourceSets {
-    intTest {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
-    }
-}
-
-configurations {
-    intTestImplementation.extendsFrom implementation
-    intTestRuntimeOnly.extendsFrom runtimeOnly
-}
-
-task('integrationTest', type: Test) {
-    description = 'Runs integration tests.'
-    group = 'verification'
-
-    testClassesDirs = sourceSets.intTest.output.classesDirs
-    classpath = sourceSets.intTest.runtimeClasspath
-    shouldRunAfter test
-
-    useJUnitPlatform()
-}
-
-// This allows the integrationTest task to run alone, or when this property is provided
-// the integration tests are triggered by the build task via the check task.
-if (project.hasProperty('runIntegrationTests')) {
-    check.dependsOn integrationTest
-}
-
-jacoco {
-    toolVersion = '0.8.2'
 }
 
 jacocoTestReport {
@@ -87,8 +54,8 @@ dependencies {
     // Needed for spring to work with Kotlin
     compile "org.jetbrains.kotlin:kotlin-reflect"
 
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    compile "ch.qos.logback:logback-classic:1.3.0-alpha4"
 
     compile project(":acropolis-persistence")
     compile project(":acropolis-external")
@@ -98,19 +65,4 @@ dependencies {
 
     // https://mvnrepository.com/artifact/io.mockk/mockk
     testCompile "io.mockk:mockk:1.8.7"
-
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    intTestCompile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
-
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
-    intTestCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.5.RELEASE'
-
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    intTestCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'
-
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
-    intTestCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.3.1'
-
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-    intTestRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.1'
 }
