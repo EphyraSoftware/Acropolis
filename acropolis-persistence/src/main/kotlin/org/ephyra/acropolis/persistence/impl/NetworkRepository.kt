@@ -4,6 +4,9 @@ import org.ephyra.acropolis.persistence.api.entity.NetworkEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
+/**
+ * Spring Repository for persisting NetworkEntity
+ * */
 interface NetworkRepository : CrudRepository<NetworkEntity, Long> {
     /**
      * @param name The name of the entity to find

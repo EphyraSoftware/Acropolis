@@ -4,15 +4,17 @@ import javax.persistence.*
 
 /**
  * @property id auto-generated database ID
- * @property datastoreList the Datastore entities that are grouped under this grouping entity
  * @property systemSoftwareList the systemSoftware entities that are grouped under this grouping entity
  * @property applicationSoftwareList the applicationSoftware entities that are grouped under this grouping entity
  *
  */
 @Entity
 class GroupingEntity @JvmOverloads constructor(
-        @ManyToMany
-        var datastoreList: MutableList<DatastoreEntity> = ArrayList(),
+        @Column(nullable = false)
+        var name: String,
+
+        @ManyToOne(optional = false)
+        val project: ProjectEntity,
 
         @ManyToMany
         val systemSoftwareList: MutableList<SystemSoftwareEntity> = ArrayList(),

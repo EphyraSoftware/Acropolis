@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Service for interactions and mutations around ProjectEntity
+ * */
 @Component
 class ProjectService : IProjectService {
     private val Logger = LoggerFactory.getLogger(ProjectService::class.java)
@@ -51,7 +54,7 @@ class ProjectService : IProjectService {
      * @param name the name of the entity to try and find
      * @return an instance of the entity if found, or nil
      */
-    override fun get(name: String): ProjectEntity? {
+    override fun find(name: String): ProjectEntity? {
         Logger.trace("Getting project by name [$name]")
 
         return persistence.findByName(name)

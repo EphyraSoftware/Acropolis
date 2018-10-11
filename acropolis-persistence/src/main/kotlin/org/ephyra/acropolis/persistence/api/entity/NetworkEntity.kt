@@ -17,11 +17,11 @@ class NetworkEntity @JvmOverloads constructor(
         @ManyToOne(optional = false)
         val project: ProjectEntity,
 
-        @OneToOne(optional = true)
-        var groupingEntity: GroupingEntity? = null,
-
         @Column(nullable = true)
-        var description: String? = null
+        var description: String? = null,
+
+        @OneToMany
+        var computeInstanceList: MutableList<ComputeInstanceEntity> = ArrayList()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

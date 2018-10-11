@@ -43,7 +43,7 @@ class ImportServiceIntTest {
         val project = yamlHelper.loadFromString(data)
         assertNotNull(project, "Should be able to deserialize object")
 
-        val projectEntity = projectService.get(project!!.name)
+        val projectEntity = projectService.find(project!!.name)
         assertNotNull(projectEntity, "Expected to find the imported project")
         val projectId = projectEntity!!.id
 
@@ -52,7 +52,7 @@ class ImportServiceIntTest {
         assertNotNull(app!!.description)
         assertEquals(project.software!!.applications[0].description, app.description)
 
-        val system = systemSoftwareService.get(project.software!!.systems[0].name, projectId)
+        val system = systemSoftwareService.find(project.software!!.systems[0].name, projectId)
         assertNotNull(system, "Expected to find the imported system")
         assertNotNull(system!!.description)
         assertEquals(project.software!!.systems[0].description, system.description)

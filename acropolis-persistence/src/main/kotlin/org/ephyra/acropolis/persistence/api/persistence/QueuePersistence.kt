@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.QueueRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around QueueRepository operations
+ * */
 @Component
 class QueuePersistence {
     @Autowired
@@ -19,6 +22,7 @@ class QueuePersistence {
     }
 
     /**
+     * Get all QueueEntities
      * @return The entire List<> of entities of this type
      */
     fun getAll(): List<QueueEntity> {

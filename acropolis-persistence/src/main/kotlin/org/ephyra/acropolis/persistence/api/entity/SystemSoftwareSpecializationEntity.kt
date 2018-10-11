@@ -1,12 +1,11 @@
 package org.ephyra.acropolis.persistence.api.entity
 
-import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import javax.persistence.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-open class SystemSoftwareSpecializationEntity constructor(
+abstract class SystemSoftwareSpecializationEntity constructor(
         @Column(nullable = true)
         var description: String? = null
 ) : IConnectable {
@@ -25,7 +24,5 @@ open class SystemSoftwareSpecializationEntity constructor(
     /**
      * @return The Enumerated ConnectionEndpointType value that corresponds to this type of entity
      */
-    override fun getConnectionEndpointType(): Int {
-        return ConnectionEndpointType.REVERSE_PROXY.type
-    }
+    abstract override fun getConnectionEndpointType(): Int
 }

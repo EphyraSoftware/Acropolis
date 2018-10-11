@@ -4,6 +4,9 @@ import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
+/**
+ * Spring Repository for persisting SystemSoftwareEntity
+ * */
 internal interface SystemSoftwareRepository : CrudRepository<SystemSoftwareEntity, Long> {
     /**
      * @param name The name of the entity to find

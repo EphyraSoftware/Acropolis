@@ -7,6 +7,9 @@ import org.ephyra.acropolis.service.api.ILoadBalancerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+/**
+ * Service for interactions and mutations around LoadBalancerEntity
+ * */
 @Service
 class LoadBalancerService : ILoadBalancerService {
     @Autowired
