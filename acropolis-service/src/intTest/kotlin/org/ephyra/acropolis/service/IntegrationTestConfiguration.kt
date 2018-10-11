@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.PropertySource
 import org.springframework.core.env.Environment
 import org.springframework.jdbc.datasource.DriverManagerDataSource
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
@@ -16,6 +17,7 @@ import javax.sql.DataSource
  * Configuration class for loading consistent configuration across integration tests
  */
 @Configuration
+@PropertySource("classpath:application.properties")
 @ComponentScan(basePackageClasses = [ServiceConfiguration::class])
 class IntegrationTestConfiguration {
     @Autowired
@@ -44,10 +46,10 @@ class IntegrationTestConfiguration {
     fun dataSource(): DataSource {
         val dataSource = DriverManagerDataSource()
 
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver")
-        dataSource.url = "jdbc:mysql://localhost:3306/acropolisdev"
-        dataSource.username = "root"
-        dataSource.password = "root"
+        dataSource.setDriverClassName(environment.getRequiredProperty("datastore.driverClassName"))
+        dataSource.url = environment.getRequiredProperty("datastore.url")
+        dataSource.username = environment.getRequiredProperty("datastore.username")
+        dataSource.password = environment.getRequiredProperty("datastore.password")
 
         return dataSource
     }
@@ -59,9 +61,9 @@ class IntegrationTestConfiguration {
      */
     fun additionalProperties(): Properties {
         val hibernateProperties = Properties()
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create")
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", environment.getRequiredProperty("datastore.hibernate.ddl-auto"))
         // TODO (Gregory Jensen 11/10/2018) This should be the MySQL8 dialect but that isn't available in the version of hibernate distributed with spring-data-jpa
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect")
+        hibernateProperties.setProperty("hibernate.dialect", environment.getRequiredProperty("datastore.hibernate.dialect"))
         return hibernateProperties
     }
 }
