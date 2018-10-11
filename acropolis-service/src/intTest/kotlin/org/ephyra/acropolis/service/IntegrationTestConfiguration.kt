@@ -57,6 +57,9 @@ class IntegrationTestConfiguration {
         return dataSource
     }
 
+    /**
+     * Bean constructor for a transactionManager
+     */
     @Bean
     fun transactionManager(@Autowired entityManagerFactoryBean: EntityManagerFactory, @Autowired dataSource: DataSource): JpaTransactionManager {
         val transactionManager = JpaTransactionManager()
