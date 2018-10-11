@@ -1,6 +1,7 @@
 package org.ephyra.acropolis.service
 
 import org.ephyra.acropolis.external.YamlHelper
+import org.ephyra.acropolis.external.model.SoftwareContainer
 import org.ephyra.acropolis.service.api.*
 import org.ephyra.acropolis.service.config.ServiceConfiguration
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -50,16 +51,23 @@ class ImportServiceIntTest {
         val projectId = projectEntity?.id ?: throw IllegalStateException("projectEntity not null")
 
         val software = project.software ?: throw IllegalStateException("project.software not null")
-        val app = applicationSoftwareService.find(software.applications[0].name, projectId)
-        assertNotNull(app, "Expected to find the imported application")
-        app ?: throw IllegalStateException("app not null")
-        assertNotNull(app.description)
-        assertEquals(software.applications[0].description, app.description)
+        assertApplicationsImported(software, projectId)
+        assertSystemsImported(software, projectId)
+    }
 
+    private fun assertSystemsImported(software: SoftwareContainer, projectId: Long) {
         val system = systemSoftwareService.find(software.systems[0].name, projectId)
         assertNotNull(system, "Expected to find the imported system")
         system ?: throw IllegalStateException("system not null")
         assertNotNull(system.description)
         assertEquals(software.systems[0].description, system.description)
+    }
+
+    private fun assertApplicationsImported(software: SoftwareContainer, projectId: Long) {
+        val app = applicationSoftwareService.find(software.applications[0].name, projectId)
+        assertNotNull(app, "Expected to find the imported application")
+        app ?: throw IllegalStateException("app not null")
+        assertNotNull(app.description)
+        assertEquals(software.applications[0].description, app.description)
     }
 }
