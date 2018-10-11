@@ -7,7 +7,7 @@ jobs:
         environment:
           - MYSQL_ROOT_PASSWORD=root
           - MYSQL_PASSWORD=root
-          - MYSQL_DATABASE=acropolisdev
+          - MYSQL_DATABASE=acropolistest
     steps:
     - checkout
     - run:
