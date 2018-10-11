@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
+import java.lang.IllegalStateException
 
 /**
  * Integration test for the import service
@@ -42,19 +43,23 @@ class ImportServiceIntTest {
         val yamlHelper = YamlHelper()
         val project = yamlHelper.loadFromString(data)
         assertNotNull(project, "Should be able to deserialize object")
+        project ?: throw IllegalStateException("project not null")
 
-        val projectEntity = projectService.find(project!!.name)
+        val projectEntity = projectService.find(project.name)
         assertNotNull(projectEntity, "Expected to find the imported project")
-        val projectId = projectEntity!!.id
+        val projectId = projectEntity?.id ?: throw IllegalStateException("projectEntity not null")
 
-        val app = applicationSoftwareService.find(project.software!!.applications[0].name, projectId)
+        val software = project.software ?: throw IllegalStateException("project.software not null")
+        val app = applicationSoftwareService.find(software.applications[0].name, projectId)
         assertNotNull(app, "Expected to find the imported application")
-        assertNotNull(app!!.description)
-        assertEquals(project.software!!.applications[0].description, app.description)
+        app ?: throw IllegalStateException("app not null")
+        assertNotNull(app.description)
+        assertEquals(software.applications[0].description, app.description)
 
-        val system = systemSoftwareService.find(project.software!!.systems[0].name, projectId)
+        val system = systemSoftwareService.find(software.systems[0].name, projectId)
         assertNotNull(system, "Expected to find the imported system")
-        assertNotNull(system!!.description)
-        assertEquals(project.software!!.systems[0].description, system.description)
+        system ?: throw IllegalStateException("system not null")
+        assertNotNull(system.description)
+        assertEquals(software.systems[0].description, system.description)
     }
 }
