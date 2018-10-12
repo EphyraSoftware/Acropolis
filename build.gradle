@@ -1,3 +1,7 @@
+plugins {
+    id("io.gitlab.arturbosch.detekt").version("1.0.0.RC9.2")
+}
+
 subprojects {
     repositories {
         jcenter()
@@ -16,6 +20,30 @@ apply plugin: 'jacoco'
 
 jacoco {
     toolVersion = '0.8.2'
+}
+
+ext {
+    detectSources = file("${projectDir}").listFiles(new FilenameFilter() {
+        @Override
+        boolean accept(File dir, String name) {
+            new File(dir, name).isDirectory() && name.startsWith("acropolis-")
+        }
+    })
+}
+
+detekt {
+    toolVersion = "1.0.0.RC9.2"
+
+    input = layout.files(detectSources)
+    config = layout.files("detekt-config.yml")
+    reports {
+        xml {
+            destination = file("build/reports/failfast.xml")
+        }
+        html {
+            destination = file("build/reports/failfast.html")
+        }
+    }
 }
 
 task codeCoverageReport(type: JacocoReport) {
