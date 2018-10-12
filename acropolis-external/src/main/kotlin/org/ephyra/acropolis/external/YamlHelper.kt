@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.external
 
+import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.KotlinModule
@@ -20,7 +21,7 @@ class YamlHelper {
         mapper.registerModule(KotlinModule())
         return try {
             mapper.readValue(yamlData, Project::class.java)
-        } catch (e: Exception) {
+        } catch (e: JsonMappingException) {
             logger.error("Failed to load project from string [$yamlData]", e)
             null
         }
