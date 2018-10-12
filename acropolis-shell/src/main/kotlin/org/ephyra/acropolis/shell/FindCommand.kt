@@ -2,6 +2,7 @@ package org.ephyra.acropolis.shell
 
 import org.ephyra.acropolis.persistence.api.entity.LoadBalancerEntity
 import org.ephyra.acropolis.persistence.api.entity.ReverseProxyEntity
+import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
 import org.ephyra.acropolis.service.api.INetworkService
 import org.ephyra.acropolis.service.api.ISystemSoftwareService
 import org.slf4j.LoggerFactory
@@ -52,25 +53,28 @@ class FindCommand {
         } else {
             println("Found system-software with name $name.")
             if (systemSoftware.description != null) println("Description is ${systemSoftware.description}")
-            val specialization = systemSoftware.specialization
-            when (specialization) {
-                is ReverseProxyEntity -> {
-                    println("The software is specialised as: reverse-proxy")
-                    if (specialization.description != null) println("  with description ${specialization.description}")
-                }
-                is LoadBalancerEntity -> {
-                    println("The software is specialised as: load-balancer")
-                    if (specialization.description != null) println("  with description ${specialization.description}")
-                }
-                else -> {
-                    if (specialization == null) {
-                        println("The software is not specialized")
-                    } else {
-                        val connectionType = specialization.getConnectionEndpointType()
-                        println("unknown specialization $connectionType")
-                    }
-                }
+            printSpecialization(systemSoftware)
+        }
+    }
 
+    private fun printSpecialization(systemSoftware: SystemSoftwareEntity) {
+        val specialization = systemSoftware.specialization
+        when (specialization) {
+            is ReverseProxyEntity -> {
+                println("The software is specialised as: reverse-proxy")
+                if (specialization.description != null) println("  with description ${specialization.description}")
+            }
+            is LoadBalancerEntity -> {
+                println("The software is specialised as: load-balancer")
+                if (specialization.description != null) println("  with description ${specialization.description}")
+            }
+            else -> {
+                if (specialization == null) {
+                    println("The software is not specialized")
+                } else {
+                    val connectionType = specialization.getConnectionEndpointType()
+                    println("unknown specialization $connectionType")
+                }
             }
         }
     }
