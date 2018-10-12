@@ -30,15 +30,4 @@ class DatastorePersistence {
         val entity = repo.findById(id)
         return if (entity.isPresent) entity.get() else null
     }
-
-    /**
-     * Find an instance with the given ID in the project with the given ID
-     * @param name The name to try and find in the database
-     * @param projectId The ID of the project that this entity is scoped to
-     * @return The entity corresponding to the specified ID, or null if not found
-     */
-    fun findByName(name: String, projectId: Long): DatastoreEntity? {
-        val entity = repo.findByNameAndProjectId(name, projectId)
-        return if (entity.isPresent) entity.get() else null
-    }
 }

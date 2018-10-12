@@ -84,21 +84,21 @@ class ImportService @Autowired constructor(
         systems.forEach { sys ->
             systemSoftwareService.create(sys.name, projectName)
 
+            val newSystem = systemSoftwareService.find(sys.name, projectId)
+            val systemId = newSystem?.id
+
+            if (systemId == null) {
+                val msg = "Failed to create system [${sys.name}]"
+                logger.error(msg)
+                throw IllegalStateException(msg)
+            }
+
+            newSystem.description = sys.description
+
+            systemSoftwareService.update(newSystem)
+
             val specialization = sys.specialization
             if (specialization != null) {
-                val newSystem = systemSoftwareService.find(sys.name, projectId)
-                val systemId = newSystem?.id
-
-                if (systemId == null) {
-                    val msg = "Failed to create system [${sys.name}]"
-                    logger.error(msg)
-                    throw IllegalStateException(msg)
-                }
-
-                newSystem.description = sys.description
-
-                systemSoftwareService.update(newSystem)
-
                 when (extractSystemSpecialization(specialization)) {
                     SystemSoftwareSpecialization.ReverseProxy -> reverseProxyService.create(systemId)
                     SystemSoftwareSpecialization.LoadBalancer -> loadBalancerService.create(systemId)
@@ -107,7 +107,6 @@ class ImportService @Autowired constructor(
                         logger.warn("The specialization [$specialization] will be ignored")
                     }
                 }
-
             }
         }
     }

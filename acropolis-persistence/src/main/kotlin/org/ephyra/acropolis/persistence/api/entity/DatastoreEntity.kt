@@ -11,8 +11,8 @@ import javax.persistence.Entity
  */
 @Entity
 class DatastoreEntity @JvmOverloads constructor(
-        desc: String? = null
-) : SystemSoftwareSpecializationEntity(desc) {
+        description: String? = null
+) : SystemSoftwareSpecializationEntity(description) {
 
     /**
      * @return The Enumerated ConnectionEndpointType value that corresponds to this type of entity
