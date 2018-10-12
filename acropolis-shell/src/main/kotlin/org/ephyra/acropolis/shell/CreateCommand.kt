@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 
+/**
+ * Command for creating new items.
+ */
 @ShellComponent
 class CreateCommand {
     @Autowired
@@ -28,6 +31,9 @@ class CreateCommand {
     @Autowired
     private lateinit var networkService: INetworkService
 
+    /**
+     * Handler for the create command.
+     */
     @ShellMethod("Create an item")
     fun create(itemType: String, name: String) {
         when (itemType) {

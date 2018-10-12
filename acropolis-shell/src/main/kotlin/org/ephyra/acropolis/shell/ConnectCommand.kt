@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 
+/**
+ * Shell command for working with connections between entities.
+ */
 @ShellComponent
 class ConnectCommand {
     @Autowired
@@ -15,6 +18,9 @@ class ConnectCommand {
     @Autowired
     private lateinit var connectHelper: ConnectHelper
 
+    /**
+     * Handler method for the connect command.
+     */
     @ShellMethod("Connect two items")
     fun connect(fromEndpointType: String, fromId: String, connectionType: String, toEndpointType: String, toId: String) {
         val source: IConnectable = connectHelper.typenameToConnectable(fromId, fromEndpointType)

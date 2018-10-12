@@ -11,6 +11,9 @@ import org.springframework.shell.standard.ShellMethod
 import org.springframework.stereotype.Component
 import javax.transaction.Transactional
 
+/**
+ * Command for finding items.
+ */
 @ShellComponent
 class FindCommand {
     private val Logger = LoggerFactory.getLogger(FindCommand::class.java)
@@ -24,6 +27,9 @@ class FindCommand {
     @Autowired
     private lateinit var networkFinder: NetworkFinder
 
+    /**
+     * Handler for the find command.
+     */
     @ShellMethod("Query an entity")
     fun find(itemType: String, itemIdentifier: String) {
         val proj = appState.currentProject
@@ -74,6 +80,9 @@ class FindCommand {
 // 1. Needs to be depth 1 Spring proxy access
 // 2. Must be on a public method
 // Thanks to http://blog.timmattison.com/archives/2012/04/19/tips-for-debugging-springs-transactional-annotation/
+/**
+ * Helper to looking up networks.
+ */
 @Component
 class NetworkFinder {
     private val Logger = LoggerFactory.getLogger(NetworkFinder::class.java)
@@ -81,11 +90,14 @@ class NetworkFinder {
     @Autowired
     private lateinit var networkService: INetworkService
 
+    /**
+     * Transactional lookup for a network.
+     */
     @Transactional
     fun findNetwork(projectId: Long, itemIdentifier: String) {
         Logger.trace("Looking for network with name [$itemIdentifier] in project with id [$projectId]")
 
-        val network = networkService.find(itemIdentifier, projectId.toLong())
+        val network = networkService.find(itemIdentifier, projectId)
         if (network == null) {
             Logger.info("No network was found with name $itemIdentifier")
         } else {

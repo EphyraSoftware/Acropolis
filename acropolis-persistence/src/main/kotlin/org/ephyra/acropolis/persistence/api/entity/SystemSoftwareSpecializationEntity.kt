@@ -3,6 +3,9 @@ package org.ephyra.acropolis.persistence.api.entity
 import org.ephyra.acropolis.persistence.api.IConnectable
 import javax.persistence.*
 
+/**
+ * Base class for building specializations of system-software
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 abstract class SystemSoftwareSpecializationEntity constructor(

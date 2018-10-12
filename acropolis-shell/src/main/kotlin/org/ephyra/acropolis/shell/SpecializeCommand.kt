@@ -8,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 
+/**
+ * Command for specializing an item.
+ *
+ * For example, system software can be specialized to represent a reverse proxy or load balancer etc.
+ */
 @ShellComponent
 class SpecializeCommand {
     @Autowired
@@ -22,6 +27,9 @@ class SpecializeCommand {
     @Autowired
     private lateinit var queueService: IQueueService
 
+    /**
+     * Handler for the specialize command.
+     */
     @ShellMethod("Specialise a base software")
     fun specialize(baseId: Long, `as`: String, specializeType: String) {
         if (`as` != "as") {

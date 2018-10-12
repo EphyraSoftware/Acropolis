@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 
+/**
+ * Command for linking items together.
+ */
 @ShellComponent
 class LinkCommand {
     private val Logger = LoggerFactory.getLogger(LinkCommand::class.java)
@@ -20,6 +23,9 @@ class LinkCommand {
     @Autowired
     private lateinit var networkService: INetworkService
 
+    /**
+     * Handler for the link command.
+     */
     @ShellMethod("Link two items")
     fun link(fromType: String, fromName: String, to: String, toType: String, toName: String) {
         Logger.info("Linking [$fromType] with name [$fromName] to [$toType] with name [$toName]")

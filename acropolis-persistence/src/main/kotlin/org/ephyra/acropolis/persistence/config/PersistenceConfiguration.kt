@@ -5,6 +5,10 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
+/**
+ * Spring configuration for this module. This class must be loaded by Spring Boot
+ * in order to configure this module correctly.
+ */
 @Configuration
 @ComponentScan("org.ephyra.acropolis.persistence.api")
 @EnableJpaRepositories("org.ephyra.acropolis.persistence.impl")
