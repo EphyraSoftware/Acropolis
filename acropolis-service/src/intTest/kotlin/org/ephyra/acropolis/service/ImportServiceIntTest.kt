@@ -37,6 +37,7 @@ class ImportServiceIntTest {
      */
     @Test
     @DisplayName("Test that YAML can be used to import a project")
+    @Suppress("ThrowsCount")
     fun importProjectFromYaml() {
         val data = String(javaClass.getResourceAsStream("/sample-project-for-import.yml").readAllBytes())
         importService.importProject(data, ImportType.YAML)

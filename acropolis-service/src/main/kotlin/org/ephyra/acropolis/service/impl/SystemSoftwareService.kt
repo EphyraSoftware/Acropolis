@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component
 
 /**
  * Service for interactions and mutations around SystemSoftwareEntity
- * */
+ */
 @Component
 class SystemSoftwareService : ISystemSoftwareService {
-    val Logger = LoggerFactory.getLogger(SystemSoftwareService::class.java)
+    private val logger = LoggerFactory.getLogger(SystemSoftwareService::class.java)
 
     @Autowired
     private lateinit var persistence: SystemSoftwarePersistence
@@ -21,16 +21,11 @@ class SystemSoftwareService : ISystemSoftwareService {
     @Autowired
     private lateinit var projectService: IProjectService
 
-    /**
-     * Creates a new entity, to be associated with the given project
-     * @param name the name of the entity to create
-     * @param projectName the name of the project to associate this entity with
-     */
     override fun create(name: String, projectName: String) {
         val project = projectService.find(projectName)
 
         if (project == null) {
-            Logger.error("Could not find project with name [$projectName]")
+            logger.error("Could not find project with name [$projectName]")
             throw IllegalStateException("Project not found [$projectName]")
         }
 
@@ -38,12 +33,6 @@ class SystemSoftwareService : ISystemSoftwareService {
         persistence.create(entity)
     }
 
-    /**
-     * Find an instance with the given name that exists within the scope of the given project ID
-     * @param name the name of the entity to try and find
-     * @param projectId the ID of the project to scope the query to
-     * @return an instance of the entity if found, or nil
-     */
     override fun find(name: String, projectId: Long): SystemSoftwareEntity? {
         return persistence.findByName(name, projectId)
     }

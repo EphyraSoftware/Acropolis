@@ -1,13 +1,25 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.external.*
+import org.ephyra.acropolis.external.RefType
+import org.ephyra.acropolis.external.SystemSoftwareSpecialization
+import org.ephyra.acropolis.external.YamlHelper
+import org.ephyra.acropolis.external.extractRef
+import org.ephyra.acropolis.external.extractSystemSpecialization
 import org.ephyra.acropolis.external.model.ApplicationSoftware
 import org.ephyra.acropolis.external.model.Project
 import org.ephyra.acropolis.external.model.SoftwareContainer
 import org.ephyra.acropolis.external.model.SystemSoftware
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
-import org.ephyra.acropolis.service.api.*
+import org.ephyra.acropolis.service.api.IApplicationSoftwareService
+import org.ephyra.acropolis.service.api.IConnectionService
+import org.ephyra.acropolis.service.api.IImportService
+import org.ephyra.acropolis.service.api.ILoadBalancerService
+import org.ephyra.acropolis.service.api.IProjectService
+import org.ephyra.acropolis.service.api.IQueueService
+import org.ephyra.acropolis.service.api.IReverseProxyService
+import org.ephyra.acropolis.service.api.ISystemSoftwareService
+import org.ephyra.acropolis.service.api.ImportType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -138,7 +150,8 @@ class ImportService @Autowired constructor(
         software.applications.forEach { app ->
             val fromApplication = applicationSoftwareService.find(app.name, projectId)
             if (fromApplication == null) {
-                logger.error("Attempting to import talks to connections for application [${app.name}] but the application was not found")
+                logger.error("Attempting to import talks to connections for application [${app.name}] but the " +
+                        "application was not found")
                 throw IllegalStateException(missingApplicationForTalksToMessage)
             }
 
@@ -148,7 +161,8 @@ class ImportService @Autowired constructor(
         software.systems.forEach { system ->
             val fromSystem = systemSoftwareService.find(system.name, projectId)
             if (fromSystem == null) {
-                logger.error("Attempting to import talks to connections for system [${system.name}] but the system was not found")
+                logger.error("Attempting to import talks to connections for system [${system.name}] but the " +
+                        "system was not found")
                 throw IllegalStateException(missingSystemForTalksToMessage)
             }
 
@@ -156,8 +170,8 @@ class ImportService @Autowired constructor(
         }
     }
 
-    private fun configureConnectionsFrom(talks_to: List<String>?, projectId: Long, fromApplication: IConnectable) {
-        talks_to?.forEach { talksToRef ->
+    private fun configureConnectionsFrom(talksTo: List<String>?, projectId: Long, fromApplication: IConnectable) {
+        talksTo?.forEach { talksToRef ->
             val (refType, name) = extractRef(talksToRef)
 
             val toElement = when (refType) {
@@ -165,7 +179,8 @@ class ImportService @Autowired constructor(
                     val toApplication = applicationSoftwareService.find(name, projectId)
 
                     if (toApplication == null) {
-                        logger.error("Attempting to import talks to connection for application [$name] but the application was not found")
+                        logger.error("Attempting to import talks to connection for application [$name] but the " +
+                                "application was not found")
                         throw IllegalStateException(missingApplicationForTalksToMessage)
                     }
 
@@ -175,7 +190,8 @@ class ImportService @Autowired constructor(
                     val toSystem = systemSoftwareService.find(name, projectId)
 
                     if (toSystem == null) {
-                        logger.error("Attempting to import talks to connection for system [$name] but the system was not found")
+                        logger.error("Attempting to import talks to connection for system [$name] but the " +
+                                "system was not found")
                         throw IllegalStateException(missingSystemForTalksToMessage)
                     }
 

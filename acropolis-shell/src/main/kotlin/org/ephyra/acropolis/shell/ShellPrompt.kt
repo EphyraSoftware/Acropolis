@@ -5,6 +5,9 @@ import org.jline.utils.AttributedStyle
 import org.springframework.shell.jline.PromptProvider
 import org.springframework.stereotype.Component
 
+/**
+ * Custom prompt for the Acropolis shell.
+ */
 @Component
 class ShellPrompt : PromptProvider {
     override fun getPrompt(): AttributedString {

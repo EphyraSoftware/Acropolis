@@ -5,6 +5,11 @@ import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.core.env.PropertySource
 
+/**
+ * Custom loader for YAML properties.
+ *
+ * This is a work around for Spring Boot's inability to load multiple YAML files containing properties.
+ */
 class ConfigLoader : ApplicationContextInitializer<ConfigurableApplicationContext> {
     private var configLocations = arrayOf(
             Pair("persistence-application-yml", "classpath:application.persistence.yml")
@@ -16,7 +21,11 @@ class ConfigLoader : ApplicationContextInitializer<ConfigurableApplicationContex
         }
     }
 
-    private fun loadConfig(applicationContext: ConfigurableApplicationContext, configName: String, configLocation: String) {
+    private fun loadConfig(
+            applicationContext: ConfigurableApplicationContext,
+            configName: String,
+            configLocation: String
+    ) {
         val resource = applicationContext.getResource(configLocation)
 
         val loader = YamlPropertySourceLoader()

@@ -7,6 +7,13 @@ import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import org.springframework.shell.standard.ShellOption
 
+const val EXTRA_PARAM_COUNT = 3
+
+/**
+ * Command for listing items.
+ *
+ * For example, you can list all projects.
+ */
 @ShellComponent
 class ListCommand {
     @Autowired
@@ -18,6 +25,9 @@ class ListCommand {
     @Autowired
     private lateinit var connectHelper: ConnectHelper
 
+    /**
+     * Handler for the list command.
+     */
     @ShellMethod("List items by type")
     fun list(itemType: String, @ShellOption(defaultValue = "", arity = 3) rest: List<String>) {
         when (itemType) {
@@ -35,7 +45,7 @@ class ListCommand {
     }
 
     private fun listConnections(args: List<String>) {
-        if (args.size < 3) {
+        if (args.size < EXTRA_PARAM_COUNT) {
             println("Usage: list connection from <type> <id>")
             return
         }

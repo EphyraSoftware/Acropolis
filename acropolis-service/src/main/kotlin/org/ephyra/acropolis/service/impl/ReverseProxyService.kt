@@ -9,20 +9,17 @@ import org.springframework.stereotype.Service
 
 /**
  * Service for interactions and mutations around ReverseProxyEntity
- * */
+ */
 @Service
 class ReverseProxyService @Autowired constructor(
         private val persistence: ReverseProxyPersistence,
 
         private val systemSoftwarePersistence: SystemSoftwarePersistence
 ) : IReverseProxyService {
-    /**
-     * Creates a new entity, to be associated with the given SystemSoftware ID
-     * @param baseSoftwareId the ID of the base SystemSofware to associate this entity with
-     */
     override fun create(baseSoftwareId: Long) {
         val systemSoftwareEntity = systemSoftwarePersistence.find(baseSoftwareId)
-                ?: throw IllegalStateException("Cannot specialize system software because no system software exists with id [$baseSoftwareId]")
+                ?: throw IllegalStateException("Cannot specialize system software because no system-software " +
+                        "exists with id [$baseSoftwareId]")
 
         val reverseProxy = ReverseProxyEntity("Hello, World!")
         persistence.create(reverseProxy)

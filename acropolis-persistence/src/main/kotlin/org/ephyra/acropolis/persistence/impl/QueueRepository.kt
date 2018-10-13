@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 /**
  * Spring Repository for persisting QueueEntity
- * */
+ */
 internal interface QueueRepository : CrudRepository<QueueEntity, Long>

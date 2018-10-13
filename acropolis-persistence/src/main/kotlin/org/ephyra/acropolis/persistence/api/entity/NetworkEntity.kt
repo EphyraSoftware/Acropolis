@@ -1,13 +1,21 @@
 package org.ephyra.acropolis.persistence.api.entity
 
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 
 /**
- *  @property id Auto-generated ID database
- *  @property name The name of the entity
- *  @property project The project to which this entity belongs, ManyToOne
- *  @property groupingEntity The group which contains entities that belong to this network
- *  @property description A short, optional, string to describe this entity in more detail
+ * Representation of a network for persistence.
+ *
+ * @property id Auto-generated ID database
+ * @property name The name of the entity
+ * @property project The project to which this entity belongs, ManyToOne
+ * @property description A short, optional, string to describe this entity in more detail
+ * @property computeInstanceList The list of compute instances included in this network
  */
 @Entity
 class NetworkEntity @JvmOverloads constructor(

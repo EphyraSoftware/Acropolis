@@ -62,7 +62,7 @@ internal class ReverseProxyServiceTestFixture {
         val exception = shouldThrow<IllegalStateException> {
             testClass.create(baseSoftwareId)
         }
-        exception.message.shouldBe("Cannot specialize system software because no system software exists with id [$baseSoftwareId]")
+        exception.message.shouldBe("Cannot specialize system software because no system-software exists with id [$baseSoftwareId]")
     }
 
     internal fun givenBaseSoftwareExists(baseSoftwareId: Long) {
@@ -84,4 +84,3 @@ internal class ReverseProxyServiceTestFixture {
         verify { systemSoftwarePersistence.update(systemSoftware = any()) }
     }
 }
-

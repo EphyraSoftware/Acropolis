@@ -7,14 +7,15 @@ import org.springframework.stereotype.Component
 
 /**
  * Wrapper around ComputeInstanceRepository operations
- * */
+ */
 @Component
 class ComputeInstancePersistence {
     @Autowired
     private lateinit var repo: ComputeInstanceRepository
 
     /**
-     * Create a new record for the entity in the database
+     * Create a new record for the entity in the database.
+     *
      * @param entity The newly created instance of this entity to be persisted to the database
      */
     fun create(computeInstance: ComputeInstanceEntity) {
@@ -22,7 +23,8 @@ class ComputeInstancePersistence {
     }
 
     /**
-     * Find an instance with the given ID
+     * Find an instance with the given ID.
+     *
      * @param id The ID to try and find in the database
      * @return The entity corresponding to the specified ID, or null if not found
      */
@@ -32,7 +34,8 @@ class ComputeInstancePersistence {
     }
 
     /**
-     * Find an instance with the given ID in the project with the given ID
+     * Find an instance with the given ID in the project with the given ID.
+     *
      * @param name The name to try and find in the database
      * @param projectId The ID of the project that this entity is scoped to
      * @return The entity corresponding to the specified ID, or null if not found
@@ -43,7 +46,8 @@ class ComputeInstancePersistence {
     }
 
     /**
-     * Updates an existing database record with the details contained within the entity parameter
+     * Updates an existing database record with the details contained within the entity parameter.
+     *
      * @param entity the instance of the entity containing modified fields to be persisted to the database
      */
     fun update(entity: ComputeInstanceEntity) {

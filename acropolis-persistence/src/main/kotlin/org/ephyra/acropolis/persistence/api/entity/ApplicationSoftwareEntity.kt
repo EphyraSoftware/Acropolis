@@ -2,13 +2,19 @@ package org.ephyra.acropolis.persistence.api.entity
 
 import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import org.ephyra.acropolis.persistence.api.IConnectable
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.ManyToOne
 
 /**
  * Entity to model application software.
  *
  * Definition of application software
- *  Application software is computer software designed to perform a group of coordinated functions, tasks, or activities for the benefit of a user.
+ *  Application software is computer software designed to perform a group of coordinated functions, tasks, or
+ *  activities for the benefit of a user.
  *
  * Examples of application software
  *  - A web browser

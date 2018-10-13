@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 /**
  * Spring Repository for persisting LoadBalancerEntity
- * */
+ */
 interface LoadBalancerRepository : CrudRepository<LoadBalancerEntity, Long>

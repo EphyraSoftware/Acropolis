@@ -5,6 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 
+/**
+ * Command for selecting an item.
+ *
+ * This will load the identified item for use in a later command.
+ * For example, most commands require a project to be selected.
+ */
 @ShellComponent
 class SelectCommand {
     @Autowired
@@ -13,6 +19,9 @@ class SelectCommand {
     @Autowired
     private lateinit var projectService: IProjectService
 
+    /**
+     * Handler for the select command.
+     */
     @ShellMethod("Select an item")
     fun select(itemType: String, value: String) {
         when (itemType) {

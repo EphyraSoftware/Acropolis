@@ -2,7 +2,13 @@ package org.ephyra.acropolis.persistence.api.entity
 
 import org.ephyra.acropolis.persistence.api.ConnectionEndpointType
 import org.ephyra.acropolis.persistence.api.IConnectable
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.ManyToOne
+import javax.persistence.OneToOne
 
 /**
  * Entity to model system software.
@@ -18,7 +24,8 @@ import javax.persistence.*
  *  @property id auto-generated database ID
  *  @property name The name of this entity
  *  @property project the project to which this entity belongs
- *  @property specialization polymorphic type field, auto-populated by Hibernate with the type of derived specialisations of SystemSoftwareEntity
+ *  @property specialization polymorphic type field, auto-populated by Hibernate with the type of derived
+ *  specialisations of SystemSoftwareEntity
  *  @property description A short description
  */
 @Entity
