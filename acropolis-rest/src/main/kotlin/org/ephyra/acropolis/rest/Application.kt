@@ -15,6 +15,7 @@ class Application
  * Application entry point for the REST service.
  * Note that this delegates to the Spring Boot entry point to start this service.
  */
+@Suppress("SpreadOperator")
 fun main(args: Array<String>) {
     runApplication<Application>(*args)
 }

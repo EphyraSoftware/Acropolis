@@ -17,7 +17,7 @@ import javax.transaction.Transactional
  */
 @ShellComponent
 class FindCommand {
-    private val Logger = LoggerFactory.getLogger(FindCommand::class.java)
+    private val logger = LoggerFactory.getLogger(FindCommand::class.java)
 
     @Autowired
     private lateinit var appState: AppState
@@ -35,14 +35,14 @@ class FindCommand {
     fun find(itemType: String, itemIdentifier: String) {
         val proj = appState.currentProject
         if (proj == null) {
-            Logger.error("No project selected")
+            logger.error("No project selected")
             return
         }
 
         when (itemType) {
             "system-software" -> findSystemSoftware(proj.id, itemIdentifier)
             "network" -> networkFinder.findNetwork(proj.id, itemIdentifier)
-            else -> Logger.warn("Don't know how to look for item type [$itemType]")
+            else -> logger.warn("Don't know how to look for item type [$itemType]")
         }
     }
 
@@ -89,7 +89,7 @@ class FindCommand {
  */
 @Component
 class NetworkFinder {
-    private val Logger = LoggerFactory.getLogger(NetworkFinder::class.java)
+    private val logger = LoggerFactory.getLogger(NetworkFinder::class.java)
 
     @Autowired
     private lateinit var networkService: INetworkService
@@ -99,16 +99,16 @@ class NetworkFinder {
      */
     @Transactional
     fun findNetwork(projectId: Long, itemIdentifier: String) {
-        Logger.trace("Looking for network with name [$itemIdentifier] in project with id [$projectId]")
+        logger.trace("Looking for network with name [$itemIdentifier] in project with id [$projectId]")
 
         val network = networkService.find(itemIdentifier, projectId)
         if (network == null) {
-            Logger.info("No network was found with name $itemIdentifier")
+            logger.info("No network was found with name $itemIdentifier")
         } else {
-            Logger.info("Found network with id [${network.id}]")
+            logger.info("Found network with id [${network.id}]")
 
-            Logger.info("Name: [${network.name}]")
-            Logger.info("Description: [${network.description}]")
+            logger.info("Name: [${network.name}]")
+            logger.info("Description: [${network.description}]")
         }
     }
 }

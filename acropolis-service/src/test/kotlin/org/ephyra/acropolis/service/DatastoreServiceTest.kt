@@ -84,4 +84,3 @@ internal class DatastoreServiceTestFixture {
         verify { systemSoftwarePersistence.update(systemSoftware = any()) }
     }
 }
-

@@ -1,6 +1,11 @@
 package org.ephyra.acropolis.shell
 
-import org.ephyra.acropolis.service.api.*
+import org.ephyra.acropolis.service.api.IApplicationSoftwareService
+import org.ephyra.acropolis.service.api.IComputeInstanceService
+import org.ephyra.acropolis.service.api.IGroupingService
+import org.ephyra.acropolis.service.api.INetworkService
+import org.ephyra.acropolis.service.api.IProjectService
+import org.ephyra.acropolis.service.api.ISystemSoftwareService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
@@ -95,5 +100,4 @@ class CreateCommand {
     private fun createProject(name: String) {
         projectService.create(name)
     }
-
 }

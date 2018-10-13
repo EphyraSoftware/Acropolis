@@ -61,7 +61,10 @@ class IntegrationTestConfiguration {
      * Bean constructor for a transactionManager
      */
     @Bean
-    fun transactionManager(@Autowired entityManagerFactoryBean: EntityManagerFactory, @Autowired dataSource: DataSource): JpaTransactionManager {
+    fun transactionManager(
+            @Autowired entityManagerFactoryBean: EntityManagerFactory,
+            @Autowired dataSource: DataSource
+    ): JpaTransactionManager {
         val transactionManager = JpaTransactionManager()
 
         transactionManager.entityManagerFactory = entityManagerFactoryBean
@@ -77,9 +80,12 @@ class IntegrationTestConfiguration {
      */
     fun additionalProperties(): Properties {
         val hibernateProperties = Properties()
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", environment.getRequiredProperty("datastore.hibernate.ddl-auto"))
-        // TODO (Gregory Jensen 11/10/2018) This should be the MySQL8 dialect but that isn't available in the version of hibernate distributed with spring-data-jpa
-        hibernateProperties.setProperty("hibernate.dialect", environment.getRequiredProperty("datastore.hibernate.dialect"))
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto",
+                environment.getRequiredProperty("datastore.hibernate.ddl-auto"))
+        /* TODO (Gregory Jensen 11/10/2018) This should be the MySQL8 dialect but that isn't available in the version
+           of hibernate distributed with spring-data-jpa */
+        hibernateProperties.setProperty("hibernate.dialect",
+                environment.getRequiredProperty("datastore.hibernate.dialect"))
         return hibernateProperties
     }
 }

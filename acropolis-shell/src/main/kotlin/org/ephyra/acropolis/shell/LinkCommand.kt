@@ -12,7 +12,7 @@ import org.springframework.shell.standard.ShellMethod
  */
 @ShellComponent
 class LinkCommand {
-    private val Logger = LoggerFactory.getLogger(LinkCommand::class.java)
+    private val logger = LoggerFactory.getLogger(LinkCommand::class.java)
 
     @Autowired
     private lateinit var appState: AppState
@@ -28,25 +28,25 @@ class LinkCommand {
      */
     @ShellMethod("Link two items")
     fun link(fromType: String, fromName: String, to: String, toType: String, toName: String) {
-        Logger.info("Linking [$fromType] with name [$fromName] to [$toType] with name [$toName]")
+        logger.info("Linking [$fromType] with name [$fromName] to [$toType] with name [$toName]")
 
         val projectId = appState.currentProject?.id
         if (projectId == null) {
-            Logger.error("No project selected. Use `select project <project name>`")
+            logger.error("No project selected. Use `select project <project name>`")
             return
         }
 
         when (toType) {
             "compute-instance" -> linkToComputeInstance(fromType, fromName, toName, projectId.toLong())
             "network" -> linkToNetwork(fromType, fromName, toName, projectId.toLong())
-            else -> Logger.error("Cannot link to unknown type [$toType]")
+            else -> logger.error("Cannot link to unknown type [$toType]")
         }
     }
 
     private fun linkToNetwork(fromType: String, fromName: String, toName: String, projectId: Long) {
         when (fromType) {
             "compute-instance" -> linkComputeInstanceToNetwork(fromName, toName, projectId)
-            else -> Logger.error("Cannot link unknown type [$fromType] to network")
+            else -> logger.error("Cannot link unknown type [$fromType] to network")
         }
     }
 
@@ -54,7 +54,7 @@ class LinkCommand {
         when (fromType) {
             "application-software" -> linkApplicationSoftwareToComputeInstance(fromName, toName, projectId)
             "system-software" -> linkSystemSoftwareToComputeInstance(fromName, toName, projectId)
-            else -> Logger.error("Cannot link unknown type [$fromType] to compute-instance")
+            else -> logger.error("Cannot link unknown type [$fromType] to compute-instance")
         }
     }
 
@@ -65,7 +65,7 @@ class LinkCommand {
         if (networkId != null) {
             networkService.linkComputeInstance(networkId, fromName, projectId)
         } else {
-            Logger.error("No network found with name [$toName]")
+            logger.error("No network found with name [$toName]")
         }
     }
 
@@ -76,7 +76,7 @@ class LinkCommand {
         if (computeInstanceId != null) {
             computeInstanceService.linkSystemSoftware(computeInstanceId, fromName, projectId)
         } else {
-            Logger.error("No compute-instance found with name [$toName]")
+            logger.error("No compute-instance found with name [$toName]")
         }
     }
 
@@ -87,8 +87,7 @@ class LinkCommand {
         if (computeInstanceId != null) {
             computeInstanceService.linkApplicationSoftware(computeInstanceId, fromName, projectId)
         } else {
-            Logger.error("No compute-instance found with name [$toName]")
+            logger.error("No compute-instance found with name [$toName]")
         }
     }
-
 }

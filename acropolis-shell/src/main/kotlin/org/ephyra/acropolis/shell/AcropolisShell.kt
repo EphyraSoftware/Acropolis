@@ -15,6 +15,7 @@ class AcropolisShell
  * Application entry point for the shell.
  * Note that this delegates to the Spring Boot entry point.
  */
+@Suppress("SpreadOperator")
 fun main(args: Array<String>) {
     runApplication<AcropolisShell>(*args)
 }

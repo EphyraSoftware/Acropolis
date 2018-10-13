@@ -17,7 +17,7 @@ interface IConnectable {
 
 /**
  * Enum defining the allowed connection types between entities
- * */
+ */
 enum class ConnectionType(val type: Int) {
     HOSTED_BY(0),
     TALKS_TO(1);
@@ -25,7 +25,8 @@ enum class ConnectionType(val type: Int) {
 
 /**
  * Enum defining the types that are allowed to be connected up
- * */
+ */
+@Suppress("MagicNumber")
 enum class ConnectionEndpointType(val type: Int) {
     APPLICATION_SOFTWARE(0),
     SYSTEM_SOFTWARE(1),

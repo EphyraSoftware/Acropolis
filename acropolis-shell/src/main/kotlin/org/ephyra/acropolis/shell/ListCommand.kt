@@ -7,6 +7,8 @@ import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import org.springframework.shell.standard.ShellOption
 
+const val EXTRA_PARAM_COUNT = 3
+
 /**
  * Command for listing items.
  *
@@ -43,7 +45,7 @@ class ListCommand {
     }
 
     private fun listConnections(args: List<String>) {
-        if (args.size < 3) {
+        if (args.size < EXTRA_PARAM_COUNT) {
             println("Usage: list connection from <type> <id>")
             return
         }

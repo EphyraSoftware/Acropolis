@@ -128,6 +128,4 @@ internal class NetworkServiceTestFixture {
     fun whenNetworkLookedUpByNameThenNetworkFound() {
         testClass.find(testNetworkName, testProjectId).shouldNotBe(null)
     }
-
 }
-

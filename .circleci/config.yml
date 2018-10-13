@@ -14,6 +14,9 @@ jobs:
         name: Take Ownership
         command: chmod +x ./gradlew
     - run:
+        name: Linting
+        command: ./gradlew detekt
+    - run:
         name: Build
         command: ./gradlew build -PrunIntegrationTests --debug > build.log
     - store_artifacts:

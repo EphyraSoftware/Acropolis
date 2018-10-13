@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 /**
  * Spring Repository for persisting ReverseProxyEntity
- * */
+ */
 internal interface ReverseProxyRepository : CrudRepository<ReverseProxyEntity, Long>

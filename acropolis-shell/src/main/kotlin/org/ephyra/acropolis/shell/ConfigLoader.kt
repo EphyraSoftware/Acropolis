@@ -21,7 +21,11 @@ class ConfigLoader : ApplicationContextInitializer<ConfigurableApplicationContex
         }
     }
 
-    private fun loadConfig(applicationContext: ConfigurableApplicationContext, configName: String, configLocation: String) {
+    private fun loadConfig(
+            applicationContext: ConfigurableApplicationContext,
+            configName: String,
+            configLocation: String
+    ) {
         val resource = applicationContext.getResource(configLocation)
 
         val loader = YamlPropertySourceLoader()

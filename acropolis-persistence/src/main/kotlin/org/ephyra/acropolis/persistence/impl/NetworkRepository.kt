@@ -6,9 +6,11 @@ import java.util.*
 
 /**
  * Spring Repository for persisting NetworkEntity
- * */
+ */
 interface NetworkRepository : CrudRepository<NetworkEntity, Long> {
     /**
+     * Finds a network by name and id.
+     *
      * @param name The name of the entity to find
      * @param projectId the ID of the project this name is scoped to
      * @return An instance of NetworkEntity if one is found
