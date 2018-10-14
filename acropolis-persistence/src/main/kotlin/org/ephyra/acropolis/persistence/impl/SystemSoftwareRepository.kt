@@ -16,4 +16,6 @@ internal interface SystemSoftwareRepository : CrudRepository<SystemSoftwareEntit
      * @return An instance of SystemSoftwareEntity if one is found
      */
     fun findByNameAndProjectId(name: String, projectId: Long): Optional<SystemSoftwareEntity>
+
+    fun findByProjectId(projectId: Long): List<SystemSoftwareEntity>
 }

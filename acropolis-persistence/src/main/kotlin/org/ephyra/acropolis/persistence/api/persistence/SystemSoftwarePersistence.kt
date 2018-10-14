@@ -44,9 +44,19 @@ class SystemSoftwarePersistence {
 
     /**
      * Updates an existing database record with the details contained within the entity parameter
-     * @param entity the instance of the entity containing modified fields to be persisted to the database
+     * @param systemSoftware The instance of the entity containing modified fields to be persisted to the database
      */
     fun update(systemSoftware: SystemSoftwareEntity) {
         repo.save(systemSoftware)
+    }
+
+    /**
+     * Finds all system-software entities which are in the specified project.
+     *
+     * @param projectId The id of the project to search for system-software entities
+     * @return The list of system-software entities
+     */
+    fun findAll(projectId: Long): List<SystemSoftwareEntity> {
+        return repo.findByProjectId(projectId)
     }
 }
