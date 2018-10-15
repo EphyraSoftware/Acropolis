@@ -26,6 +26,9 @@ import org.springframework.stereotype.Service
 import java.lang.IllegalStateException
 import java.util.stream.Collectors
 
+/**
+ * Service for exporting project data to the Acropolis external model
+ */
 @Service
 class ExportService(
         private val projectService: IProjectService,
