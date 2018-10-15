@@ -22,5 +22,5 @@ interface IConnectionService {
      * @param fromConnectable The instance of a Connectanle type to get all connections from
      * @return A list of all instances that have connections from the passed entity
      */
-    fun getConnectionsFrom(fromConnectable: IConnectable): List<IConnectable>
+    fun getConnectionsFrom(fromConnectable: IConnectable, connectionType: ConnectionType): List<IConnectable>
 }

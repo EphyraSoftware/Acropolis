@@ -1,14 +1,23 @@
 package org.ephyra.acropolis.service.impl
 
+import org.ephyra.acropolis.external.SystemSoftwareSpecialization
 import org.ephyra.acropolis.external.YamlHelper
 import org.ephyra.acropolis.external.model.ApplicationSoftware
 import org.ephyra.acropolis.external.model.Project
 import org.ephyra.acropolis.external.model.SoftwareContainer
 import org.ephyra.acropolis.external.model.SystemSoftware
+import org.ephyra.acropolis.external.packSystemSpecialization
+import org.ephyra.acropolis.persistence.api.ConnectionType
+import org.ephyra.acropolis.persistence.api.IConnectable
 import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
+import org.ephyra.acropolis.persistence.api.entity.DatastoreEntity
+import org.ephyra.acropolis.persistence.api.entity.LoadBalancerEntity
 import org.ephyra.acropolis.persistence.api.entity.ProjectEntity
+import org.ephyra.acropolis.persistence.api.entity.QueueEntity
+import org.ephyra.acropolis.persistence.api.entity.ReverseProxyEntity
 import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
 import org.ephyra.acropolis.service.api.IApplicationSoftwareService
+import org.ephyra.acropolis.service.api.IConnectionService
 import org.ephyra.acropolis.service.api.IExportService
 import org.ephyra.acropolis.service.api.IProjectService
 import org.ephyra.acropolis.service.api.ISystemSoftwareService
@@ -23,7 +32,9 @@ class ExportService(
 
         private val applicationSoftwareService: IApplicationSoftwareService,
 
-        private val systemSoftwareService: ISystemSoftwareService
+        private val systemSoftwareService: ISystemSoftwareService,
+
+        private val connectionService: IConnectionService
 ) : IExportService {
     private val yamlHelper = YamlHelper()
 
@@ -66,23 +77,50 @@ class ExportService(
     }
 
     private fun exportApplications(applications: List<ApplicationSoftwareEntity>): List<ApplicationSoftware> {
-        return applications.stream().map { application ->
-            ApplicationSoftware(
-                    name = application.name,
-                    description = application.description ?: "",
-                    talks_to = null // TODO talks to connections
-            )
-        }.collect(Collectors.toList())
+        return applications.stream()
+                .map { application ->
+                    ApplicationSoftware(
+                            name = application.name,
+                            description = application.description ?: "",
+                            talks_to = extractTalksTo(application)
+                    )
+                }
+                .collect(Collectors.toList())
     }
 
     private fun exportSystems(systems: List<SystemSoftwareEntity>): List<SystemSoftware> {
-        return systems.stream().map { system ->
-            SystemSoftware(
-                    name = system.name,
-                    description = system.description ?: "",
-                    specialization = null, // TODO specializations
-                    talks_to = null // TODO talks to connections
-            )
-        }.collect(Collectors.toList())
+        return systems.stream()
+                .map { system ->
+                    SystemSoftware(
+                            name = system.name,
+                            description = system.description ?: "",
+                            specialization = extractSpecialization(system),
+                            talks_to = extractTalksTo(system)
+                    )
+                }
+                .collect(Collectors.toList())
+    }
+
+    private fun extractSpecialization(system: SystemSoftwareEntity): String? {
+        return when (system.specialization) {
+            DatastoreEntity::class -> packSystemSpecialization(SystemSoftwareSpecialization.Queue)
+            LoadBalancerEntity::class -> packSystemSpecialization(SystemSoftwareSpecialization.LoadBalancer)
+            QueueEntity::class -> packSystemSpecialization(SystemSoftwareSpecialization.Queue)
+            ReverseProxyEntity::class -> packSystemSpecialization(SystemSoftwareSpecialization.ReverseProxy)
+            else -> null
+        }
+    }
+
+    private fun extractTalksTo(connectable: IConnectable): List<String>? {
+        return connectionService.getConnectionsFrom(connectable, ConnectionType.TALKS_TO).stream()
+                .map { toConnectable ->
+                    when (toConnectable) {
+                        is ApplicationSoftwareEntity -> toConnectable.name
+                        is SystemSoftwareEntity -> toConnectable.name
+                        else -> null
+                    }
+                }
+                .collect(Collectors.toList())
+                .filterNotNull()
     }
 }

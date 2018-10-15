@@ -1,5 +1,7 @@
 package org.ephyra.acropolis.external
 
+import java.lang.IllegalStateException
+
 /**
  * Types for supported references in the external model
  */
@@ -34,6 +36,7 @@ enum class SystemSoftwareSpecialization {
     ReverseProxy,
     LoadBalancer,
     Queue,
+    Datastore,
     UnknownSpecialization
 }
 
@@ -48,6 +51,23 @@ fun extractSystemSpecialization(name: String): SystemSoftwareSpecialization {
         "REVERSEPROXY" -> SystemSoftwareSpecialization.ReverseProxy
         "LOADBALANCER" -> SystemSoftwareSpecialization.LoadBalancer
         "QUEUE" -> SystemSoftwareSpecialization.Queue
+        "DATASTORE" -> SystemSoftwareSpecialization.Datastore
         else -> SystemSoftwareSpecialization.UnknownSpecialization
+    }
+}
+
+/**
+ * Extracts the enumerated type from the input name.
+ * Unrecognised names are mapped to the UnknownSpecialization enumeration value.
+ *
+ * Note that the match against the name is NOT case-sensitive.
+ */
+fun packSystemSpecialization(systemSoftwareSpecialization: SystemSoftwareSpecialization): String {
+    return when (systemSoftwareSpecialization) {
+        SystemSoftwareSpecialization.ReverseProxy -> "REVERSEPROXY"
+        SystemSoftwareSpecialization.LoadBalancer -> "LOADBALANCER"
+        SystemSoftwareSpecialization.Queue -> "QUEUE"
+        SystemSoftwareSpecialization.Datastore -> "DATASTORE"
+        else -> throw IllegalStateException("Missing conversion for specialization [$systemSoftwareSpecialization]")
     }
 }

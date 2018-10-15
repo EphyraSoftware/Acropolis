@@ -11,6 +11,8 @@ import org.ephyra.acropolis.persistence.api.persistence.SystemSoftwarePersistenc
 import org.ephyra.acropolis.service.api.IConnectionService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.stream.Collector
+import java.util.stream.Collectors
 
 /**
  * Service for interactions and mutations around ConnectionEntity
@@ -41,13 +43,15 @@ class ConnectionService : IConnectionService {
         persistence.create(connection)
     }
 
-    override fun getConnectionsFrom(fromConnectable: IConnectable): List<IConnectable> {
+    override fun getConnectionsFrom(fromConnectable: IConnectable, connectionType: ConnectionType): List<IConnectable> {
         val connections = persistence.getConnectionsFrom(
                 fromConnectable.getConnectionId(),
                 fromConnectable.getConnectionEndpointType()
         )
 
-        val res = connections.map { connectionEntity ->
+        val res = connections.stream().filter { connectionEntity ->
+            connectionEntity.connectionType == connectionType.type
+        }.map { connectionEntity ->
             when (ConnectionEndpointType.fromInt(connectionEntity.toEndpointType)) {
                 ConnectionEndpointType.SYSTEM_SOFTWARE -> systemSoftwarePersistence.find(connectionEntity.toId)
                 ConnectionEndpointType.APPLICATION_SOFTWARE ->
@@ -58,7 +62,7 @@ class ConnectionService : IConnectionService {
                     throw IllegalStateException(msg)
                 }
             }
-        }
+        }.collect(Collectors.toList())
 
         return res.filterNotNull()
     }
