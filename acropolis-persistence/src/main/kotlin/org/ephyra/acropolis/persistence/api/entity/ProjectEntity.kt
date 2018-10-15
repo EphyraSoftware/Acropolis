@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.persistence.api.entity
 
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -15,5 +16,6 @@ class ProjectEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0
 
+    @Column(unique = true, length = 100)
     var name: String = ""
 }
