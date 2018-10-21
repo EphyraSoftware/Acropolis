@@ -104,10 +104,10 @@ class ExportService(
 
     private fun extractSpecialization(system: SystemSoftwareEntity): String? {
         return when (system.specialization) {
-            DatastoreEntity::class -> packSystemSpecialization(SystemSoftwareSpecialization.Queue)
-            LoadBalancerEntity::class -> packSystemSpecialization(SystemSoftwareSpecialization.LoadBalancer)
-            QueueEntity::class -> packSystemSpecialization(SystemSoftwareSpecialization.Queue)
-            ReverseProxyEntity::class -> packSystemSpecialization(SystemSoftwareSpecialization.ReverseProxy)
+            is DatastoreEntity -> packSystemSpecialization(SystemSoftwareSpecialization.Queue)
+            is LoadBalancerEntity -> packSystemSpecialization(SystemSoftwareSpecialization.LoadBalancer)
+            is QueueEntity -> packSystemSpecialization(SystemSoftwareSpecialization.Queue)
+            is ReverseProxyEntity -> packSystemSpecialization(SystemSoftwareSpecialization.ReverseProxy)
             else -> null
         }
     }
