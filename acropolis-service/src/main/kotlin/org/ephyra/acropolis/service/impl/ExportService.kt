@@ -1,12 +1,10 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.external.SystemSoftwareSpecialization
-import org.ephyra.acropolis.external.YamlHelper
+import org.ephyra.acropolis.external.*
 import org.ephyra.acropolis.external.model.ApplicationSoftware
 import org.ephyra.acropolis.external.model.Project
 import org.ephyra.acropolis.external.model.SoftwareContainer
 import org.ephyra.acropolis.external.model.SystemSoftware
-import org.ephyra.acropolis.external.packSystemSpecialization
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
@@ -118,8 +116,8 @@ class ExportService(
         return connectionService.getConnectionsFrom(connectable, ConnectionType.TALKS_TO).stream()
                 .map { toConnectable ->
                     when (toConnectable) {
-                        is ApplicationSoftwareEntity -> toConnectable.name
-                        is SystemSoftwareEntity -> toConnectable.name
+                        is ApplicationSoftwareEntity -> packRef(RefType.APPLICATION, toConnectable.name)
+                        is SystemSoftwareEntity -> packRef(RefType.SYSTEM, toConnectable.name)
                         else -> null
                     }
                 }

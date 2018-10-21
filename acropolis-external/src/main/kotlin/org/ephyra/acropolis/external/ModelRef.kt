@@ -30,6 +30,18 @@ fun extractRef(ref: String): Pair<RefType, String> {
 }
 
 /**
+ * Pack a reference into its string format from its type and name
+ */
+fun packRef(refType: RefType, name: String): String {
+    val refTypeString = when(refType) {
+        RefType.APPLICATION -> "application"
+        RefType.SYSTEM -> "system"
+    }
+
+    return "$refTypeString.$name"
+}
+
+/**
  * Types of supported system software specializations
  */
 enum class SystemSoftwareSpecialization {
