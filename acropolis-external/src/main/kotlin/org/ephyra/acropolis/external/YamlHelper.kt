@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.external
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -40,6 +41,7 @@ class YamlHelper {
     fun serialize(project: Project): String? {
         val mapper = ObjectMapper(YAMLFactory())
         mapper.registerModule(KotlinModule())
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
         return try {
             val stringWriter = StringWriter()
             mapper.writeValue(stringWriter, project)

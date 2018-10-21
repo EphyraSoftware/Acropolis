@@ -76,10 +76,10 @@ fun extractSystemSpecialization(name: String): SystemSoftwareSpecialization {
  */
 fun packSystemSpecialization(systemSoftwareSpecialization: SystemSoftwareSpecialization): String {
     return when (systemSoftwareSpecialization) {
-        SystemSoftwareSpecialization.ReverseProxy -> "REVERSEPROXY"
-        SystemSoftwareSpecialization.LoadBalancer -> "LOADBALANCER"
-        SystemSoftwareSpecialization.Queue -> "QUEUE"
-        SystemSoftwareSpecialization.Datastore -> "DATASTORE"
+        SystemSoftwareSpecialization.ReverseProxy -> "ReverseProxy"
+        SystemSoftwareSpecialization.LoadBalancer -> "LoadBalancer"
+        SystemSoftwareSpecialization.Queue -> "Queue"
+        SystemSoftwareSpecialization.Datastore -> "Datastore"
         else -> throw IllegalStateException("Missing conversion for specialization [$systemSoftwareSpecialization]")
     }
 }
