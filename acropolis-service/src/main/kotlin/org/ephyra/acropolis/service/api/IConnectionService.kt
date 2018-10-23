@@ -20,6 +20,7 @@ interface IConnectionService {
      * Lists all the connections starting from the passed entity.
      *
      * @param fromConnectable The instance of a Connectanle type to get all connections from
+     * @param connectionType Enum constant to filter the type of connection to search for
      * @return A list of all instances that have connections from the passed entity
      */
     fun getConnectionsFrom(fromConnectable: IConnectable, connectionType: ConnectionType): List<IConnectable>

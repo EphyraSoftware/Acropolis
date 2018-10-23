@@ -17,5 +17,11 @@ internal interface SystemSoftwareRepository : CrudRepository<SystemSoftwareEntit
      */
     fun findByNameAndProjectId(name: String, projectId: Long): Optional<SystemSoftwareEntity>
 
+    /**
+     * Finds all systems which belong to the project identified by projectId
+     *
+     * @param projectId The id of the project to find systems for
+     * @return list of systems which belong to the identified project
+     */
     fun findByProjectId(projectId: Long): List<SystemSoftwareEntity>
 }
