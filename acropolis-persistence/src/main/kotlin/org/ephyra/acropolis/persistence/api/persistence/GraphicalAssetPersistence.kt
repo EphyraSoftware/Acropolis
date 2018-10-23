@@ -5,6 +5,9 @@ import org.ephyra.acropolis.persistence.impl.GraphicalAssetRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Wrapper around GraphicalAssetRepository operations.
+ */
 @Component
 class GraphicalAssetPersistence {
     @Autowired
