@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 /**
- * Test that the import and export services represent
+ * Test that the import and export services represent a symmetric operation
  */
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(classes = [IntegrationTestConfiguration::class, ServiceConfiguration::class])
