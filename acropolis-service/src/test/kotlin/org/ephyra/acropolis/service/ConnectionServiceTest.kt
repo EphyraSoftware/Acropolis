@@ -63,7 +63,7 @@ class ConnectionServiceTest : StringSpec() {
             every { connection.getConnectionId() } returns 1
             every { connection.getConnectionEndpointType() } returns ConnectionEndpointType.APPLICATION_SOFTWARE.type
 
-            val connectionsFrom = testClass.getConnectionsFrom(connection)
+            val connectionsFrom = testClass.getConnectionsFrom(connection, ConnectionType.TALKS_TO)
 
             connectionsFrom.shouldBeEmpty()
         }
@@ -78,7 +78,7 @@ class ConnectionServiceTest : StringSpec() {
             every { fromConnection.getConnectionEndpointType() } returns ConnectionEndpointType.APPLICATION_SOFTWARE.type
 
             val exception = shouldThrow<IllegalStateException> {
-                testClass.getConnectionsFrom(fromConnection)
+                testClass.getConnectionsFrom(fromConnection, ConnectionType.TALKS_TO)
             }
 
             exception.message.shouldBe("Connection entity with connection to unknown type [9999]")
@@ -100,7 +100,7 @@ class ConnectionServiceTest : StringSpec() {
             every { applicationSoftwarePersistence.find(id = 3) } returns mockk()
             every { datastorePersistence.find(id = 4) } returns mockk()
 
-            val connections = testClass.getConnectionsFrom(fromConnection)
+            val connections = testClass.getConnectionsFrom(fromConnection, ConnectionType.TALKS_TO)
 
             connections.size.shouldBe(3)
 
@@ -125,7 +125,7 @@ class ConnectionServiceTest : StringSpec() {
             every { applicationSoftwarePersistence.find(id = 3) } returns null
             every { datastorePersistence.find(id = 4) } returns mockk()
 
-            val connections = testClass.getConnectionsFrom(fromConnection)
+            val connections = testClass.getConnectionsFrom(fromConnection, ConnectionType.TALKS_TO)
 
             connections.size.shouldBe(2)
 

@@ -24,6 +24,14 @@ interface ISystemSoftwareService {
     fun find(name: String, projectId: Long): SystemSoftwareEntity?
 
     /**
+     * Finds all the systems which belong to a project.
+     *
+     * @param projectName The name of the project to search in for systems
+     * @return All the systems which belong to the specified project
+     */
+    fun findAll(projectName: String): List<SystemSoftwareEntity>
+
+    /**
      * Update an application software instance by saving the changes which have been made
      * to the managed entity.
      *

@@ -1,0 +1,30 @@
+version: '1.0'
+name: 'round trip project'
+software:
+  applications:
+  - name: 'Application One'
+    description: 'Description for Application One'
+    talks_to:
+    - 'system.System Three - ReverseProxy'
+  - name: 'Application Two'
+    description: 'Description for Application Two'
+    talks_to:
+    - 'application.Application One'
+  systems:
+  - name: 'System One'
+    description: 'Description for System One'
+  - name: 'System Two - Queue'
+    description: 'Description for System Two - Queue'
+    specialization: Queue
+    talks_to:
+    - 'system.System One'
+  - name: 'System Three - ReverseProxy'
+    description: 'Description for System Three - ReverseProxy'
+    specialization: ReverseProxy
+    talks_to:
+    - 'system.System Two - Queue'
+  - name: 'System Four - LoadBalancer'
+    description: 'Description for System Four - LoadBalancer'
+    specialization: LoadBalancer
+    talks_to:
+    - 'system.System Two - Queue'

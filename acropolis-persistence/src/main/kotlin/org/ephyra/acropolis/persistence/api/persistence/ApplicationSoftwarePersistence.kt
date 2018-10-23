@@ -50,4 +50,14 @@ class ApplicationSoftwarePersistence {
     fun update(applicationSoftware: ApplicationSoftwareEntity) {
         repo.save(applicationSoftware)
     }
+
+    /**
+     * Finds all application-software entities which are in the specified project.
+     *
+     * @param projectId The id of the project to search for application-software entities
+     * @return The list of application-software entities
+     */
+    fun findAll(projectId: Long): List<ApplicationSoftwareEntity> {
+        return repo.findByProjectId(projectId)
+    }
 }

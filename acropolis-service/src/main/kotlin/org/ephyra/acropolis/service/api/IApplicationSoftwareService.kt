@@ -25,6 +25,14 @@ interface IApplicationSoftwareService {
     fun find(name: String, projectId: Long): ApplicationSoftwareEntity?
 
     /**
+     * Finds all the applications which belong to a project.
+     *
+     * @param projectName The name of the project to search in for applications
+     * @return All the applications which belong to the specified project
+     */
+    fun findAll(projectName: String): List<ApplicationSoftwareEntity>
+
+    /**
      * Update an application software instance by saving the changes which have been made.
      * to the managed entity.
      *

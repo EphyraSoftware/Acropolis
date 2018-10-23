@@ -16,4 +16,12 @@ internal interface ApplicationSoftwareRepository : CrudRepository<ApplicationSof
      * @return An instance of ApplicationSoftwareEntity if one is found
      */
     fun findByNameAndProjectId(name: String, projectId: Long): Optional<ApplicationSoftwareEntity>
+
+    /**
+     * Find all the applications which have the given project id.
+     *
+     * @param projectId The id of the project to search for applications in
+     * @return Applications which are included in the specified project
+     */
+    fun findByProjectId(projectId: Long): List<ApplicationSoftwareEntity>
 }

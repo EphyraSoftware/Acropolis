@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.shell
 
+import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.service.api.IConnectionService
 import org.ephyra.acropolis.service.api.IProjectService
 import org.springframework.beans.factory.annotation.Autowired
@@ -58,7 +59,7 @@ class ListCommand {
     private fun listConnectionsFrom(id: String, type: String) {
         val fromConnectable = connectHelper.typenameToConnectable(id, type)
 
-        val connections = connectionService.getConnectionsFrom(fromConnectable)
+        val connections = connectionService.getConnectionsFrom(fromConnectable, ConnectionType.TALKS_TO)
 
         connections.forEach { it ->
             println("Connection to [${it.getConnectionEndpointType()}, ${it.getConnectionEndpointType()}]")
