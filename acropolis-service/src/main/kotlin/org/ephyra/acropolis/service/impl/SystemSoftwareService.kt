@@ -37,6 +37,17 @@ class SystemSoftwareService : ISystemSoftwareService {
         return persistence.findByName(name, projectId)
     }
 
+    override fun findAll(projectName: String): List<SystemSoftwareEntity> {
+        val project = projectService.find(projectName)
+        if (project == null) {
+            val msg = "Could not find project with name [$projectName]"
+            logger.error(msg)
+            throw IllegalStateException(msg)
+        }
+
+        return persistence.findAll(project.id)
+    }
+
     override fun update(systemSoftware: SystemSoftwareEntity) {
         return persistence.update(systemSoftware)
     }

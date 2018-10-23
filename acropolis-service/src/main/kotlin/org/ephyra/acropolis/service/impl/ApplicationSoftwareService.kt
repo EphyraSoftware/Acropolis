@@ -38,6 +38,17 @@ class ApplicationSoftwareService : IApplicationSoftwareService {
         return persistence.findByName(name, projectId)
     }
 
+    override fun findAll(projectName: String): List<ApplicationSoftwareEntity> {
+        val project = projectService.find(projectName)
+        if (project == null) {
+            val msg = "Could not find project with name [$projectName]"
+            logger.error(msg)
+            throw IllegalStateException(msg)
+        }
+
+        return persistence.findAll(project.id)
+    }
+
     override fun update(applicationSoftware: ApplicationSoftwareEntity) {
         persistence.update(applicationSoftware)
     }
