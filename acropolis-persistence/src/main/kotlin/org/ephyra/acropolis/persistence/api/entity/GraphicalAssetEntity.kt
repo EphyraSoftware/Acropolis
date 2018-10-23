@@ -13,7 +13,7 @@ import javax.persistence.Lob
  * Entity model to represent a graphical asset (e.g. an icon)
  */
 @Entity
-data class GraphicalAssetEnttiy @JvmOverloads constructor(
+data class GraphicalAssetEntity @JvmOverloads constructor(
         @Column(nullable = false)
         val name: String,
 
@@ -35,7 +35,7 @@ data class GraphicalAssetEnttiy @JvmOverloads constructor(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as GraphicalAssetEnttiy
+        other as GraphicalAssetEntity
 
         if (!Arrays.equals(source, other.source)) return false
         if (description != other.description) return false
