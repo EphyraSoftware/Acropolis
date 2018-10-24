@@ -1,6 +1,7 @@
 package org.ephyra.acropolis.service.api
 
 import org.ephyra.acropolis.persistence.api.GraphicalAssetType
+import org.ephyra.acropolis.service.api.model.GraphicalAsset
 
 /**
  * Service for managing graphical assets. These assets are intended for use in diagram rendering.
@@ -14,4 +15,11 @@ interface IGraphicalAssetService {
      * @param data The raw data for the asset
      */
     fun create(name: String, data: ByteArray, type: GraphicalAssetType)
+
+    /**
+     * Finds all available graphical assets
+     *
+     * @return list of graphical assets
+     */
+    fun findAll(): List<GraphicalAsset>
 }

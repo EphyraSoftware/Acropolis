@@ -16,4 +16,8 @@ class GraphicalAssetPersistence {
     fun create(graphicalAsset: GraphicalAssetEntity) {
         repo.save(graphicalAsset)
     }
+
+    fun findAll(): MutableIterable<GraphicalAssetEntity> {
+        return repo.findAll()
+    }
 }
