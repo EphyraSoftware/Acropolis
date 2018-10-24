@@ -13,6 +13,6 @@ class GraphicalAssetService : IGraphicalAssetService {
     private lateinit var persistence: GraphicalAssetPersistence
 
     override fun create(name: String, data: ByteArray, type: GraphicalAssetType) {
-        persistence.create(GraphicalAssetEntity(name, data, type))
+        persistence.create(GraphicalAssetEntity(name, data, type.type))
     }
 }

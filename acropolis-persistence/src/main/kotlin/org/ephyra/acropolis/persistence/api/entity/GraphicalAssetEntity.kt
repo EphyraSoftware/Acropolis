@@ -22,7 +22,7 @@ data class GraphicalAssetEntity @JvmOverloads constructor(
         val source: ByteArray,
 
         @Column(nullable = false)
-        val assetType: GraphicalAssetType,
+        val assetType: Int,
 
         @Column
         var description: String? = null
