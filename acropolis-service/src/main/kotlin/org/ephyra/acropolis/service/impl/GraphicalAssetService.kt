@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.lang.IllegalStateException
 
+/**
+ * Service implementation for working with graphical assets
+ */
 @Service
 class GraphicalAssetService : IGraphicalAssetService {
     @Autowired
