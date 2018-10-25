@@ -21,6 +21,7 @@ class ExportCommand {
     /**
      * The export method for the export command
      */
+    @Suppress("ReturnCount")
     @ShellMethod("Command for running exports")
     fun export(filePath: String) {
         val currentProject = appState.currentProject

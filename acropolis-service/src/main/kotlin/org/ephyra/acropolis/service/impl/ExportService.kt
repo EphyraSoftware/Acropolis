@@ -1,10 +1,14 @@
 package org.ephyra.acropolis.service.impl
 
-import org.ephyra.acropolis.external.*
+import org.ephyra.acropolis.external.RefType
+import org.ephyra.acropolis.external.SystemSoftwareSpecialization
+import org.ephyra.acropolis.external.YamlHelper
 import org.ephyra.acropolis.external.model.ApplicationSoftware
 import org.ephyra.acropolis.external.model.Project
 import org.ephyra.acropolis.external.model.SoftwareContainer
 import org.ephyra.acropolis.external.model.SystemSoftware
+import org.ephyra.acropolis.external.packRef
+import org.ephyra.acropolis.external.packSystemSpecialization
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
