@@ -92,6 +92,7 @@ dependencies {
 
     compile project(":acropolis-persistence")
     compile project(":acropolis-external")
+    compile project(":acropolis-report")
 
     // https://mvnrepository.com/artifact/io.kotlintest/kotlintest-runner-junit5
     testCompile "io.kotlintest:kotlintest-runner-junit5:3.1.9"

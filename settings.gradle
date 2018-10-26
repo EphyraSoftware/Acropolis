@@ -1,3 +1,4 @@
 rootProject.name = "Acropolis"
 
-include "acropolis-shell", "acropolis-service", "acropolis-persistence", "acropolis-rest", "acropolis-external"
+include "acropolis-shell", "acropolis-service", "acropolis-persistence", "acropolis-rest",
+        "acropolis-external", "acropolis-report"
