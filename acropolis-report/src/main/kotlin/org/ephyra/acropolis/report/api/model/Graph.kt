@@ -26,12 +26,15 @@ class Graph {
     fun addDirectedEdge(from: Node, to: Node) {
         edges.add(Edge(from, to, true))
     }
+
+    fun findNode(label: String): Node? {
+        return nodes.find { node -> node.label == label }
+    }
 }
 
 class Node(
         val label: String
-) {
-}
+)
 
 class Edge(
         val source: Node,
@@ -39,12 +42,10 @@ class Edge(
         val sink: Node,
 
         val directed: Boolean = false
-) {
-}
+)
 
 class SubGraphSelector (
         val name: String,
 
         val includeNodes: List<Node>
-) {
-}
+)
