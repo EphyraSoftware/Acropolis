@@ -30,6 +30,34 @@ class Graph {
     fun findNode(label: String): Node? {
         return nodes.find { node -> node.label == label }
     }
+
+    // Only valid for di-graphs, otherwise much allow edges if incoming edges have a corresponding outgoing edge.
+    fun findSourceNodes(): HashSet<Node> {
+        val tempNodes = HashSet<Node>()
+        tempNodes.addAll(nodes)
+
+        edges.forEach { edge ->
+            val node = edge.sink
+            tempNodes.remove(node)
+        }
+
+        return tempNodes
+    }
+
+    fun firstNode(): Node {
+        return nodes.first()
+    }
+
+    fun findNodesConnectedFrom(node: Node): HashSet<Node> {
+        val tempNodes = HashSet<Node>()
+        edges.forEach { edge ->
+            if (edge.source == node) {
+                tempNodes.add(edge.sink)
+            }
+        }
+
+        return tempNodes
+    }
 }
 
 class Node(
