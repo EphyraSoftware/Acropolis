@@ -1,7 +1,9 @@
 package org.ephyra.acropolis.report.impl.render
 
+import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
+import java.awt.Polygon
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
 import java.io.File
@@ -29,6 +31,21 @@ class DiagramRenderer(
 
     fun export(outFile: File) {
         ImageIO.write(targetImg, outFile.extension, outFile)
+    }
+
+    fun drawConnection() {
+        target.stroke = BasicStroke(4f)
+        target.color = Color.BLUE
+        target.drawLine(895, 550, 895, 800 - 20)
+
+        target.stroke = BasicStroke(2f)
+        target.color = Color.YELLOW
+        val polygon = Polygon()
+        polygon.addPoint(895, 800)
+        polygon.addPoint(895 - 20, 800 - 20)
+        polygon.addPoint(895 + 20, 800 - 20)
+        target.fill(polygon)
+        target.drawPolygon(polygon)
     }
 
     override fun close() {
