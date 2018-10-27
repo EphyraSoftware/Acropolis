@@ -2,11 +2,13 @@ package org.ephyra.acropolis.report.impl.render
 
 import java.awt.BasicStroke
 import java.awt.Color
+import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.Polygon
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
 import java.io.File
+import java.lang.IllegalStateException
 import javax.imageio.ImageIO
 
 class DiagramRenderer(
@@ -46,6 +48,18 @@ class DiagramRenderer(
         polygon.addPoint(895 + 20, 800 - 20)
         target.fill(polygon)
         target.drawPolygon(polygon)
+    }
+
+    fun drawString(str: String, fontFile: File) {
+        if (fontFile.extension != "ttf") {
+            throw IllegalStateException("Cannot use a font which is not TTF")
+        }
+
+        target.color = Color.DARK_GRAY
+        var font = Font.createFont(Font.TRUETYPE_FONT, fontFile)
+            font = font.deriveFont(target.font.size * 2f)
+        target.font = font
+        target.drawString(str, 100, 100)
     }
 
     override fun close() {
