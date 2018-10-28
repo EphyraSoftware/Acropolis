@@ -4,15 +4,47 @@ import org.ephyra.acropolis.report.api.IReportRunner
 import org.ephyra.acropolis.report.api.model.Graph
 import org.ephyra.acropolis.report.api.model.GraphContainer
 import org.ephyra.acropolis.report.api.model.Node
+import org.ephyra.acropolis.report.impl.render.DiagramRenderer
 import org.springframework.stereotype.Component
+import java.lang.IllegalStateException
 
 @Component
 private class ReportRunner : IReportRunner {
     override fun run(graphContainer: GraphContainer) {
         println("Running report")
-        buildNodeDepth(graphContainer.graph)
+        val depthMap = buildNodeDepth(graphContainer.graph)
+        val depthCounts = countDepths(depthMap)
 
-        
+        val maxDepth = depthMap.values.max() ?: throw IllegalStateException("missing depth")
+        val maxCountAtDepth = depthCounts.values.max() ?: throw IllegalStateException("missing count")
+
+        val tileWidth = 300
+        val tileHeight = 350
+
+        val cardSeparationHorizontal = 75
+        val cardSeparationVertical = 35
+
+        val diagramPadding = 30
+
+        val diagramWidth = 2 * diagramPadding + (maxDepth + 1) * tileWidth + maxDepth * cardSeparationHorizontal
+        val diagramHeight = 2 * diagramPadding + (maxCountAtDepth + 1) * tileHeight + maxCountAtDepth * cardSeparationVertical
+
+        DiagramRenderer(diagramWidth, diagramHeight).use { renderer ->
+
+        }
+    }
+
+    private fun countDepths(depthMap: HashMap<Node, Int>): HashMap<Int, Int> {
+        val depthCounts = HashMap<Int, Int>()
+        depthMap.forEach { (_, v) ->
+            val t = depthCounts[v]
+            if (t == null) {
+                depthCounts[v] = 0
+            } else {
+                depthCounts[v] = t + 1
+            }
+        }
+        return depthCounts
     }
 
     fun buildNodeDepth(graph: Graph): HashMap<Node, Int> {
@@ -53,3 +85,8 @@ private class ReportRunner : IReportRunner {
         }
     }
 }
+
+class Position(
+        val x: Float,
+        val y: Float
+)
