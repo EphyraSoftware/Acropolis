@@ -29,8 +29,31 @@ private class ReportRunner : IReportRunner {
         val diagramWidth = 2 * diagramPadding + (maxDepth + 1) * tileWidth + maxDepth * cardSeparationHorizontal
         val diagramHeight = 2 * diagramPadding + (maxCountAtDepth + 1) * tileHeight + maxCountAtDepth * cardSeparationVertical
 
-        DiagramRenderer(diagramWidth, diagramHeight).use { renderer ->
+        val tempDepthCounts = HashMap<Int, Int>()
+        depthCounts.forEach { depth, count ->
+            tempDepthCounts[depth] = count
+        }
 
+        val positions = HashMap<Node, Position>()
+        depthMap.forEach { node, depth ->
+            val currentDepthCount = tempDepthCounts[depth] ?: throw IllegalStateException("missing temp depth count")
+
+            val depthCount = depthCounts[depth] ?: throw IllegalStateException("missing depth count")
+
+            val y = ((diagramHeight - 2 * diagramPadding) / depthCount) * currentDepthCount + diagramPadding - 0.5 * diagramHeight
+
+            val position = Position(
+                    (diagramPadding + depth * cardSeparationHorizontal + depth * tileWidth).toFloat(),
+                    y.toFloat()
+            )
+
+            positions[node] = position
+
+            tempDepthCounts[depth] = currentDepthCount - 1
+        }
+
+        DiagramRenderer(diagramWidth, diagramHeight).use { renderer ->
+            
         }
     }
 
