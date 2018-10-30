@@ -1,6 +1,7 @@
 package org.ephyra.acropolis.service.api
 
 import org.ephyra.acropolis.persistence.api.GraphicalAssetType
+import org.ephyra.acropolis.persistence.api.entity.GraphicalAssetEntity
 import org.ephyra.acropolis.service.api.model.GraphicalAsset
 
 /**
@@ -22,4 +23,6 @@ interface IGraphicalAssetService {
      * @return list of graphical assets
      */
     fun findAll(): List<GraphicalAsset>
+
+    fun find(name: String): GraphicalAssetEntity?
 }

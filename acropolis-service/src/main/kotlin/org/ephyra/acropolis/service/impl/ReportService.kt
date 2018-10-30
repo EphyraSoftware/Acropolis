@@ -37,6 +37,9 @@ class ReportService : IReportService {
     @Autowired
     private lateinit var reportRunner: IReportRunner
 
+    @Autowired
+    private lateinit var graphicalAssetImageSource: GraphicalAssetImageSource
+
     override fun runSoftwareReport(projectName: String) {
         logger.trace("Starting to run software report for project [$projectName]")
 
@@ -74,6 +77,6 @@ class ReportService : IReportService {
         }
 
         val graphContainer = GraphContainer(graph)
-        reportRunner.run(graphContainer)
+        reportRunner.run(graphContainer, graphicalAssetImageSource)
     }
 }

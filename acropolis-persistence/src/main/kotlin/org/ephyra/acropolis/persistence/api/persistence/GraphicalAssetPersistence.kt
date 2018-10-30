@@ -30,4 +30,9 @@ class GraphicalAssetPersistence {
     fun findAll(): MutableIterable<GraphicalAssetEntity> {
         return repo.findAll()
     }
+
+    fun find(name: String): GraphicalAssetEntity? {
+        val asset = repo.findByName(name)
+        return if (asset.isPresent) asset.get() else null
+    }
 }

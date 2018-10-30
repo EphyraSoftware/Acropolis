@@ -32,4 +32,8 @@ class GraphicalAssetService : IGraphicalAssetService {
             GraphicalAsset(type, assetEntity.source)
         }
     }
+
+    override fun find(name: String): GraphicalAssetEntity? {
+        return persistence.find(name)
+    }
 }

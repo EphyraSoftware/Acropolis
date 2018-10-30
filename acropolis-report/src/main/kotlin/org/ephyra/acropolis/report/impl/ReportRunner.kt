@@ -1,5 +1,6 @@
 package org.ephyra.acropolis.report.impl
 
+import org.ephyra.acropolis.report.api.IImageSource
 import org.ephyra.acropolis.report.api.IReportRunner
 import org.ephyra.acropolis.report.api.model.Graph
 import org.ephyra.acropolis.report.api.model.GraphContainer
@@ -10,7 +11,7 @@ import java.lang.IllegalStateException
 
 @Component
 private class ReportRunner : IReportRunner {
-    override fun run(graphContainer: GraphContainer) {
+    override fun run(graphContainer: GraphContainer, imageSource: IImageSource) {
         println("Running report")
         val depthMap = buildNodeDepth(graphContainer.graph)
         val depthCounts = countDepths(depthMap)
@@ -53,7 +54,7 @@ private class ReportRunner : IReportRunner {
         }
 
         DiagramRenderer(diagramWidth, diagramHeight).use { renderer ->
-            
+
         }
     }
 
