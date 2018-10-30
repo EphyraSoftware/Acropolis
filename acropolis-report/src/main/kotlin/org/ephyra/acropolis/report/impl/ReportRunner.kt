@@ -9,8 +9,12 @@ import org.ephyra.acropolis.report.impl.render.DiagramRenderer
 import org.springframework.stereotype.Component
 import java.lang.IllegalStateException
 
+/**
+ * Implementation of the report runner interface.
+ */
+@Suppress("MagicNumber")
 @Component
-private class ReportRunner : IReportRunner {
+internal class ReportRunner : IReportRunner {
     override fun run(graphContainer: GraphContainer, imageSource: IImageSource) {
         println("Running report")
         val depthMap = buildNodeDepth(graphContainer.graph)
@@ -28,7 +32,8 @@ private class ReportRunner : IReportRunner {
         val diagramPadding = 30
 
         val diagramWidth = 2 * diagramPadding + (maxDepth + 1) * tileWidth + maxDepth * cardSeparationHorizontal
-        val diagramHeight = 2 * diagramPadding + (maxCountAtDepth + 1) * tileHeight + maxCountAtDepth * cardSeparationVertical
+        val diagramHeight = 2 * diagramPadding + (maxCountAtDepth + 1) * tileHeight
+                + maxCountAtDepth * cardSeparationVertical
 
         val tempDepthCounts = HashMap<Int, Int>()
         depthCounts.forEach { depth, count ->
@@ -41,7 +46,8 @@ private class ReportRunner : IReportRunner {
 
             val depthCount = depthCounts[depth] ?: throw IllegalStateException("missing depth count")
 
-            val y = ((diagramHeight - 2 * diagramPadding) / depthCount) * currentDepthCount + diagramPadding - 0.5 * diagramHeight
+            val y = ((diagramHeight - 2 * diagramPadding) / depthCount) * currentDepthCount
+                    + diagramPadding - 0.5 * diagramHeight
 
             val position = Position(
                     (diagramPadding + depth * cardSeparationHorizontal + depth * tileWidth).toFloat(),
@@ -110,6 +116,9 @@ private class ReportRunner : IReportRunner {
     }
 }
 
+/**
+ * Represents a position on a 2D plane
+ */
 class Position(
         val x: Float,
         val y: Float

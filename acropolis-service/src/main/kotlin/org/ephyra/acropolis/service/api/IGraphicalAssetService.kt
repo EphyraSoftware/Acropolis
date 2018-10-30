@@ -24,5 +24,11 @@ interface IGraphicalAssetService {
      */
     fun findAll(): List<GraphicalAsset>
 
+    /**
+     * Find a graphical asset by name
+     *
+     * @param name The name of the asset to find
+     * @return The graphical asset, if found
+     */
     fun find(name: String): GraphicalAssetEntity?
 }

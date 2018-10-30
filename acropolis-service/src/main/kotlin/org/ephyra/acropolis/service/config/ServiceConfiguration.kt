@@ -8,5 +8,9 @@ import org.springframework.context.annotation.Configuration
  * in order to configure this module correctly.
  */
 @Configuration
-@ComponentScan(basePackages = ["org.ephyra.acropolis.persistence.config", "org.ephyra.acropolis.report.config", "org.ephyra.acropolis.service.impl"])
+@ComponentScan(basePackages = [
+    "org.ephyra.acropolis.persistence.config",
+    "org.ephyra.acropolis.report.config",
+    "org.ephyra.acropolis.service.impl"
+])
 class ServiceConfiguration

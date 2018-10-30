@@ -8,6 +8,10 @@ import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.lang.IllegalStateException
 
+/**
+ * Implementation of the image source for use with the report module.
+ * The implementation makes use of the graphical asset service to load requested resources from the database.
+ */
 @Component
 class GraphicalAssetImageSource : IImageSource {
     @Autowired

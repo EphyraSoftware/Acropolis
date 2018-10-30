@@ -31,6 +31,12 @@ class GraphicalAssetPersistence {
         return repo.findAll()
     }
 
+    /**
+     * Find a graphical asset by name
+     *
+     * @param name The name of the asset
+     * @return the asset, if found
+     */
     fun find(name: String): GraphicalAssetEntity? {
         val asset = repo.findByName(name)
         return if (asset.isPresent) asset.get() else null
