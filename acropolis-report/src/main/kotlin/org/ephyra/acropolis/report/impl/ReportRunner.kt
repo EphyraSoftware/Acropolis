@@ -60,7 +60,10 @@ internal class ReportRunner : IReportRunner {
         }
 
         DiagramRenderer(diagramWidth, diagramHeight).use { renderer ->
-
+            positions.forEach { node, position ->
+                val imageResource = imageSource.get(node.representedByResourceName)
+                renderer.addImage(position.x.toInt(), position.y.toInt(), imageResource)
+            }
         }
     }
 

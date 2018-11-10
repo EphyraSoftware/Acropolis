@@ -1,8 +1,14 @@
 package org.ephyra.acropolis.service.impl
 
+import org.ephyra.acropolis.external.SystemSoftwareSpecialization
+import org.ephyra.acropolis.external.packSystemSpecialization
 import org.ephyra.acropolis.persistence.api.ConnectionType
 import org.ephyra.acropolis.persistence.api.IConnectable
 import org.ephyra.acropolis.persistence.api.entity.ApplicationSoftwareEntity
+import org.ephyra.acropolis.persistence.api.entity.DatastoreEntity
+import org.ephyra.acropolis.persistence.api.entity.LoadBalancerEntity
+import org.ephyra.acropolis.persistence.api.entity.QueueEntity
+import org.ephyra.acropolis.persistence.api.entity.ReverseProxyEntity
 import org.ephyra.acropolis.persistence.api.entity.SystemSoftwareEntity
 import org.ephyra.acropolis.report.api.IReportRunner
 import org.ephyra.acropolis.report.api.model.Graph
@@ -50,14 +56,14 @@ class ReportService : IReportService {
         val graph = Graph()
 
         applications.forEach { app ->
-            val node = Node(app.name)
+            val node = Node(app.name, "application")
             graph.addNode(node)
 
             nodeMap[app] = node
         }
 
         systems.forEach { system ->
-            val node = Node(system.name)
+            val node = Node(system.name, getRepresentedByResourceNameFromSystem(system))
             graph.addNode(node)
 
             nodeMap[system] = node
@@ -78,5 +84,25 @@ class ReportService : IReportService {
 
         val graphContainer = GraphContainer(graph)
         reportRunner.run(graphContainer, graphicalAssetImageSource)
+    }
+
+    /**
+     * Gets the default image resource name for a given system. Falls back to the
+     * default resource names.
+     */
+    private fun getRepresentedByResourceNameFromSystem(system: SystemSoftwareEntity): String {
+        // TODO this is bootstrap data and should be extracted.
+        return if (system.specialization == null) {
+            "system"
+        }
+        else {
+            when (system.specialization) {
+                is LoadBalancerEntity -> "load-balancer"
+                is DatastoreEntity -> "datastore"
+                is QueueEntity -> "queue"
+                is ReverseProxyEntity -> "reverse-proxy"
+                else -> "system"
+            }
+        }
     }
 }

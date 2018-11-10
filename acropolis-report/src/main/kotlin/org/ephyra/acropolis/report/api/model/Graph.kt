@@ -114,7 +114,9 @@ class Graph {
  * Model to represent a node in a graph
  */
 class Node(
-        val label: String
+        val label: String,
+
+        val representedByResourceName: String
 )
 
 /**

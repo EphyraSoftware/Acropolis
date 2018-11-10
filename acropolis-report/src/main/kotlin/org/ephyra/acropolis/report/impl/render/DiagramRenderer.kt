@@ -8,6 +8,7 @@ import java.awt.Polygon
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
 import java.io.File
+import java.io.InputStream
 import java.lang.IllegalStateException
 import javax.imageio.ImageIO
 
@@ -36,9 +37,9 @@ class DiagramRenderer(
      *
      * @param positionX The offset of the left side of the image from the left side of the diagram
      * @param positionY The offset of the top side of the image from the top side of the diagram
-     * @param source The source to fetch the image from
+     * @param source The input stream to read the image from
      */
-    fun addImage(positionX: Int, positionY: Int, source: File) {
+    fun addImage(positionX: Int, positionY: Int, source: InputStream) {
         val img = ImageIO.read(source)
         target.drawImage(img, positionX, positionY, img.width, img.height, null)
     }
