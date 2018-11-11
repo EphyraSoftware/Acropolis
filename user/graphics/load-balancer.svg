@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="396.8504"
+   height="559.37006"
+   viewBox="0 0 105 148"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="load-balancer.svg"
+   inkscape:export-filename="C:\Extend\Source\Acropolis\user\graphics\load-balancer.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="133.1593"
+     inkscape:cy="277.07344"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-149)">
+    <g
+       id="g3774"
+       transform="translate(0,-1.0033423)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3752"
+         d="m 16.819941,223.71987 65.011905,0.56696"
+         style="fill:none;stroke:#000000;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3754"
+         d="M 80.508929,175.29166 17.764881,214.4122"
+         style="fill:none;stroke:#000000;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3754-8"
+         d="M 77.674107,272.71502 14.930061,233.59448"
+         style="fill:none;stroke:#000000;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <rect
+       id="rect3713"
+       width="19.654762"
+       height="40.443455"
+       x="2.6458333"
+       y="202.77827"
+       style="fill:#c83737;stroke-width:0.26458332" />
+    <g
+       id="g3750"
+       transform="translate(0,4.4773073)">
+      <rect
+         y="161.8735"
+         x="75.028282"
+         height="17.197918"
+         width="22.867561"
+         id="rect3715"
+         style="fill:#ff2a2a;stroke-width:0.26458335" />
+      <rect
+         y="209.92374"
+         x="75.028282"
+         height="17.197916"
+         width="22.867559"
+         id="rect3715-4"
+         style="fill:#ff2a2a;stroke-width:0.26458335" />
+      <rect
+         y="257.97397"
+         x="75.028282"
+         height="17.197916"
+         width="22.867558"
+         id="rect3715-4-7"
+         style="fill:#ff2a2a;stroke-width:0.26458335" />
+    </g>
+  </g>
+</svg>

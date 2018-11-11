@@ -21,4 +21,4 @@ spring-shell.log
 .idea/*
 *.log
 
-user
+user/staging
