@@ -7,6 +7,7 @@ import org.ephyra.acropolis.report.api.model.GraphContainer
 import org.ephyra.acropolis.report.api.model.Node
 import org.ephyra.acropolis.report.impl.render.DiagramRenderer
 import org.springframework.stereotype.Component
+import java.io.File
 import java.lang.IllegalStateException
 
 /**
@@ -64,6 +65,7 @@ internal class ReportRunner : IReportRunner {
                 val imageResource = imageSource.get(node.representedByResourceName)
                 renderer.addImage(position.x.toInt(), position.y.toInt(), imageResource)
             }
+            renderer.export(File("test-report.png"))
         }
     }
 
@@ -72,7 +74,7 @@ internal class ReportRunner : IReportRunner {
         depthMap.forEach { (_, v) ->
             val t = depthCounts[v]
             if (t == null) {
-                depthCounts[v] = 0
+                depthCounts[v] = 1
             } else {
                 depthCounts[v] = t + 1
             }
