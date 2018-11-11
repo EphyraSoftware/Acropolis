@@ -6,6 +6,7 @@ import org.ephyra.acropolis.report.api.model.Graph
 import org.ephyra.acropolis.report.api.model.GraphContainer
 import org.ephyra.acropolis.report.api.model.Node
 import org.ephyra.acropolis.report.impl.render.DiagramRenderer
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.io.File
 import java.lang.IllegalStateException
@@ -16,13 +17,15 @@ import java.lang.IllegalStateException
 @Suppress("MagicNumber")
 @Component
 internal class ReportRunner : IReportRunner {
+    private val logger = LoggerFactory.getLogger(ReportRunner::class.java)
+
     override fun run(graphContainer: GraphContainer, imageSource: IImageSource) {
         println("Running report")
         val depthMap = buildNodeDepth(graphContainer.graph)
         val depthCounts = countDepths(depthMap)
 
         val maxDepth = depthMap.values.max() ?: throw IllegalStateException("missing depth")
-        val maxCountAtDepth = depthCounts.values.max() ?: throw IllegalStateException("missing count")
+        val maxDepthCount = depthCounts.values.max() ?: throw IllegalStateException("missing count")
 
         val tileWidth = 300
         val tileHeight = 350
@@ -33,8 +36,10 @@ internal class ReportRunner : IReportRunner {
         val diagramPadding = 30
 
         val diagramWidth = 2 * diagramPadding + (maxDepth + 1) * tileWidth + maxDepth * cardSeparationHorizontal
-        val diagramHeight = 2 * diagramPadding + (maxCountAtDepth + 1) * tileHeight
-                + maxCountAtDepth * cardSeparationVertical
+        val diagramHeight = 2 * diagramPadding + maxDepthCount * tileHeight
+                + (maxDepthCount - 1) * cardSeparationVertical
+
+        logger.debug("Creating diagram with dimensions [w=$diagramWidth, h=$diagramHeight]")
 
         val tempDepthCounts = HashMap<Int, Int>()
         depthCounts.forEach { depth, count ->
@@ -45,15 +50,17 @@ internal class ReportRunner : IReportRunner {
         depthMap.forEach { node, depth ->
             val currentDepthCount = tempDepthCounts[depth] ?: throw IllegalStateException("missing temp depth count")
 
-            val depthCount = depthCounts[depth] ?: throw IllegalStateException("missing depth count")
+            val x = diagramPadding + depth * cardSeparationHorizontal + depth * tileWidth
 
-            val y = ((diagramHeight - 2 * diagramPadding) / depthCount) * currentDepthCount
-                    + diagramPadding - 0.5 * diagramHeight
+            val y = diagramPadding + (currentDepthCount - 1) * tileHeight
+                + (currentDepthCount - 1) * cardSeparationVertical
 
             val position = Position(
-                    (diagramPadding + depth * cardSeparationHorizontal + depth * tileWidth).toFloat(),
+                    x.toFloat(),
                     y.toFloat()
             )
+
+            logger.debug("Placing node [label=${node.label}] at position [x=$x, y=$y")
 
             positions[node] = position
 

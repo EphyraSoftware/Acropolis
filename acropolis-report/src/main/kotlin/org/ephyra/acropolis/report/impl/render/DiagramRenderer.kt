@@ -41,7 +41,7 @@ class DiagramRenderer(
      */
     fun addImage(positionX: Int, positionY: Int, source: InputStream) {
         val img = ImageIO.read(source)
-        target.drawImage(img, positionX, positionY, img.width, img.height, null)
+        target.drawImage(img, positionX, positionY, 300, 350, null)
     }
 
     /**
