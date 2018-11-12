@@ -5,7 +5,10 @@ import org.ephyra.acropolis.report.api.IReportRunner
 import org.ephyra.acropolis.report.api.model.Graph
 import org.ephyra.acropolis.report.api.model.GraphContainer
 import org.ephyra.acropolis.report.api.model.Node
+import org.ephyra.acropolis.report.impl.render.CardBuilder
 import org.ephyra.acropolis.report.impl.render.DiagramRenderer
+import org.ephyra.acropolis.report.impl.render.Position2D
+import org.ephyra.acropolis.report.impl.render.Size2D
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.io.File
@@ -46,7 +49,7 @@ internal class ReportRunner : IReportRunner {
             tempDepthCounts[depth] = count
         }
 
-        val positions = HashMap<Node, Position>()
+        val positions = HashMap<Node, Position2D>()
         depthMap.forEach { node, depth ->
             val currentDepthCount = tempDepthCounts[depth] ?: throw IllegalStateException("missing temp depth count")
 
@@ -55,7 +58,7 @@ internal class ReportRunner : IReportRunner {
             val y = diagramPadding + (currentDepthCount - 1) * tileHeight
                 + (currentDepthCount - 1) * cardSeparationVertical
 
-            val position = Position(
+            val position = Position2D(
                     x.toFloat(),
                     y.toFloat()
             )
@@ -69,6 +72,11 @@ internal class ReportRunner : IReportRunner {
 
         DiagramRenderer(diagramWidth, diagramHeight).use { renderer ->
             positions.forEach { node, position ->
+                CardBuilder(position, Size2D(tileWidth.toFloat(), tileHeight.toFloat()))
+                        .withImage(imageSource.get(node.representedByResourceName))
+                        .withLabel(node.label)
+                        .build(renderer)
+
                 val imageResource = imageSource.get(node.representedByResourceName)
                 renderer.addImage(position.x.toInt(), position.y.toInt(), imageResource)
             }
@@ -127,11 +135,3 @@ internal class ReportRunner : IReportRunner {
         }
     }
 }
-
-/**
- * Represents a position on a 2D plane
- */
-class Position(
-        val x: Float,
-        val y: Float
-)
