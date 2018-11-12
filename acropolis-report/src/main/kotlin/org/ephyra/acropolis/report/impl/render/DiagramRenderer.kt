@@ -5,6 +5,9 @@ import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.Polygon
+import java.awt.Rectangle
+import java.awt.Stroke
+import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
 import java.io.File
@@ -18,18 +21,22 @@ import javax.imageio.ImageIO
  */
 @Suppress("MagicNumber")
 class DiagramRenderer(
-        private val width: Int,
+        width: Int,
 
-        private val height: Int
+        height: Int
 ) : AutoCloseable {
     private val targetImg: BufferedImage = BufferedImage(width, height, TYPE_INT_RGB)
     private val target: Graphics2D
+    private var font: Font
 
     init {
         target = targetImg.createGraphics()
 
         target.color = Color.WHITE
         target.fillRect(0, 0, width, height)
+
+        font = Font.createFont(Font.TRUETYPE_FONT, File("user/staging/playfair-display/PlayfairDisplay-Regular.ttf"))
+        font = font.deriveFont(target.font.size * 1.2f)
     }
 
     /**
@@ -39,9 +46,9 @@ class DiagramRenderer(
      * @param positionY The offset of the top side of the image from the top side of the diagram
      * @param source The input stream to read the image from
      */
-    fun addImage(positionX: Int, positionY: Int, source: InputStream) {
+    fun addImage(position: Position2D, size: Size2D, source: InputStream) {
         val img = ImageIO.read(source)
-        target.drawImage(img, positionX, positionY, 300, 350, null)
+        target.drawImage(img, position.x.toInt(), position.y.toInt(), size.width.toInt(), size.height.toInt(), null)
     }
 
     /**
@@ -77,16 +84,25 @@ class DiagramRenderer(
      * @param str The text to draw
      * @param fontFile The file from which to load a font for use in the rendering
      */
-    fun drawString(str: String, fontFile: File) {
-        if (fontFile.extension != "ttf") {
-            throw IllegalStateException("Cannot use a font which is not TTF")
-        }
-
+    fun drawString(str: String, position: Position2D) {
         target.color = Color.DARK_GRAY
-        var font = Font.createFont(Font.TRUETYPE_FONT, fontFile)
-            font = font.deriveFont(target.font.size * 2f)
         target.font = font
-        target.drawString(str, 100, 100)
+        target.drawString(str, position.x, position.y)
+    }
+
+    fun getStringDimensions(str: String): Size2D {
+        val fontMetrics = target.getFontMetrics(font)
+
+        val bounds = fontMetrics.getStringBounds(str, target)
+
+        return Size2D(bounds.width.toFloat(), bounds.height.toFloat())
+    }
+
+    fun drawOutline(position: Position2D, size: Size2D) {
+        target.background = Color.YELLOW
+        target.stroke = BasicStroke(1f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+
+        target.drawRect(position.x.toInt(), position.y.toInt(), size.width.toInt(), size.height.toInt())
     }
 
     override fun close() {

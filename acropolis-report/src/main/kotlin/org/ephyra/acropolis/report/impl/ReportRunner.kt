@@ -76,9 +76,6 @@ internal class ReportRunner : IReportRunner {
                         .withImage(imageSource.get(node.representedByResourceName))
                         .withLabel(node.label)
                         .build(renderer)
-
-                val imageResource = imageSource.get(node.representedByResourceName)
-                renderer.addImage(position.x.toInt(), position.y.toInt(), imageResource)
             }
             renderer.export(File("test-report.png"))
         }
