@@ -53,10 +53,18 @@ internal class ReportRunner : IReportRunner {
         depthMap.forEach { node, depth ->
             val currentDepthCount = tempDepthCounts[depth] ?: throw IllegalStateException("missing temp depth count")
 
+            val depthCount = depthCounts[depth] ?: throw IllegalStateException("missing depth count")
+
             val x = diagramPadding + depth * cardSeparationHorizontal + depth * tileWidth
 
-            val y = diagramPadding + (currentDepthCount - 1) * tileHeight
-                + (currentDepthCount - 1) * cardSeparationVertical
+            // This isn't fantastic. Does exact layout if the column is going to be filled and distributes otherwise.
+            val y: Double = if (depthCount < maxDepthCount) {
+                diagramPadding + ((diagramHeight - 2 * diagramPadding) / (depthCount + 1)) * currentDepthCount - 0.5 * tileHeight
+            }
+            else {
+                (diagramPadding + (currentDepthCount - 1) * tileHeight
+                        + (currentDepthCount - 1) * cardSeparationVertical).toDouble()
+            }
 
             val position = Position2D(
                     x.toFloat(),
