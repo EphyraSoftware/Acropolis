@@ -2,6 +2,9 @@ package org.ephyra.acropolis.report.impl.render
 
 import java.io.InputStream
 
+/**
+ * Builder to encapsulate the logic of laying out an image and associated text.
+ */
 class CardBuilder(
         private val position2D: Position2D,
 
