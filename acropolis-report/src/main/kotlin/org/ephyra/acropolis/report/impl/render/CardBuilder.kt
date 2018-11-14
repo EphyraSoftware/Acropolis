@@ -5,6 +5,7 @@ import java.io.InputStream
 /**
  * Builder to encapsulate the logic of laying out an image and associated text.
  */
+@Suppress("MagicNumber")
 class CardBuilder(
         private val position2D: Position2D,
 
@@ -13,16 +14,33 @@ class CardBuilder(
     private var source: InputStream? = null
     private var label: String? = null
 
+    /**
+     * Configures the image to use for the card being built.
+     *
+     * @param source The input stream which will provide the image data
+     * @return The CardBuilder instance so that method calls can be chained
+     */
     fun withImage(source: InputStream): CardBuilder {
         this.source = source
         return this
     }
 
+    /**
+     * Configures the label to use for the card being built.
+     *
+     * @param label The label text
+     * @return The CardBuilder instance so that method calls can be chained
+     */
     fun withLabel(label: String): CardBuilder {
         this.label = label
         return this
     }
 
+    /**
+     * Creates the card layout and renders it using the provided renderer.
+     *
+     * @param renderer The diagram renderer to use for drawing the card
+     */
     fun build(renderer: DiagramRenderer) {
         renderer.drawOutline(position2D, size2D)
 

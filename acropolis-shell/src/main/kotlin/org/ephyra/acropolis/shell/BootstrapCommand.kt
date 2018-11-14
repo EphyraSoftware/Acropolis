@@ -7,11 +7,18 @@ import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import java.io.File
 
+/**
+ * Bootstraps the acropolis system.
+ * Should be run once when the program is set up to seed the database etc.
+ */
 @ShellComponent
 class BootstrapCommand {
     @Autowired
     private lateinit var graphicalAssetService: IGraphicalAssetService
 
+    /**
+     * Implementation of the bootstrap command
+     */
     @ShellMethod("Bootstrap Acropolis")
     fun bootstrap() {
         println("Bootstrapping the acropolis system.")

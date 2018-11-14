@@ -59,7 +59,8 @@ internal class ReportRunner : IReportRunner {
 
             // This isn't fantastic. Does exact layout if the column is going to be filled and distributes otherwise.
             val y: Double = if (depthCount < maxDepthCount) {
-                diagramPadding + ((diagramHeight - 2 * diagramPadding) / (depthCount + 1)) * currentDepthCount - 0.5 * tileHeight
+                diagramPadding + ((diagramHeight - 2 * diagramPadding) / (depthCount + 1)) * currentDepthCount
+                        - 0.5 * tileHeight
             }
             else {
                 (diagramPadding + (currentDepthCount - 1) * tileHeight

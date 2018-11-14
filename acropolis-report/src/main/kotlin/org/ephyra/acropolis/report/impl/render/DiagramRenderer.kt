@@ -40,10 +40,12 @@ class DiagramRenderer(
     }
 
     /**
-     * Add an image to the diagram at the specified coordinates
+     * Add an image to the diagram at the specified coordinates.
      *
-     * @param positionX The offset of the left side of the image from the left side of the diagram
-     * @param positionY The offset of the top side of the image from the top side of the diagram
+     * Note that the input size will cause the image to be scaled to that size.
+     *
+     * @param position The position of the top left corner of the image from the top left of the draw space.
+     * @param size The size that the image should be rendered at
      * @param source The input stream to read the image from
      */
     fun addImage(position: Position2D, size: Size2D, source: InputStream) {
@@ -82,7 +84,7 @@ class DiagramRenderer(
      * Draw a string of text onto the diagram using the given font.
      *
      * @param str The text to draw
-     * @param fontFile The file from which to load a font for use in the rendering
+     * @param position The position of the top left corner of the string from the top left of the draw space.
      */
     fun drawString(str: String, position: Position2D) {
         target.color = Color.DARK_GRAY
@@ -90,6 +92,13 @@ class DiagramRenderer(
         target.drawString(str, position.x, position.y)
     }
 
+    /**
+     * Gets the dimensions that the input string will have when drawn, given the current font and
+     * scaling etc.
+     *
+     * @param str The string to get dimensions for
+     * @return The dimensions of the input string when rendered
+     */
     fun getStringDimensions(str: String): Size2D {
         val fontMetrics = target.getFontMetrics(font)
 
@@ -98,6 +107,12 @@ class DiagramRenderer(
         return Size2D(bounds.width.toFloat(), bounds.height.toFloat())
     }
 
+    /**
+     * Draws an outline, which is a rectangle where only the outline is drawn.
+     *
+     * @param position The position to draw the rectangle outline at
+     * @param size The size of the rectangle to draw
+     */
     fun drawOutline(position: Position2D, size: Size2D) {
         target.background = Color.YELLOW
         target.stroke = BasicStroke(1f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
