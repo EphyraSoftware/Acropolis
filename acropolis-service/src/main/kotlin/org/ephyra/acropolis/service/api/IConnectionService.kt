@@ -24,4 +24,13 @@ interface IConnectionService {
      * @return A list of all instances that have connections from the passed entity
      */
     fun getConnectionsFrom(fromConnectable: IConnectable, connectionType: ConnectionType): List<IConnectable>
+
+    /**
+     * Tests fors circular Hosted By references.
+     *
+     * @param fromConnectable The instance of a Connectanle type we want to create a connection from
+     * @param toConnectable The instance of a Connectanle type to search for HostedBy circular references
+     * @return whether or not either of the passed entities are included in either of the
+     */
+    fun isCircularHostedBy(fromConnectable: IConnectable, toConnectable: IConnectable): Boolean
 }

@@ -32,6 +32,11 @@ class ConnectionService : IConnectionService {
     private lateinit var datastorePersistence: DatastorePersistence
 
     override fun create(fromConnectable: IConnectable, toConnectable: IConnectable, connectionType: ConnectionType) {
+
+        if (connectionType === ConnectionType.HOSTED_BY && isCircularHostedBy(fromConnectable, toConnectable)) {
+            throw IllegalStateException("Circular reference of HostedBy detected")
+        }
+
         val connection = ConnectionEntity(
                 fromConnectable.getConnectionId(),
                 fromConnectable.getConnectionEndpointType(),
@@ -65,5 +70,10 @@ class ConnectionService : IConnectionService {
         }.collect(Collectors.toList())
 
         return res.filterNotNull()
+    }
+
+    override fun isCircularHostedBy(fromConnectable: IConnectable, toConnectable: IConnectable): Boolean {
+        val connectionsOnToEntity = this.getConnectionsFrom(toConnectable, ConnectionType.HOSTED_BY)
+        return connectionsOnToEntity.contains(fromConnectable) || connectionsOnToEntity.any { x -> this.isCircularHostedBy(fromConnectable, x) }
     }
 }
